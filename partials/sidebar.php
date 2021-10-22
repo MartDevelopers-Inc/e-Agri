@@ -91,23 +91,23 @@ while ($sys = $res->fetch_object()) {
         </div>
         <div class="app-menu">
             <ul class="accordion-menu">
-                <li class="active-page">
+                <li>
                     <a href="dashboard" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                 </li>
                 <li>
-                    <a href="farmers"><i class="material-icons-two-tone">inbox</i>Farmers<span class="badge rounded-pill badge-danger float-end">87</span></a>
+                    <a href="farmers"><i class="material-icons-two-tone">supervised_user_circle</i>Farmers</a>
                 </li>
                 <li>
-                    <a href="customer"><i class="material-icons-two-tone">cloud_queue</i>Customers</a>
+                    <a href="customer"><i class="material-icons-two-tone">people</i>Customers</a>
                 </li>
                 <li>
-                    <a href="product_categories"><i class="material-icons-two-tone">calendar_today</i>Product Categories<span class="badge rounded-pill badge-success float-end">14</span></a>
+                    <a href="product_categories"><i class="material-icons-two-tone">fact_check</i>Product Categories</a>
                 </li>
                 <li>
-                    <a href="products"><i class="material-icons-two-tone">done</i>Agri Products</a>
+                    <a href="products"><i class="material-icons-two-tone">redeem</i>Agri Products</a>
                 </li>
                 <li>
-                    <a href=""><i class="material-icons-two-tone">star</i>Sales<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                    <a href=""><i class="material-icons-two-tone">shopping_cart</i>Sales<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                     <ul class="sub-menu">
                         <li>
                             <a href="pending_checkouts">Pending Checkouts</a>
@@ -118,16 +118,16 @@ while ($sys = $res->fetch_object()) {
                     </ul>
                 </li>
                 <li>
-                    <a href="payments"><i class="material-icons-two-tone">done</i>Payments</a>
+                    <a href="payments"><i class="material-icons-two-tone">price_check</i>Payments</a>
                 </li>
                 <li>
-                    <a href="reports"><i class="material-icons-two-tone">done</i>Reports</a>
+                    <a href="reports"><i class="material-icons-two-tone">card_membership</i>Reports</a>
                 </li>
                 <li>
-                    <a href="blogging_engine"><i class="material-icons-two-tone">done</i>Blogging Engine</a>
+                    <a href="blogging_engine"><i class="material-icons-two-tone">edit_note</i>Blogging Engine</a>
                 </li>
                 <li>
-                    <a href=""><i class="material-icons-two-tone">star</i>System Settings
+                    <a href=""><i class="material-icons-two-tone">settings_suggest</i>System Settings
                         <i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                     <ul class="sub-menu">
                         <li>
@@ -137,6 +137,9 @@ while ($sys = $res->fetch_object()) {
                             <a href="mailer">Mailer Settings</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="logout"><i class="material-icons-two-tone">logout</i>Logout</a>
                 </li>
             </ul>
         </div>
