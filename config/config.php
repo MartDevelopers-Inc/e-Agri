@@ -1,27 +1,27 @@
 <?php
 /*
- * Created on Thu Oct 21 2021
+ * Created on Fri Oct 22 2021
  *
- *  MartDevelopers - martdev.info 
+ *  MartDevelopers Inc - martdev.info 
  *
  * mail@martdev.info
  *
  * +254 740 847 563
  *
- * The Devlan End User License Agreement
+ * The MartDevelopers Inc End User License Agreement
  *
  * Copyright (c) 2021 MartDevelopers Inc
  *
  * 1. GRANT OF LICENSE
- * Devlan hereby grants to you (an individual) the revocable, personal, non-exclusive, and nontransferable right to
+ * MartDevelopers Inc hereby grants to you (an individual) the revocable, personal, non-exclusive, and nontransferable right to
  * install and activate this system on two separated computers solely for your personal and non-commercial use,
- * unless you have purchased a commercial license from Devlan. Sharing this Software with other individuals, 
+ * unless you have purchased a commercial license from MartDevelopers. Sharing this Software with other individuals, 
  * or allowing other individuals to view the contents of this Software, is in violation of this license.
  * You may not make the Software available on a network, or in any way provide the Software to multiple users
- * unless you have first purchased at least a multi-user license from Devlan.
+ * unless you have first purchased at least a multi-user license from MartDevelopers.
  *
  * 2. COPYRIGHT 
- * The Software is owned by Devlan and protected by copyright law and international copyright treaties. 
+ * The Software is owned by MartDevelopers and protected by copyright law and international copyright treaties. 
  * You may not remove or conceal any proprietary notices, labels or marks from the Software.
  *
  * 3. RESTRICTIONS ON USE
@@ -38,8 +38,8 @@
  * Upon such termination, you agree to destroy the Software, together with all copies thereof.
  *
  * 5. NO OTHER WARRANTIES. 
- * DEVLAN  DOES NOT WARRANT THAT THE SOFTWARE IS ERROR FREE. 
- * DEVLAN SOFTWARE DISCLAIMS ALL OTHER WARRANTIES WITH RESPECT TO THE SOFTWARE, 
+ * MartDevelopers Inc  DOES NOT WARRANT THAT THE SOFTWARE IS ERROR FREE. 
+ * MartDevelopers Inc SOFTWARE DISCLAIMS ALL OTHER WARRANTIES WITH RESPECT TO THE SOFTWARE, 
  * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, 
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. 
  * SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES OR LIMITATIONS
@@ -53,10 +53,10 @@
  * In the event of invalidity of any provision of this license, the parties agree that such invalidity shall not
  * affect the validity of the remaining portions of this license.
  *
- * 7. NO LIABILITY FOR CONSEQUENTIAL DAMAGES IN NO EVENT SHALL DEVLAN  OR ITS SUPPLIERS BE LIABLE TO YOU FOR ANY
+ * 7. NO LIABILITY FOR CONSEQUENTIAL DAMAGES IN NO EVENT SHALL MartDevelopers Inc  OR ITS SUPPLIERS BE LIABLE TO YOU FOR ANY
  * CONSEQUENTIAL, SPECIAL, INCIDENTAL OR INDIRECT DAMAGES OF ANY KIND ARISING OUT OF THE DELIVERY, PERFORMANCE OR 
- * USE OF THE SOFTWARE, EVEN IF DEVLAN HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES
- * IN NO EVENT WILL DEVLAN  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
+ * USE OF THE SOFTWARE, EVEN IF MartDevelopers Inc HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES
+ * IN NO EVENT WILL MartDevelopers Inc  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
 
