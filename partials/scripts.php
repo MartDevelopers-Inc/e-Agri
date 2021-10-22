@@ -1,0 +1,64 @@
+<!-- J Querry -->
+<script src="../public/backend_assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+<!-- Bootstrap -->
+<script src="../public/backend_assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Perfect Scrollbar -->
+<script src="../public/backend_assets/plugins/perfectscroll/perfect-scrollbar.min.js"></script>
+<!-- Pace Js -->
+<script src="../public/backend_assets/plugins/pace/pace.min.js"></script>
+<!-- App Main Js -->
+<script src="../public/backend_assets/js/main.min.js"></script>
+<!-- Custom Js -->
+<script src="../public/backend_assets/js/custom.js"></script>
+<!-- Alerts Js -->
+<!-- Alert Js -->
+<script src="../public/backend_assets/iziToast/iziToast.min.js"></script>
+<!-- Initialize Alerts -->
+<?php if (isset($success)) { ?>
+    <script>
+        iziToast.success({
+            title: 'Success',
+            position: 'topLeft',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+            transitionInMobile: 'fadeInUp',
+            transitionOutMobile: 'fadeOutDown',
+            message: '<?php echo $success; ?>',
+        });
+    </script>
+
+<?php } ?>
+
+<?php if (isset($err)) { ?>
+    <script>
+        iziToast.error({
+            title: 'Error',
+            timeout: 1000,
+            resetOnHover: true,
+            position: 'topLeft',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+            transitionInMobile: 'fadeInUp',
+            transitionOutMobile: 'fadeOutDown',
+            message: '<?php echo $err; ?>',
+        });
+    </script>
+
+<?php } ?>
+
+<?php if (isset($info)) { ?>
+    <script>
+        iziToast.warning({
+            title: 'Warning',
+            position: 'topLeft',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+            transitionIn: 'fadeInUp',
+            transitionInMobile: 'fadeInUp',
+            transitionOutMobile: 'fadeOutDown',
+            message: '<?php echo $info; ?>',
+        });
+    </script>
+
+<?php }
+?>

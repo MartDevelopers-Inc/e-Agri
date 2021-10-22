@@ -60,21 +60,49 @@
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
 
+/* Load System Settings */
+$ret = "SELECT * FROM  system_settings  ";
+$stmt = $mysqli->prepare($ret);
+$stmt->execute(); //ok
+$res = $stmt->get_result();
+while ($sys = $res->fetch_object()) {
+?>
+    <!DOCTYPE html>
+    <html lang="en">
 
-/* Initiate A Procedural Database Connection */
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Responsive Admin Dashboard Template">
+        <meta name="keywords" content="admin,dashboard">
+        <meta name="author" content="stacks">
 
-/* Host  */
-$host = "localhost";
+        <!-- Title -->
+        <title><?php echo $sys->sys_name . ' | ' . $sys->sys_tagline; ?></title>
 
-/*Username */
-$dbuser = "root";
+        <!-- Styles -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        <link href="../public/backend_assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../public/backend_assets/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
+        <link href="../public/backend_assets/plugins/pace/pace.css" rel="stylesheet">
 
-/* Password */
-$dbpass = "";
 
-/* Database Name */
+        <!-- Theme Styles -->
+        <link href="../public/backend_assets/css/main.min.css" rel="stylesheet">
+        <link href="../public/backend_assets/css/custom.css" rel="stylesheet">
 
-$db = "e_farming";
+        <link rel="icon" type="image/png" sizes="32x32" href="../public/backend_assets/images/neptune.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../public/backend_assets/images/neptune.png" />
 
-/* Pass Connection Variables To Mysqli Function */
-$mysqli = new mysqli($host, $dbuser, $dbpass, $db);
+        <!-- Load Alerts -->
+        <!-- Izi Alerts -->
+        <link rel="stylesheet" href="../public/backend_assets/iziToast/iziToast.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    </head>
+<?php } ?>

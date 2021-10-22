@@ -74,7 +74,7 @@ $DB_user = "root";
 $DB_pass = "";
 
 /* Database Name */
-$DB_name = "barbershop_reservation_application ";
+$DB_name = "e_farming ";
 
 /* Init Connection */
 try {
