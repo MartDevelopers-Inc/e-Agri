@@ -119,15 +119,16 @@ while ($sys = $res->fetch_object()) {
                 <p class="auth-description">
                     If you forgot your password, well, then we’ll email you instructions to reset your password.
                 </p>
-
-                <div class="auth-credentials m-b-xxl">
-                    <label for="signInEmail" class="form-label">Email address</label>
-                    <input type="email" class="form-control m-b-md" name="user_email" required id="signInEmail">
-                </div>
-                <div class="auth-submit">
-                    <input type="submit" name="Reset_Password" value="Reset Password" class="btn btn-primary" />
-                    <a href="login" class="auth-forgot-password float-end">Remembered Password?</a>
-                </div>
+                <form method="post">
+                    <div class="auth-credentials m-b-xxl">
+                        <label for="signInEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control m-b-md" name="user_email" required id="signInEmail">
+                    </div>
+                    <div class="auth-submit">
+                        <input type="submit" name="Reset_Password" value="Reset Password" class="btn btn-primary" />
+                        <a href="login" class="auth-forgot-password float-end">Remembered Password?</a>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- Javascripts -->
