@@ -62,6 +62,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
+require_once('../partials/analytics.php');
 checklogin();
 require_once('../partials/head.php');
 ?>
@@ -97,7 +98,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Overall Sales Revenue</span>
-                                                <span class="widget-stats-amount">Ksh 38,211</span>
+                                                <span class="widget-stats-amount">Ksh <?php echo $revenue; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +113,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Customers</span>
-                                                <span class="widget-stats-amount">23,491</span>
+                                                <span class="widget-stats-amount"><?php echo $customers; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +128,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Farmers</span>
-                                                <span class="widget-stats-amount">140,390</span>
+                                                <span class="widget-stats-amount"><?php echo $farmers; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +144,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Agri Products</span>
-                                                <span class="widget-stats-amount">140,390</span>
+                                                <span class="widget-stats-amount"><?php echo $products; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +159,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Processed Orders</span>
-                                                <span class="widget-stats-amount">140,390</span>
+                                                <span class="widget-stats-amount"><?php echo $paid_orders; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +174,7 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="widget-stats-content flex-fill">
                                                 <span class="widget-stats-title">Pending Orders</span>
-                                                <span class="widget-stats-amount">140,390</span>
+                                                <span class="widget-stats-amount"><?php echo $pending_orders; ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +193,8 @@ require_once('../partials/head.php');
                                             /* Load All Purchased Done Today */
                                             $ret = "SELECT * FROM cart c 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
-                                            INNER JOIN users u ON u.user_id  = c.cart_user_id";
+                                            INNER JOIN users u ON u.user_id  = c.cart_user_id
+                                            WHERE  c.cart_product_added_at = CURDATE()";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
@@ -230,7 +232,8 @@ require_once('../partials/head.php');
                                             $ret = "SELECT * FROM payment pa
                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
-                                            INNER JOIN users u ON u.user_id  = c.cart_user_id";
+                                            INNER JOIN users u ON u.user_id  = c.cart_user_id
+                                            WHERE pa.payment_date_posted = CURDATE()";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
