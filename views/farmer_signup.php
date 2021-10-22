@@ -67,6 +67,8 @@ require_once('../config/codeGen.php');
 
 if (isset($_POST['sign_up'])) {
     $user_id = $sys_gen_id;
+    $user_created_at = date('d M Y g:ia');
+    $user_number = $a . $b;
     $user_access_level = 'farmer';
     $user_name = $_POST['user_name'];
     $user_email = $_POST['user_email'];
@@ -87,12 +89,12 @@ if (isset($_POST['sign_up'])) {
             }
         } else {
             /* Now Persist This MF Details */
-            $query = 'INSERT INTO users(user_id, user_name, user_email, user_phone_no, user_password) VALUES(?,?,?,?,?)';
+            $query = 'INSERT INTO users(user_id, user_name, user_email, user_phone_no, user_password, user_number, user_access_level, user_created_at) VALUES(?,?,?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssss', $user_id, $user_name, $user_email, $user_phone_no, $user_password);
+            $rc = $stmt->bind_param('ssssssss', $user_id, $user_name, $user_email, $user_phone_no, $user_password, $user_number, $user_access_level, $user_created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = 'Welcome ' . $user_name . ',Your Account  Has Been Created, Proceed To Login ';
+                $success = 'Welcome ' . $user_name . ', Your Account  Has Been Created, Proceed To Login ';
             } else {
                 $err = 'Please Try Again Or Try Later';
             }
@@ -114,9 +116,10 @@ while ($sys = $res->fetch_object()) {
             <div class="app-auth-background">
             </div>
             <div class="app-auth-container">
-                <div class="logo">
+                <div class="logo text-center">
                     <a href=""><?php echo $sys->sys_name; ?></a>
                 </div>
+                <br>
                 <p class="auth-description">Please enter your credentials to create a farmeraccount.<br>Already have a farmer account? <a href="login">Sign In</a></p>
                 <form method="post">
                     <div class="auth-credentials m-b-xxl">
@@ -127,19 +130,20 @@ while ($sys = $res->fetch_object()) {
                         <input type="text" name="user_email" class="form-control m-b-md" name="user_email" required>
 
                         <label for="signInEmail" class="form-label">Phone Number</label>
-                        <input type="email" name="user_phone_no" class="form-control m-b-md" name="user_email" required>
+                        <input type="text" name="user_phone_no" class="form-control m-b-md" name="user_email" required>
 
                         <label for="signInPassword" class="form-label">Password</label>
                         <input type="password" name="user_password" class="form-control" name="user_password">
 
                         <label for="signInPassword" class="form-label">Confirm Password</label>
-                        <input type="password" name="user_password" class="form-control" name="user_password">
+                        <input type="password" name="confirm_user_password" class="form-control" name="user_password">
                     </div>
                     <div class="auth-submit">
                         <input type="submit" name="sign_up" value="Sign Up" class="btn btn-primary" />
                         <a href="forgot_password" class="auth-forgot-password float-end">Forgot password?</a>
                     </div>
                 </form>
+                <br><br>
             </div>
         </div>
         <!-- Javascripts -->
