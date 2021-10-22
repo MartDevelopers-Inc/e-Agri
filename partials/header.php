@@ -12,13 +12,13 @@
             <div class="d-flex">
                 <ul class="navbar-nav">
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="profile">Profile</a>
                     </li>
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Reports</a>
+                        <a class="nav-link" href="reports">Reports</a>
                     </li>
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Log Out</a>
+                        <a class="nav-link" href="logout">Log Out</a>
                     </li>
                 </ul>
             </div>
