@@ -96,12 +96,8 @@ require_once('../partials/head.php');
                                                 <i class="material-icons-outlined">paid</i>
                                             </div>
                                             <div class="widget-stats-content flex-fill">
-                                                <span class="widget-stats-title">Today's Sales</span>
-                                                <span class="widget-stats-amount">$38,211</span>
-                                                <span class="widget-stats-info">471 Orders Total</span>
-                                            </div>
-                                            <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
-                                                <i class="material-icons">keyboard_arrow_down</i> 4%
+                                                <span class="widget-stats-title">Overall Sales Revenue</span>
+                                                <span class="widget-stats-amount">Ksh 38,211</span>
                                             </div>
                                         </div>
                                     </div>
@@ -111,16 +107,12 @@ require_once('../partials/head.php');
                                 <div class="card widget widget-stats">
                                     <div class="card-body">
                                         <div class="widget-stats-container d-flex">
-                                            <div class="widget-stats-icon widget-stats-icon-warning">
-                                                <i class="material-icons-outlined">person</i>
+                                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                                <i class="material-icons-outlined">people_outline</i>
                                             </div>
                                             <div class="widget-stats-content flex-fill">
-                                                <span class="widget-stats-title">Active Users</span>
+                                                <span class="widget-stats-title">Customers</span>
                                                 <span class="widget-stats-amount">23,491</span>
-                                                <span class="widget-stats-info">790 unique this month</span>
-                                            </div>
-                                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                                                <i class="material-icons">keyboard_arrow_up</i> 12%
                                             </div>
                                         </div>
                                     </div>
@@ -130,16 +122,58 @@ require_once('../partials/head.php');
                                 <div class="card widget widget-stats">
                                     <div class="card-body">
                                         <div class="widget-stats-container d-flex">
-                                            <div class="widget-stats-icon widget-stats-icon-danger">
-                                                <i class="material-icons-outlined">file_download</i>
+                                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                                <i class="material-icons-outlined">supervised_user_circle</i>
                                             </div>
                                             <div class="widget-stats-content flex-fill">
-                                                <span class="widget-stats-title">Downloads</span>
+                                                <span class="widget-stats-title">Farmers</span>
                                                 <span class="widget-stats-amount">140,390</span>
-                                                <span class="widget-stats-info">87 items downloaded</span>
                                             </div>
-                                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                                                <i class="material-icons">keyboard_arrow_up</i> 7%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="card widget widget-stats">
+                                    <div class="card-body">
+                                        <div class="widget-stats-container d-flex">
+                                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                                <i class="material-icons-outlined">redeem</i>
+                                            </div>
+                                            <div class="widget-stats-content flex-fill">
+                                                <span class="widget-stats-title">Agri Products</span>
+                                                <span class="widget-stats-amount">140,390</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card widget widget-stats">
+                                    <div class="card-body">
+                                        <div class="widget-stats-container d-flex">
+                                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                                <i class="material-icons-outlined">redeem</i>
+                                            </div>
+                                            <div class="widget-stats-content flex-fill">
+                                                <span class="widget-stats-title">Processed Orders</span>
+                                                <span class="widget-stats-amount">140,390</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card widget widget-stats">
+                                    <div class="card-body">
+                                        <div class="widget-stats-container d-flex">
+                                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                                <i class="material-icons-outlined">redeem</i>
+                                            </div>
+                                            <div class="widget-stats-content flex-fill">
+                                                <span class="widget-stats-title">Pending Orders</span>
+                                                <span class="widget-stats-amount">140,390</span>
                                             </div>
                                         </div>
                                     </div>
