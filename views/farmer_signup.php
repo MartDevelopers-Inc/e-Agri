@@ -101,6 +101,7 @@ if (isset($_POST['sign_up'])) {
         }
     }
 }
+
 require_once('../partials/head.php');
 
 /* Pop System Settings Here */

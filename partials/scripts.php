@@ -11,8 +11,9 @@
 <!-- Custom Js -->
 <script src="../public/backend_assets/js/custom.js"></script>
 <!-- Alerts Js -->
-<!-- Alert Js -->
 <script src="../public/backend_assets/iziToast/iziToast.min.js"></script>
+<!-- Dashboard Js -->
+<script src="../public/backend_assets/js/pages/dashboard.js"></script>
 <!-- Initialize Alerts -->
 <?php if (isset($success)) { ?>
     <script>

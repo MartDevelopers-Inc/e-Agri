@@ -59,3 +59,12 @@
  * IN NO EVENT WILL MartDevelopers Inc  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
+
+
+/* Kill All Persisted Sessions */
+session_start();
+unset($_SESSION['user_id']);
+unset($_SESSION['user_access_level']);
+session_destroy();
+header('Location: ../');
+exit;
