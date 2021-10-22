@@ -70,5 +70,5 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 }
 $uri .= $_SERVER['HTTP_HOST'];
 /* Redirect To Index Under Views, Also Include Folder Name */
-header('Location: ' . $uri . '/efarming/views/');
+header('Location: ' . $uri . '/efarming/views/login');
 exit;
