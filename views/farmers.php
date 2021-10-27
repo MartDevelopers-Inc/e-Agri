@@ -106,6 +106,27 @@ if (isset($_POST['add_farmer'])) {
 }
 
 /* Update Farmer */
+if (isset($_POST['update_farmer'])) {
+    $user_id = $_POST['user_id'];
+    $user_name = $_POST['user_name'];
+    $user_idno = $_POST['user_idno'];
+    $user_email = $_POST['user_email'];
+    $user_phone_no = $_POST['user_phone_no'];
+    /* Check If These MFS Match */
+
+    /* Persist This */
+    $update = "UPDATE users SET user_name =?, user_idno =?, user_email =?, user_phone_no =? WHERE user_id =?";
+    $prepare = $mysqli->prepare($update);
+    $rc = $prepare->bind_param('sssss', $user_name, $user_idno, $user_email,  $user_phone_no, $user_id);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "$user_name, Account Updated";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
+
+
 /* Delete Farmer */
 require_once('../partials/head.php');
 ?>
