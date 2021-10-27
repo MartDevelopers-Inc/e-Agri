@@ -134,11 +134,34 @@ if (isset($_GET['delete'])) {
     $prepare = $mysqli->prepare($del);
     $rc = $prepare->bind_param('s', $delete);
     $prepare->execute();
-    
+
     if ($prepare) {
         $success = "Deleted" && header('refresh:1; farmers');
     } else {
         $err = "Failed!, Please Try Again Later";
+    }
+}
+
+
+/* Change Password */
+if (isset($_POST['change_password'])) {
+    $user_id = $_POST['user_id'];
+    $new_password = sha1(md5($_POST['new_password']));
+    $confirm_password = sha1(md5($_POST['confirm_password']));
+
+    /* Check if they match */
+    if ($new_password != $confirm_password) {
+        $err = "Passwords Does Not Match";
+    } else {
+        $update = "UPDATE users SET user_password = ? WHERE user_id =?";
+        $prepare = $mysqli->prepare($update);
+        $rc = $prepare->bind_param('ss', $confirm_password, $user_id);
+        $prepare->execute();
+        if ($prepare) {
+            $success = "Passwords Updated";
+        } else {
+            $err = "Failed!, Please Try Again Later";
+        }
     }
 }
 require_once('../partials/head.php');
