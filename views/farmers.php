@@ -126,8 +126,19 @@ if (isset($_POST['update_farmer'])) {
     }
 }
 
-
 /* Delete Farmer */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    /* Delete This MF */
+    $del = "DELETE FROM users WHERE user_id = '$delete'";
+    $prepare = $mysqli->prepare($del);
+
+    if ($prepare) {
+        $success -= "Deleted" && header('refresh:1; farmers');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
