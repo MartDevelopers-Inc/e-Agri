@@ -89,6 +89,7 @@ while ($sys = $res->fetch_object()) {
         <link href="../public/backend_assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../public/backend_assets/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
         <link href="../public/backend_assets/plugins/pace/pace.css" rel="stylesheet">
+        <link href="../public/backend_assets/plugins/datatables/datatables.min.css" rel="stylesheet">
 
 
         <!-- Theme Styles -->
@@ -98,7 +99,6 @@ while ($sys = $res->fetch_object()) {
         <link rel="icon" type="image/png" sizes="32x32" href="../public/backend_assets/images/neptune.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="../public/backend_assets/images/neptune.png" />
 
-        <!-- Load Alerts -->
         <!-- Izi Alerts -->
         <link rel="stylesheet" href="../public/backend_assets/iziToast/iziToast.min.css">
         <!-- Font Awesome -->

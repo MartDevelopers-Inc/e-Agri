@@ -14,6 +14,10 @@
 <script src="../public/backend_assets/iziToast/iziToast.min.js"></script>
 <!-- Dashboard Js -->
 <script src="../public/backend_assets/js/pages/dashboard.js"></script>
+<!-- Datatable Js -->
+<script src="../public/backend_assets/plugins/datatables/datatables.min.js"></script>
+<!-- Data Table Init -->
+<script src="../public/backend_assets/js/pages/datatables.js"></script>
 <!-- Initialize Alerts -->
 <?php if (isset($success)) { ?>
     <script>
