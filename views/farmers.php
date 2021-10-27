@@ -239,7 +239,7 @@ require_once('../partials/head.php');
                             <div class="col">
                                 <div class="card">
                                     <div class="card-body">
-                                        <table id="datatable1" class="display" style="width:100%">
+                                        <table id="datatable1" class="display table" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>

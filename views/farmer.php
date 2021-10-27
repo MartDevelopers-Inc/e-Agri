@@ -81,10 +81,10 @@ require_once('../partials/head.php');
             while ($farmer = $res->fetch_object()) {
                 /* User Profile */
                 /* Check User Has Profile Image */
-                if ($sys->user_dpic == '') {
+                if ($farmer->user_dpic == '') {
                     $img = "../public/backend_assets/images/avatars/no-profile.png";
                 } else {
-                    $img = "../public/backend_assets/images/avatars/$sys->user_dpic";
+                    $img = "../public/backend_assets/images/avatars/$farmer->user_dpic";
                 }
             ?>
                 <div class="app-content">
@@ -98,7 +98,7 @@ require_once('../partials/head.php');
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="d-flex justify-content-between">
+                                <div class="col-5">
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
@@ -107,6 +107,100 @@ require_once('../partials/head.php');
                                                 <h5 class="widget-info-title"><i class="fas fa-user-tag"></i> <?php echo $farmer->user_idno; ?></h5>
                                                 <h5 class="widget-info-title"><i class="fas fa-phone"></i> <?php echo $farmer->user_phone_no; ?></h5>
                                                 <h5 class="widget-info-title"><i class="fas fa-envelope-open-text"></i> <?php echo $farmer->user_email; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="card widget widget-info">
+                                        <div class="card-body">
+                                            <div class="widget-info-container">
+                                                <h5 class="widget-info-title"><?php echo $farmer->user_name; ?> Bio</h5>
+                                                <p>
+                                                    <?php echo $farmer->user_bio; ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card widget widget-info">
+                                        <div class="card-body">
+                                            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Agricultural Products</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><?php echo $farmer->user_name; ?> Sales Records</button>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                    <table class="table display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>SKU Number</th>
+                                                                <th>Category</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            /* Load All Farmers */
+                                                            $ret = "SELECT * FROM  products p
+                                                            INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
+                                                            WHERE p.product_user_id = '$view'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($product = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $product->product_name; ?></td>
+                                                                    <td><?php echo $product->product_sku_code; ?></td>
+                                                                    <td><?php echo $product->category_name; ?></td>
+                                                                    <td>Ksh <?php echo $product->product_price; ?></td>
+                                                                    <td><?php echo $product->product_quantity; ?></td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <table class="table display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Number</th>
+                                                                <th>ID Number</th>
+                                                                <th>Email</th>
+                                                                <th>Contact</th>
+                                                                <th>Joined On</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            /* Load All Farmers */
+                                                            $ret = "SELECT * FROM  users WHERE user_access_level = 'farmer'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($farmer = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $farmer->user_name; ?></td>
+                                                                    <td><?php echo $farmer->user_number; ?></td>
+                                                                    <td><?php echo $farmer->user_idno; ?></td>
+                                                                    <td><?php echo $farmer->user_email; ?></td>
+                                                                    <td><?php echo $farmer->user_phone_no; ?></td>
+                                                                    <td><?php echo $farmer->user_created_at; ?></td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
