@@ -98,7 +98,7 @@ while ($sys = $res->fetch_object()) {
                     <a href="farmers"><i class="material-icons-two-tone">supervised_user_circle</i>Farmers</a>
                 </li>
                 <li>
-                    <a href="customer"><i class="material-icons-two-tone">people</i>Customers</a>
+                    <a href="customers"><i class="material-icons-two-tone">people</i>Customers</a>
                 </li>
                 <li>
                     <a href="product_categories"><i class="material-icons-two-tone">fact_check</i>Product Categories</a>
