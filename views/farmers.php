@@ -130,11 +130,13 @@ if (isset($_POST['update_farmer'])) {
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     /* Delete This MF */
-    $del = "DELETE FROM users WHERE user_id = '$delete'";
+    $del = "DELETE FROM users WHERE user_id = ?";
     $prepare = $mysqli->prepare($del);
-
+    $rc = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    
     if ($prepare) {
-        $success -= "Deleted" && header('refresh:1; farmers');
+        $success = "Deleted" && header('refresh:1; farmers');
     } else {
         $err = "Failed!, Please Try Again Later";
     }
