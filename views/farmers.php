@@ -274,11 +274,11 @@ require_once('../partials/head.php');
                                                             <a data-bs-toggle="modal" href="#edit-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-warning">
                                                                 <i class="fas fa-user-edit"></i> Edit
                                                             </a>
+                                                            <a data-bs-toggle="modal" href="#password-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-primary">
+                                                                <i class="fas fa-lock"></i> Edit Password
+                                                            </a>
                                                             <a data-bs-toggle="modal" href="#delete-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-danger">
                                                                 <i class="fas fa-trash"></i> Delete
-                                                            </a>
-                                                            <a data-bs-toggle="modal" href="#password-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-primary">
-                                                                <i class="fas fa-lock"></i> Change Password
                                                             </a>
                                                             <!-- Update Modal -->
                                                             <div class="modal fade" id="edit-<?php echo $farmer->user_id; ?>">
@@ -338,7 +338,7 @@ require_once('../partials/head.php');
                                                             <!-- End Modal -->
 
                                                             <!-- Change Password -->
-                                                            <div class="modal fade" id="edit-<?php echo $farmer->user_id; ?>">
+                                                            <div class="modal fade" id="password-<?php echo $farmer->user_id; ?>">
                                                                 <div class="modal-dialog  modal-lg">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
