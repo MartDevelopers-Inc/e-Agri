@@ -193,7 +193,7 @@ require_once('../partials/head.php');
                                     <div class="col-xl-4">
                                         <div class="card widget widget-connection-request">
                                             <div class="card-header">
-                                                <h5 class="card-title"><?php echo $categories->category_name; ?> <span class="badge badge-secondary badge-style-light">Code: <?php echo $categories->category_code; ?></span></h5>
+                                                <h5 class="card-title"><a class="text-dark" href="product_category?view=<?php echo $categories->category_id; ?>"><?php echo $categories->category_name; ?></a> <span class="badge badge-secondary badge-style-light">Code: <?php echo $categories->category_code; ?></span></h5>
                                             </div>
                                             <div class="card-body">
                                                 <div class="widget-connection-request-container d-flex">
