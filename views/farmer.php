@@ -172,30 +172,46 @@ require_once('../partials/head.php');
                                                     <table class="table display" style="width:100%">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Number</th>
-                                                                <th>ID Number</th>
-                                                                <th>Email</th>
-                                                                <th>Contact</th>
-                                                                <th>Joined On</th>
+                                                                <th>Customer Details</th>
+                                                                <th>Product Details</th>
+                                                                <th>Cart Details</th>
+                                                                <th>Payment Details</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <?php
                                                             /* Load All Farmers */
-                                                            $ret = "SELECT * FROM  users WHERE user_access_level = 'farmer'  ";
+                                                            $ret = "SELECT * FROM  payment pa
+                                                            INNER JOIN cart c ON c.cart_id = pa.payment_cart_id
+                                                            INNER JOIN products p ON p.product_id = c.cart_product_id
+                                                            INNER JOIN users u ON u.user_id = c.cart_user_id
+                                                            WHERE p.product_user_id = '$view'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
-                                                            while ($farmer = $res->fetch_object()) {
+                                                            while ($sales = $res->fetch_object()) {
                                                             ?>
                                                                 <tr>
-                                                                    <td><?php echo $farmer->user_name; ?></td>
-                                                                    <td><?php echo $farmer->user_number; ?></td>
-                                                                    <td><?php echo $farmer->user_idno; ?></td>
-                                                                    <td><?php echo $farmer->user_email; ?></td>
-                                                                    <td><?php echo $farmer->user_phone_no; ?></td>
-                                                                    <td><?php echo $farmer->user_created_at; ?></td>
+                                                                    <td>
+                                                                        Name:
+                                                                        Phone No:
+                                                                        Email :
+                                                                    </td>
+                                                                    <td>
+                                                                        Name:
+                                                                        SKU:
+                                                                        Price:
+                                                                        Category:
+                                                                    </td>
+                                                                    <td>
+                                                                        Qty:
+                                                                        Date Purchased:
+                                                                    </td>
+                                                                    <td>
+                                                                        Txn ID :
+                                                                        Amount :
+                                                                        Date Paid:
+                                                                    </td>
                                                                 </tr>
                                                             <?php } ?>
                                                         </tbody>
