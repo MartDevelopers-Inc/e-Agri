@@ -148,7 +148,7 @@ require_once('../partials/head.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            /* Load All Farmers */
+                                                            /* Load All Farmer Registeted Products */
                                                             $ret = "SELECT * FROM  products p
                                                             INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
                                                             WHERE p.product_user_id = '$view'  ";
@@ -180,7 +180,7 @@ require_once('../partials/head.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            /* Load All Farmers */
+                                                            /* Load All Farmer Sales */
                                                             $ret = "SELECT * FROM  payment pa
                                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id
                                                             INNER JOIN products p ON p.product_id = c.cart_product_id
@@ -193,24 +193,24 @@ require_once('../partials/head.php');
                                                             ?>
                                                                 <tr>
                                                                     <td>
-                                                                        Name:
-                                                                        Phone No:
-                                                                        Email :
+                                                                        Name: <?php echo $sales->user_name; ?><br>
+                                                                        Phone No: <?php echo $sales->user_phone_no; ?><br>
+                                                                        Email: <?php echo $sales->user_email; ?>
                                                                     </td>
                                                                     <td>
-                                                                        Name:
-                                                                        SKU:
-                                                                        Price:
-                                                                        Category:
+                                                                        Name: <?php echo $sales->product_name; ?><br>
+                                                                        SKU: <?php echo $sales->product_sku_code; ?><br>
+                                                                        Price: Ksh <?php echo $sales->product_price; ?><br>
+                                                                        Category: <?php echo $sales->category_name; ?>
                                                                     </td>
                                                                     <td>
-                                                                        Qty:
-                                                                        Date Purchased:
+                                                                        Qty: <?php echo $sales->cart_product_quantity; ?><br>
+                                                                        Date Purchased: <?php echo date('d, M Y g:ia', strtotime($sales->cart_product_added_at)); ?>
                                                                     </td>
                                                                     <td>
-                                                                        Txn ID :
-                                                                        Amount :
-                                                                        Date Paid:
+                                                                        Txn ID : <?php echo $sales->payment_transaction_code; ?><br>
+                                                                        Amount : Ksh <?php echo $sales->payment_amount; ?><br>
+                                                                        Date Paid: <?php echo date('d, M Y g:ia', strtotime($sales->payment_date_posted)); ?>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
