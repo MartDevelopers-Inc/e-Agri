@@ -63,6 +63,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
+require_once('../config/codeGen.php');
 checklogin();
 
 require_once('../partials/head.php');
@@ -80,9 +81,54 @@ require_once('../partials/head.php');
                             <div class="col">
                                 <div class="page-description">
                                     <h1>Farmers</h1>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                            <i class="fas fa-user-plus"></i> Register Farmer
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Add Modal -->
+                        <div class="modal fade" id="add_modal">
+                            <div class="modal-dialog  modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Register New Farmer</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3" method="POST">
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Full Name</label>
+                                                <input type="text" name="user_name" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputPassword4" class="form-label">National ID Number</label>
+                                                <input type="text" name="user_idno" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inputAddress" class="form-label">Farmer Number</label>
+                                                <input type="text" readonly name="user_number" value="<?php echo $a . $b; ?>" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inputAddress" class="form-label">Phone Number</label>
+                                                <input type="text" name="user_phone_no" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress2" class="form-label">Email Address</label>
+                                                <input type="email" name="user_email" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" name="add_farmer" class="btn btn-primary">Add Farmer</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal -->
+
                         <div class="row">
                             <div class="col">
                                 <div class="card">
