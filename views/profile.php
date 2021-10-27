@@ -90,6 +90,7 @@ if (isset($_POST['Update_Profile'])) {
         $err = 'Please Try Again Or Try Later';
     }
 }
+
 /* Update User Password */
 if (isset($_POST['Update_Password'])) {
 
@@ -101,7 +102,6 @@ if (isset($_POST['Update_Password'])) {
     if ($new_password != $confirm_password) {
         $err = "Passwords Do Not Match";
     } else {
-
         $query = 'UPDATE users SET  user_password =? WHERE user_id =?  ';
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ss', $confirm_password, $user_id);
@@ -189,28 +189,30 @@ require_once('../partials/head.php'); ?>
                                         </div>
 
                                         <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row m-t-xxl">
-                                                        <div class="col-md-12">
-                                                            <label for="settingsNewPassword" class="form-label">New Password</label>
-                                                            <input type="password" name="new_password" class="form-control" aria-describedby="settingsNewPassword">
+                                            <form method="post">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row m-t-xxl">
+                                                            <div class="col-md-12">
+                                                                <label for="settingsNewPassword" class="form-label">New Password</label>
+                                                                <input type="password" name="new_password" class="form-control" aria-describedby="settingsNewPassword">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row m-t-xxl">
-                                                        <div class="col-md-12">
-                                                            <label for="settingsConfirmPassword" class="form-label">Confirm Password</label>
-                                                            <input type="password" name="confirm_password" class="form-control" aria-describedby="settingsConfirmPassword">
+                                                        <div class="row m-t-xxl">
+                                                            <div class="col-md-12">
+                                                                <label for="settingsConfirmPassword" class="form-label">Confirm Password</label>
+                                                                <input type="password" name="confirm_password" class="form-control" aria-describedby="settingsConfirmPassword">
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="row m-t-lg">
-                                                        <div class="col">
-                                                            <input type="submit" name="Update_Password" value="Update" class="text-right btn btn-primary m-t-sm" />
+                                                        <div class="row m-t-lg">
+                                                            <div class="col">
+                                                                <input type="submit" name="Update_Password" value="Update" class="text-right btn btn-primary m-t-sm" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
