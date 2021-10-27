@@ -67,7 +67,7 @@ require_once('../config/codeGen.php');
 
 if (isset($_POST['sign_up'])) {
     $user_id = $sys_gen_id;
-    $user_created_at = date('d M Y g:ia');
+    $user_created_at = date('d M Y');
     $user_number = $a . $b;
     $user_access_level = 'farmer';
     $user_name = $_POST['user_name'];

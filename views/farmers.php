@@ -75,6 +75,8 @@ if (isset($_POST['add_farmer'])) {
     $user_phone_no = $_POST['user_phone_no'];
     $new_password = sha1(md5($_POST['new_password']));
     $confirm_password = sha1(md5($_POST['confirm_password']));
+    $user_access_level = 'farmer';
+    $user_created_at = date('d, M Y');
     /* Check If These MFS Match */
     if ($new_password != $confirm_password) {
         $err = "Passwords Does Not Match";
@@ -89,10 +91,10 @@ if (isset($_POST['add_farmer'])) {
             }
         } else {
             /* Persist This */
-            $insert = "INSERT INTO users (user_id, user_number, user_name, user_idno, user_email, user_phone_no, user_password) 
-            VALUES(?,?,?,?,?,?,?)";
+            $insert = "INSERT INTO users (user_id, user_number, user_name, user_access_level, user_idno, user_email, user_phone_no, user_password, user_created_at) 
+            VALUES(?,?,?,?,?,?,?,?,?)";
             $prepare = $mysqli->prepare($insert);
-            $rc = $prepare->bind_param('sssss', $user_id, $user_number, $user_name, $user_idno, $user_email, $user_phone_no, $confirm_password);
+            $rc = $prepare->bind_param('sssssssss', $user_id, $user_number, $user_name,  $user_access_level, $user_idno, $user_email, $user_phone_no, $confirm_password, $user_created_at);
             $prepare->execute();
             if ($prepare) {
                 $success = "$user_name, Account Registered";
