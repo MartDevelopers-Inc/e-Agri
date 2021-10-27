@@ -277,6 +277,9 @@ require_once('../partials/head.php');
                                                             <a data-bs-toggle="modal" href="#delete-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-danger">
                                                                 <i class="fas fa-trash"></i> Delete
                                                             </a>
+                                                            <a data-bs-toggle="modal" href="#password-<?php echo $farmer->user_id; ?>" class="badge rounded-pill badge-primary">
+                                                                <i class="fas fa-lock"></i> Change Password
+                                                            </a>
                                                             <!-- Update Modal -->
                                                             <div class="modal fade" id="edit-<?php echo $farmer->user_id; ?>">
                                                                 <div class="modal-dialog  modal-lg">
@@ -328,6 +331,35 @@ require_once('../partials/head.php');
                                                                             <p>Heads Up, You are about to delete <?php echo $farmer->user_name; ?> Details. This action is irrevisble.</p>
                                                                             <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
                                                                             <a href="farmers?delete=<?php echo $farmer->user_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
+                                                            <!-- Change Password -->
+                                                            <div class="modal fade" id="edit-<?php echo $farmer->user_id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update <?php echo $farmer->user_name; ?> Details</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form class="row g-3" method="POST">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputEmail4" class="form-label">New Password</label>
+                                                                                    <input type="password" name="new_password" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" value="<?php echo $farmer->user_id; ?>" name="user_id" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputPassword4" class="form-label">Confirm Password</label>
+                                                                                    <input type="password" name="confirm_password" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-12 d-flex justify-content-end">
+                                                                                    <button type="submit" name="change_password" class="btn btn-primary">Update</button>
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
