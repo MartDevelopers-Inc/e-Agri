@@ -115,10 +115,9 @@ if (isset($_POST['update'])) {
 /* Delete Product Category */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-
     /* Delete This */
     $del = "DELETE FROM product_categories WHERE category_id = '$delete'";
-    $prepare->$mysqli->prepare($del);
+    $prepare = $mysqli->prepare($del);
     $prepare->execute();
     if ($prepare) {
         $success = "Deleted" && header('refresh:1, product_categories');
@@ -210,12 +209,60 @@ require_once('../partials/head.php');
                                                     </div>
                                                 </div>
                                                 <div class="widget-connection-request-actions d-flex">
-                                                    <a href="#edit-<?php echo $categories->category_id; ?>" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="fas fa-edit"></i>Edit</a>
-                                                    <a href="#delete-<?php echo $categories->category_id; ?>" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="fas fa-trash"></i>Delete</a>
+                                                    <a data-bs-toggle="modal" href="#edit-<?php echo $categories->category_id; ?>" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="fas fa-edit"></i>Edit</a>
+                                                    <a data-bs-toggle="modal" href="#delete-<?php echo $categories->category_id; ?>" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="fas fa-trash"></i>Delete</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Edit Modals -->
+                                    <div class="modal fade" id="edit-<?php echo $categories->category_id; ?>">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Update <?php echo $categories->category_name; ?> Details</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="row g-3" method="POST">
+                                                        <div class="col-md-12">
+                                                            <label for="inputEmail4" class="form-label">Category Name</label>
+                                                            <input type="text" value="<?php echo $categories->category_name; ?>" required name="category_name" class="form-control-rounded form-control">
+                                                            <input type="hidden" value="<?php echo $categories->category_id; ?>" required name="category_id" class="form-control-rounded form-control">
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="inputAddress" class="form-label">Category Details</label>
+                                                            <textarea type="text" required name="category_details" rows="4" class="form-control-rounded form-control"><?php echo $categories->category_details; ?></textarea>
+                                                        </div>
+                                                        <div class="col-12 d-flex justify-content-end">
+                                                            <button type="submit" name="update" class="btn btn-primary">Update Category</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Edit Modal -->
+
+                                    <!-- Delete Modal -->
+                                    <div class="modal fade" id="delete-<?php echo $categories->category_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-center text-danger">
+                                                    <h4>Delete <?php echo $categories->category_name; ?> ?</h4>
+                                                    <br>
+                                                    <p>Heads Up, You are about to delete <?php echo $categories->category_name; ?> Details. This action is irrevisble.</p>
+                                                    <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                    <a href="product_categories?delete=<?php echo $categories->category_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Delete Modal -->
                                 <?php } ?>
                             </div>
                         </div>
