@@ -65,7 +65,46 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
+/* Add Farmer */
+if (isset($_POST['add_farmer'])) {
+    $user_id = $sys_gen_id;
+    $user_number = $_POST['user_number'];
+    $user_name = $_POST['user_name'];
+    $user_idno = $_POST['user_idno'];
+    $user_email = $_POST['user_email'];
+    $user_phone_no = $_POST['user_phone_no'];
+    $new_password = sha1(md5($_POST['new_password']));
+    $confirm_password = sha1(md5($_POST['confirm_password']));
+    /* Check If These MFS Match */
+    if ($new_password != $confirm_password) {
+        $err = "Passwords Does Not Match";
+    } else {
+        /* Check If Theres MF With These Details */
+        $sql = "SELECT * FROM  users  WHERE user_idno = '$user_idno' || user_phone_no = '$user_phone_no' || user_email = '$user_email' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($user_idno == $row['user_idno'] || $user_phone_no == $row['user_phone_no'] || $user_email == $row['user_email']) {
+                $err = 'A Farmer Account With That  National ID Number Or Phone Number Or Email  Already Exists';
+            }
+        } else {
+            /* Persist This */
+            $insert = "INSERT INTO users (user_id, user_number, user_name, user_idno, user_email, user_phone_no, user_password) 
+            VALUES(?,?,?,?,?,?,?)";
+            $prepare = $mysqli->prepare($insert);
+            $rc = $prepare->bind_param('sssss', $user_id, $user_number, $user_name, $user_idno, $user_email, $user_phone_no, $confirm_password);
+            $prepare->execute();
+            if ($prepare) {
+                $success = "$user_name, Account Registered";
+            } else {
+                $err = "Failed!, Please Try Again Later";
+            }
+        }
+    }
+}
 
+/* Update Farmer */
+/* Delete Farmer */
 require_once('../partials/head.php');
 ?>
 
@@ -101,23 +140,31 @@ require_once('../partials/head.php');
                                         <form class="row g-3" method="POST">
                                             <div class="col-md-6">
                                                 <label for="inputEmail4" class="form-label">Full Name</label>
-                                                <input type="text" name="user_name" class="form-control-rounded form-control">
+                                                <input type="text" required name="user_name" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputPassword4" class="form-label">National ID Number</label>
-                                                <input type="text" name="user_idno" class="form-control-rounded form-control">
+                                                <input type="text" required name="user_idno" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-6">
                                                 <label for="inputAddress" class="form-label">Farmer Number</label>
-                                                <input type="text" readonly name="user_number" value="<?php echo $a . $b; ?>" class="form-control-rounded form-control">
+                                                <input type="text" required readonly name="user_number" value="<?php echo $a . $b; ?>" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-6">
                                                 <label for="inputAddress" class="form-label">Phone Number</label>
-                                                <input type="text" name="user_phone_no" class="form-control-rounded form-control">
+                                                <input type="text" required name="user_phone_no" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputAddress2" class="form-label">Email Address</label>
-                                                <input type="email" name="user_email" class="form-control-rounded form-control">
+                                                <input type="email" required name="user_email" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inputAddress" class="form-label">Password</label>
+                                                <input type="password" required name="new_password" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inputAddress" class="form-label">Confirm Password</label>
+                                                <input type="password" required name="confirm_password" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" name="add_farmer" class="btn btn-primary">Add Farmer</button>
