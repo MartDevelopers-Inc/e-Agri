@@ -185,7 +185,7 @@ require_once('../partials/head.php');
                             <div class="col-xl-6">
                                 <div class="card widget widget-list">
                                     <div class="card-header">
-                                        <h5 class="card-title"><?php echo date('d M Y'); ?> : Purchases <a href="successful_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
+                                        <h5 class="card-title">Recent Purchases <a href="successful_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="widget-list-content list-unstyled">
@@ -194,7 +194,7 @@ require_once('../partials/head.php');
                                             $ret = "SELECT * FROM cart c 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
                                             INNER JOIN users u ON u.user_id  = c.cart_user_id
-                                            WHERE  c.cart_product_added_at = CURDATE()";
+                                            ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
@@ -223,7 +223,7 @@ require_once('../partials/head.php');
                             <div class="col-xl-6">
                                 <div class="card widget widget-list">
                                     <div class="card-header">
-                                        <h5 class="card-title"><?php echo date('d M Y'); ?> : Payments Logs <a href="payments" class="badge badge-success badge-style-light">View All</a></h5>
+                                        <h5 class="card-title">Recent Payments Logs <a href="payments" class="badge badge-success badge-style-light">View All</a></h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="widget-list-content list-unstyled">
@@ -233,7 +233,7 @@ require_once('../partials/head.php');
                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
                                             INNER JOIN users u ON u.user_id  = c.cart_user_id
-                                            WHERE pa.payment_date_posted = CURDATE()";
+                                            ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();

@@ -82,9 +82,9 @@ while ($sys = $res->fetch_object()) {
             <a href="dashboard" class="logo-icon"><span class="logo-text"><?php echo $sys->sys_name; ?></span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="dashboard">
-                    <img src="<?php echo $img; ?>">
-                    <span class="activity-indicator"></span>
-                    <span class="user-info-text"><?php echo $sys->user_name; ?>
+                    <img src="<?php echo $img; ?>"><br><br><br>
+                    <span class="user-info-text">
+                        <?php echo $sys->user_name; ?>
                     </span>
                 </a>
             </div>
