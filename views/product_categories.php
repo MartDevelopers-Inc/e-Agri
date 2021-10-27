@@ -84,6 +84,8 @@ if (isset($_POST['add'])) {
         $insert = "INSERT INTO product_categories (category_id, category_code, category_name, category_description) VALUES(?,?,?,?)";
         $prepare = $mysqli->prepare($insert);
         $rc = $prepare->bind_param('ssss', $category_id, $category_code, $category_name, $category_details);
+        $prepare->execute();
+
         if ($prepare) {
             $success = "$category_name, Added";
         } else {
@@ -91,6 +93,7 @@ if (isset($_POST['add'])) {
         }
     }
 }
+
 /* Update Product Category */
 if (isset($_POST['update'])) {
     $category_id = $_POST['category_id'];
@@ -101,6 +104,7 @@ if (isset($_POST['update'])) {
     $update = "UPDATE product_categories SET category_name =?, category_details =? WHERE category_id =?";
     $prepare = $mysqli->prepare($update);
     $rc = $prepare->bind_param('sss', $category_name, $category_details, $category_id);
+    $prepare->execute();
     if ($prepare) {
         $success = "$category_name, Updated";
     } else {
@@ -109,6 +113,19 @@ if (isset($_POST['update'])) {
 }
 
 /* Delete Product Category */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    /* Delete This */
+    $del = "DELETE FROM product_categories WHERE category_id = '$delete'";
+    $prepare->$mysqli->prepare($del);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1, product_categories');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
