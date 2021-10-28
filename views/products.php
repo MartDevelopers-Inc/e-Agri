@@ -242,7 +242,118 @@ require_once('../partials/head.php');
 
                         <div class="row">
                             <div class="row">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table id="datatable1" class="display table" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>SKU #</th>
+                                                    <th>QTY</th>
+                                                    <th>Price Per Kg</th>
+                                                    <th>Category</th>
+                                                    <th>Farmer Details</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                /* Load All Farmers */
+                                                $ret = "SELECT * FROM  products p
+                                                INNER JOIN users u ON u.user_id = p.product_user_id
+                                                INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
+                                                ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($products = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $products->product_name; ?></td>
+                                                        <td><?php echo $products->product_sku_code; ?></td>
+                                                        <td><?php echo $products->product_quantity; ?> Kgs</td>
+                                                        <td>Ksh <?php echo $products->product_price; ?></td>
+                                                        <td><?php echo $products->category_name; ?></td>
+                                                        <td>
+                                                            Name: <?php echo $products->user_name; ?><br>
+                                                            Phone: <?php echo $products->user_phone_no; ?><br>
+                                                        </td>
+                                                        <td>
+                                                            <a href="product?view=<?php echo $products->product_id; ?>" class="badge rounded-pill badge-success">
+                                                                <i class="fas fa-tag"></i> View
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#edit-<?php echo $products->product_id; ?>" class="badge rounded-pill badge-warning">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#images-<?php echo $products->product_id; ?>" class="badge rounded-pill badge-primary">
+                                                                <i class="fas fa-file-image"></i> Edit Images
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $products->product_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </a>
+                                                            <!-- Update Modal -->
+                                                            <div class="modal fade" id="edit-<?php echo $products->product_id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update <?php echo $products->product_name; ?> Details</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
+                                                            <!-- Delete Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $products->product_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $products->product_name; ?> Details ?</h4>
+                                                                            <br>
+                                                                            <p>Heads Up, You are about to delete <?php echo $products->product_name; ?> Details. This action is irrevisble.</p>
+                                                                            <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                                            <a href="products?delete=<?php echo $products->product_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
+                                                            <!-- Change Image -->
+                                                            <div class="modal fade" id="images-<?php echo $products->product_id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update <?php echo $products->product_name; ?> Images</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form class="row g-3" method="POST">
+
+                                                                                <div class="col-12 d-flex justify-content-end">
+                                                                                    <button type="submit" name="change_password" class="btn btn-primary">Update</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

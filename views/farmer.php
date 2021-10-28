@@ -162,7 +162,7 @@ require_once('../partials/head.php');
                                                                     <td><?php echo $product->product_sku_code; ?></td>
                                                                     <td><?php echo $product->category_name; ?></td>
                                                                     <td>Ksh <?php echo $product->product_price; ?></td>
-                                                                    <td><?php echo $product->product_quantity; ?></td>
+                                                                    <td><?php echo $product->product_quantity; ?> Kgs</td>
                                                                 </tr>
                                                             <?php } ?>
                                                         </tbody>
