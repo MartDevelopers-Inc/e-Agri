@@ -166,10 +166,10 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>Product Categories</h1>
+                                    <h1>Agricultural Products</h1>
                                     <div class="d-flex justify-content-end">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
-                                            <i class="fas fa-plus"></i> Register New Product Category
+                                            <i class="fas fa-plus"></i> Register New Product
                                         </button>
                                     </div>
                                 </div>
@@ -180,22 +180,33 @@ require_once('../partials/head.php');
                             <div class="modal-dialog  modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Register New Product Category</h4>
+                                        <h4 class="modal-title">Register New Agricultural Products</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form class="row g-3" method="POST">
                                             <div class="col-md-6">
-                                                <label for="inputEmail4" class="form-label">Category Name</label>
-                                                <input type="text" required name="category_name" class="form-control-rounded form-control">
+                                                <label for="inputEmail4" class="form-label">Name</label>
+                                                <input type="text" required name="product_name" class="form-control-rounded form-control">
                                             </div>
-                                            <div class="col-6">
-                                                <label for="inputAddress" class="form-label">Category Number</label>
-                                                <input type="text" required readonly name="category_code" value="<?php echo $a . $b; ?>" class="form-control-rounded form-control">
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Farmer Name</label>
+                                                <select class="js-states form-control" tabindex="-1" style="width: 100%"  name="product_user_id">
+                                                    <?php
+                                                    $ret = "SELECT * FROM  users WHERE user_access_level = 'farmer'  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($farmer = $res->fetch_object()) {
+                                                    ?>
+                                                        <option value="<?php echo $farmer->user_id; ?>"><?php echo $farmer->user_number . ' - ' . $farmer->user_name; ?></option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
+
                                             <div class="col-12">
-                                                <label for="inputAddress" class="form-label">Category Details</label>
-                                                <textarea type="text" required name="category_details" rows="4" class="form-control-rounded form-control"></textarea>
+                                                <label for="inputAddress" class="form-label">Details</label>
+                                                <textarea type="text" required name="product_details" rows="5" class="form-control-rounded form-control"></textarea>
                                             </div>
 
                                             <div class="col-12 d-flex justify-content-end">

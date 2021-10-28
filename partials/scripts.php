@@ -1,5 +1,7 @@
 <!-- J Querry -->
 <script src="../public/backend_assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+<!-- Bootstrap popper -->
+<script src="../public/backend_assets/plugins/bootstrap/js/popper.min.js"></script>
 <!-- Bootstrap -->
 <script src="../public/backend_assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- Perfect Scrollbar -->
@@ -67,3 +69,8 @@
 
 <?php }
 ?>
+<!-- Select 2 Js -->
+<script src="../public/backend_assets/plugins/select2/js/select2.full.min.js"></script>
+<script>
+    $('.select').select2();
+</script>
