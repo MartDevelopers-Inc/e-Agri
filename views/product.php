@@ -66,6 +66,30 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
+/* Add To Cart */
+if (isset($_POST['add'])) {
+    $cart_id = $sys_gen_id;
+    $cart_user_id = $_POST['cart_user_id'];
+    $cart_product_id = $_POST['cart_product_id'];
+    $cart_product_quantity = $_POST['cart_product_quantity'];
+
+    /* Persist This */
+    $insert = "INSERT INTO cart(cart_id, cart_user_id, cart_product_id, cart_product_quantity) VALUES(?,?,?,?)";
+    $prepare = $mysqli->prepare($insert);
+    $bind = $prepare->bind_param(
+        'ssss',
+        $cart_id,
+        $cart_user_id,
+        $cart_product_id,
+        $cart_product_quantity
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Product Added To Cart, Proceed To Checkout";
+    } else {
+        $err = "Failed, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -171,7 +195,7 @@ require_once('../partials/head.php');
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="inputPassword4" class="form-label">Quantity In Kgs</label>
-                                                            <input type="text" required name="user_idno" class="form-control-rounded form-control">
+                                                            <input type="number" value="1" required name="cart_product_quantity" class="form-control-rounded form-control">
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end">
                                                             <button type="submit" name="add" class="btn btn-primary">Add To Cart</button>

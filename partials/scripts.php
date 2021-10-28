@@ -9,7 +9,7 @@
 <!-- Pace Js -->
 <script src="../public/backend_assets/plugins/pace/pace.min.js"></script>
 <!-- App Main Js -->
-<script src="../public/backend_assets/js/main.min.js"></script>
+<script src="../public/backend_assets/js/main.js"></script>
 <!-- Custom Js -->
 <script src="../public/backend_assets/js/custom.js"></script>
 <!-- Alerts Js -->
@@ -78,4 +78,5 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+    $("input[type='number']").inputSpinner()
 </script>
