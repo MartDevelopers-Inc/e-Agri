@@ -71,13 +71,75 @@ if (isset($_POST['update_cart'])) {
     $cart_product_quantity = $_POST['cart_product_quantity'];
     /* Persist */
     $update = "UPDATE cart SET cart_product_quantity =? WHERE cart_id =?";
-    $prepare = $mysqli->prepare($mysqli);
+    $prepare = $mysqli->prepare($update);
     $bind = $prepare->bind_param('ss', $cart_product_quantity, $cart_id);
     $prepare->execute();
     if ($prepare) {
         $success = "Cart Updated, Proceed To Checkout";
     } else {
         $err = "Failed!, Please Try Again Later";
+    }
+}
+
+/* Pay Order */
+if (isset($_POST['pay'])) {
+    $payment_id = $sys_gen_id;
+    $payment_cart_id = $_POST['payment_cart_id'];
+    $payment_transaction_code  = $_POST['payment_transaction_code'];
+    $payment_amount = $_POST['payment_amount'];
+    /* Product */
+    /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
+    if ($cart_quantity > $product_qty) {
+        $err = "No Available Quantities To Process Your Order";
+    } else {
+        $product_id = $_POSt['product_id'];
+        $product_qty = $_POST['product_qty'];
+        $cart_quantity = $_POST['cart_quantity'];
+        $new_quantity = $product_qty - $cart_quantity;
+
+        $checkout_status = 'Paid';
+
+        /* Post Payment */
+        $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
+        /* Update Cart */
+        $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
+        /* Decrent Product Quantity */
+        $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
+
+        /* Prepare Statements */
+        $payprep = $mysqli->prepare($payment);
+        $cartprep = $mysqli->prepare($cart);
+        $productprep = $mysqli->prepare($product);
+
+        /* Binds */
+        $paybind = $payprep->bind_param(
+            'ssss',
+            $payment_id,
+            $payment_cart_id,
+            $payment_transaction_code,
+            $payment_amount
+        );
+        $cartbind = $cartprep->bind_param(
+            'ss',
+            $checkout_status,
+            $cart_id
+        );
+        $productbind = $productprep->bind_param(
+            'ss',
+            $new_quantity,
+            $product_id
+        );
+
+        /* Executes */
+        $payprep->execute();
+        $cartprep->execute();
+        $productprep->execute();
+
+        if ($payprep && $cartprep && $productprep) {
+            $success = "Payment Posted";
+        } else {
+            $err = "Failed!, Please Try Again Later";
+        }
     }
 }
 require_once('../partials/head.php');
@@ -213,7 +275,19 @@ require_once('../partials/head.php');
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <form class="row g-3" method="POST" enctype="multipart/form-data">
-
+                                                                                <div class="col-md-6">
+                                                                                    <label for="inputEmail4" class="form-label">Amount (Ksh)</label>
+                                                                                    <input type="text" readonly required name="payment_amount" value="<?php echo ($products->cart_product_quantity * $products->product_price); ?>" class="form-control-rounded form-control">
+                                                                                    <!-- Hide This -->
+                                                                                    <input type="hidden" required name="payment_cart_id" value="<?php echo $products->cart_id; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" required name="product_id" value="<?php echo $products->product_id; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" required name="product_qty" value="<?php echo $products->product_quantity; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" required name="cart_quantity" value="<?php echo $products->cart_product_quantity; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="inputEmail4" class="form-label">Payment Transaction Code</label>
+                                                                                    <input type="text" required name="payment_transaction_code" value="<?php echo $sys_gen_paycode; ?>" class="form-control-rounded form-control">
+                                                                                </div>
                                                                                 <div class="col-12 d-flex justify-content-end">
                                                                                     <button type="submit" name="pay" class="btn btn-primary">Pay</button>
                                                                                 </div>

@@ -263,11 +263,11 @@ require_once('../partials/head.php');
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
-                                                <input type="text" required name="product_price" class="form-control-rounded form-control">
+                                                <input type="number" required name="product_price" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
-                                                <input type="text" required name="product_quantity" class="form-control-rounded form-control">
+                                                <input type="number" required name="product_quantity" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputAddress" class="form-label">Details</label>
@@ -353,11 +353,11 @@ require_once('../partials/head.php');
                                                                                 </div>
                                                                                 <div class="col-md-4">
                                                                                     <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
-                                                                                    <input type="text" required name="product_price" value="<?php echo $products->product_price; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="number" required name="product_price" value="<?php echo $products->product_price; ?>" class="form-control-rounded form-control">
                                                                                 </div>
                                                                                 <div class="col-md-4">
                                                                                     <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
-                                                                                    <input type="text" required name="product_quantity" value="<?php echo $products->product_quantity; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="number" required name="product_quantity" value="<?php echo $products->product_quantity; ?>" class="form-control-rounded form-control">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="inputAddress" class="form-label">Details</label>
