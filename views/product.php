@@ -136,9 +136,52 @@ require_once('../partials/head.php');
                                                 <h5 class="widget-info-title"><span class="text-primary">Farmer Name:</span> <?php echo $product->user_name; ?></h5>
                                                 <h5 class="widget-info-title"><span class="text-primary">Farmer Phone Number:</span> <?php echo $product->user_phone_no; ?></h5>
                                                 <h5 class="widget-info-title"><span class="text-primary">Farmer Email: </span> <?php echo $product->user_email; ?></h5>
+
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                                    <i class="fas fa-cart-plus"></i> Add <?php echo $product->product_name; ?> To Cart
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Add Product To Cart -->
+                                    <div class="modal fade" id="add_modal">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Kindly Select The Quantity (Kilograms) Of <?php echo $product->product_name; ?> You Want To Purchase</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="row g-3" method="POST">
+                                                        <div class="col-md-6">
+                                                            <label for="inputEmail4" class="form-label">Customer Name</label>
+                                                            <!-- Hide All This -->
+                                                            <input type="hidden" value="<?php echo $view; ?>" required name="cart_product_id" class="form-control-rounded form-control">
+                                                            <select class="js-states form-control" tabindex="-1" style="width: 100%" name="cart_user_id">
+                                                                <?php
+                                                                $ret = "SELECT * FROM  users WHERE user_access_level = 'customer'  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($customer = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option value="<?php echo $customer->user_id; ?>"><?php echo $customer->user_number . ' - ' . $customer->user_name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="inputPassword4" class="form-label">Quantity In Kgs</label>
+                                                            <input type="text" required name="user_idno" class="form-control-rounded form-control">
+                                                        </div>
+                                                        <div class="col-12 d-flex justify-content-end">
+                                                            <button type="submit" name="add" class="btn btn-primary">Add To Cart</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal -->
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
