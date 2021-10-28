@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Oct 27 2021
+ * Created on Thu Oct 28 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -60,6 +60,7 @@
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
 
+
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
@@ -74,11 +75,11 @@ require_once('../partials/head.php');
         <div class="app-container">
             <?php require_once('../partials/header.php');
             $view = $_GET['view'];
-            $ret = "SELECT * FROM  product_categories WHERE category_id = '$view' ";
+            $ret = "SELECT * FROM  products WHERE product_id = '$view'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($category = $res->fetch_object()) {
+            while ($product = $res->fetch_object()) {
             ?>
                 <div class="app-content">
                     <div class="content-wrapper">
@@ -86,20 +87,41 @@ require_once('../partials/head.php');
                             <div class="row">
                                 <div class="col">
                                     <div class="page-description">
-                                        <h1><?php echo $category->category_name; ?></h1>
+                                        <h1><?php echo $product->product_name; ?></h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-12">
                                     <div class="card widget widget-info">
                                         <div class="card-body">
-                                            <div class="widget-info-container">
-                                                <h5 class="widget-info-title">
-                                                    <i class="fas fa-apple-alt fa-4x text-success"></i>
-                                                </h5>
-                                                <h5 class="widget-info-title text-primary">Name: <?php echo $category->category_name; ?></h5>
-                                                <h5 class="widget-info-title text-primary"> Code: <?php echo $category->category_code; ?></h5>
+                                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <?php if ($product->product_image_1 || $product->product_image_2 || $product->product_image_3) {
+                                                    ?>
+                                                        <div class="carousel-item active">
+                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_1; ?>" class="d-block w-100" alt="...">
+                                                        </div>
+                                                        <div class="carousel-item">
+                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_2; ?>" class="d-block w-100" alt="...">
+                                                        </div>
+                                                        <div class="carousel-item">
+                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_3; ?>" class="d-block w-100" alt="...">
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="carousel-item">
+                                                            <img src="../public/backend_assets/images/products/no_img.jpg" class="d-block w-100" alt="...">
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
