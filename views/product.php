@@ -93,46 +93,44 @@ require_once('../partials/head.php');
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="card widget widget-info">
-                                        <div class="card-body">
-                                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                                <div class="carousel-inner">
-                                                    <?php if ($product->product_image_1 || $product->product_image_2 || $product->product_image_3) {
-                                                    ?>
-                                                        <div class="carousel-item active">
-                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_1; ?>" class="d-block w-100" alt="...">
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_2; ?>" class="d-block w-100" alt="...">
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <img src="../public/backend_assets/images/products/<?php echo $product->product_image_3; ?>" class="d-block w-100" alt="...">
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="carousel-item">
-                                                            <img src="../public/backend_assets/images/products/no_img.jpg" class="d-block w-100" alt="...">
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Next</span>
-                                                </button>
+                                    <div class="card">
+                                        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <?php if ($product->product_image_1 || $product->product_image_2 || $product->product_image_3) {
+                                                ?>
+                                                    <div class="carousel-item active">
+                                                        <img src="../public/backend_assets/images/products/<?php echo $product->product_image_1; ?>" class="d-block w-100" alt="...">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img src="../public/backend_assets/images/products/<?php echo $product->product_image_2; ?>" class="d-block w-100" alt="...">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img src="../public/backend_assets/images/products/<?php echo $product->product_image_3; ?>" class="d-block w-100" alt="...">
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="carousel-item">
+                                                        <img src="../public/backend_assets/images/products/no_img.jpg" class="d-block w-100" alt="...">
+                                                    </div>
+                                                <?php } ?>
                                             </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-7">
+                                <div class="col-12">
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
-                                                <h5 class="widget-info-title text-primary"><?php echo $category->category_name; ?> Details</h5>
+                                                <h5 class="widget-info-title text-primary"><?php echo $product->product_name; ?> Details</h5>
                                                 <p>
-                                                    <?php echo $category->category_details; ?>
+                                                    <?php echo $product->product_details; ?>
                                                 </p>
                                             </div>
                                         </div>
@@ -143,7 +141,7 @@ require_once('../partials/head.php');
                                         <div class="card-body">
                                             <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Agricultural Products Under <?php echo $category->category_name; ?></button>
+                                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Agricultural Products Purchase Details</button>
                                                 </li>
                                             </ul>
                                             <div class="tab-content" id="myTabContent">
@@ -151,41 +149,38 @@ require_once('../partials/head.php');
                                                     <table class="table display" style="width:100%">
                                                         <thead>
                                                             <tr>
-                                                                <th>Farmer Details</th>
-                                                                <th>SKU Code</th>
-                                                                <th>Name</th>
-                                                                <th>Quantity</th>
-                                                                <th>Price(Kg)</th>
+                                                                <th>Customer Details</th>
+                                                                <th>Cart Details</th>
+                                                                <th>Payment Details</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <?php
                                                             /* Load All Farmer Sales */
-                                                            $ret = "SELECT * FROM products p
-                                                            INNER JOIN users u ON u.user_id = p.product_user_id 
-                                                            WHERE p.product_category_id = '$view'";
+                                                            $ret = "SELECT * FROM  payment pa
+                                                            INNER JOIN cart c ON c.cart_id = pa.payment_cart_id
+                                                            INNER JOIN products p ON p.product_id = c.cart_product_id
+                                                            INNER JOIN users u ON u.user_id = c.cart_user_id
+                                                            WHERE p.product_id = '$view'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
-                                                            while ($product = $res->fetch_object()) {
+                                                            while ($sales = $res->fetch_object()) {
                                                             ?>
                                                                 <tr>
                                                                     <td>
-                                                                        Name: <?php echo $product->user_name; ?><br>
-                                                                        Phone No: <?php echo $product->user_phone_no; ?><br>
-                                                                        Email: <?php echo $product->user_email; ?>
+                                                                        Name: <?php echo $sales->user_name; ?><br>
+                                                                        Phone No: <?php echo $sales->user_phone_no; ?><br>
+                                                                        Email: <?php echo $sales->user_email; ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $product->product_sku_code; ?>
+                                                                        Qty: <?php echo $sales->cart_product_quantity; ?><br>
+                                                                        Date Purchased: <?php echo date('d, M Y g:ia', strtotime($sales->cart_product_added_at)); ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $product->product_name; ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo $product->product_quantity; ?> Kgs
-                                                                    </td>
-                                                                    <td>
-                                                                        Ksh <?php echo $product->product_price; ?>
+                                                                        Txn ID : <?php echo $sales->payment_transaction_code; ?><br>
+                                                                        Amount : Ksh <?php echo $sales->payment_amount; ?><br>
+                                                                        Date Paid: <?php echo date('d, M Y g:ia', strtotime($sales->payment_date_posted)); ?>
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
