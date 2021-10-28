@@ -98,8 +98,8 @@ require_once('../partials/head.php');
                                                 <h5 class="widget-info-title">
                                                     <i class="fas fa-apple-alt fa-4x text-success"></i>
                                                 </h5>
-                                                <h5 class="widget-info-title">Name: <?php echo $category->category_name; ?></h5>
-                                                <h5 class="widget-info-title"><i class="fas fa-tag"></i> Code: <?php echo $category->category_code; ?></h5>
+                                                <h5 class="widget-info-title text-primary">Name: <?php echo $category->category_name; ?></h5>
+                                                <h5 class="widget-info-title text-primary"> Code: <?php echo $category->category_code; ?></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@ require_once('../partials/head.php');
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
-                                                <h5 class="widget-info-title"><?php echo $category->category_name; ?> Details</h5>
+                                                <h5 class="widget-info-title text-primary"><?php echo $category->category_name; ?> Details</h5>
                                                 <p>
                                                     <?php echo $category->category_details; ?>
                                                 </p>
