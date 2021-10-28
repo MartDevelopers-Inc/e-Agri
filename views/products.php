@@ -118,7 +118,28 @@ if (isset($_POST['update_images'])) {
     $new_img_3 = $product_name . (round(microtime(true)) . '.' . end($img_3));
 
     /* Move Uploaded Images */
+    move_uploaded_file($_FILES["product_image_1"]["tmp_name"], "../public/backend_assets/images/products/" . $new_img_1);
+    move_uploaded_file($_FILES["product_image_2"]["tmp_name"], "../public/backend_assets/images/products/" . $new_img_2);
+    move_uploaded_file($_FILES["product_image_3"]["tmp_name"], "../public/backend_assets/images/products/" . $new_img_3);
+
+    /* Persist Changes */
+    $update = "UPDATE products SET product_image_1 =?, product_image_2 =?, product_image_3 =? WHERE product_id = ?";
+    $prepare = $mysqli->prepare($update);
+    $bind = $prepare->bind_param(
+        'ssss',
+        $new_img_1,
+        $new_img_2,
+        $new_img_3,
+        $product_id
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Images Uploaded";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
 }
+
 
 /* Update product */
 if (isset($_POST['update'])) {
