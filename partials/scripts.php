@@ -73,4 +73,9 @@
 <script src="../public/backend_assets/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select').select2();
+    /* File Upload */
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
 </script>

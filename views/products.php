@@ -118,7 +118,7 @@ if (isset($_POST['update'])) {
     $update = "UPDATE products SET product_name =?, product_price =?, product_quantity =?, product_details =? WHERE product_id =?";
     $prepare = $mysqli->prepare($update);
     $bind = $prepare->bind_param(
-        'ssss',
+        'sssss',
         $product_name,
         $product_price,
         $product_quantity,
@@ -300,7 +300,30 @@ require_once('../partials/head.php');
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
+                                                                            <form class="row g-3" method="POST">
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Name</label>
+                                                                                    <input type="text" required name="product_name" value="<?php echo $products->product_name; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" required name="product_id" value="<?php echo $products->product_id; ?>" class="form-control-rounded form-control">
 
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
+                                                                                    <input type="text" required name="product_price" value="<?php echo $products->product_price; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
+                                                                                    <input type="text" required name="product_quantity" value="<?php echo $products->product_quantity; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="inputAddress" class="form-label">Details</label>
+                                                                                    <textarea type="text" required name="product_details" rows="5" class="form-control-rounded form-control"><?php echo $products->product_details; ?></textarea>
+                                                                                </div>
+
+                                                                                <div class="col-12 d-flex justify-content-end">
+                                                                                    <button type="submit" name="update" class="btn btn-primary">Update Product</button>
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -336,10 +359,23 @@ require_once('../partials/head.php');
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form class="row g-3" method="POST">
-
+                                                                            <form class="row g-3" method="POST" enctype="multipart/form-data">
+                                                                                <input type="hidden" required name="product_name" value="<?php echo $products->product_name; ?>" class="form-control-rounded form-control">
+                                                                                <input type="hidden" required name="product_id" value="<?php echo $products->product_id; ?>" class="form-control-rounded form-control">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputAddress" class="form-label">Product Image 1</label>
+                                                                                    <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="product_image_1" class="form-control form-control-rounded">
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputAddress" class="form-label">Product Image 2</label>
+                                                                                    <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="product_image_2" class="form-control form-control-rounded">
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputAddress" class="form-label">Product Image 3</label>
+                                                                                    <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="product_image_3" class="form-control form-control-rounded">
+                                                                                </div>
                                                                                 <div class="col-12 d-flex justify-content-end">
-                                                                                    <button type="submit" name="change_password" class="btn btn-primary">Update</button>
+                                                                                    <button type="submit" name="update" class="btn btn-primary">Update Product</button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
