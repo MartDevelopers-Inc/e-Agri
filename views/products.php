@@ -387,7 +387,7 @@ require_once('../partials/head.php');
                                                                             <br>
                                                                             <p>Heads Up, You are about to delete <?php echo $products->product_name; ?> Details. This action is irrevisble.</p>
                                                                             <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
-                                                                            <a href="products?delete=<?php echo $products->product_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="products?delete=<?php echo $products->product_id; ?>&img_1=<?php echo $products->product_image_1; ?>&img_2=<?php echo $products->product_image_2; ?>&img_3=<?php echo $products->product_image_3; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
