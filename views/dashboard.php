@@ -193,7 +193,8 @@ require_once('../partials/head.php');
                                             /* Load All Purchased Done Today */
                                             $ret = "SELECT * FROM cart c 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
-                                            INNER JOIN users u ON u.user_id  = c.cart_user_id
+                                            INNER JOIN users u ON u.user_id  = c.cart_user_id 
+                                            ORDER BY c.cart_product_added_at DESC
                                             ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
@@ -204,9 +205,8 @@ require_once('../partials/head.php');
                                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">shopping_basket</i></span>
                                                     <span class="widget-list-item-description">
                                                         <a href="#" class="widget-list-item-description-title">
-                                                            <?php echo $purchases->user_name; ?>, Purchased <?php echo $purchases->product_name; ?>
-                                                            <br>
-                                                            Purchase Payment Status: <?php echo $purchases->cart_checkout_status; ?>
+                                                            <?php echo $purchases->user_name; ?>, Purchased <?php echo $purchases->cart_product_quantity . 'Kgs Of ' . $purchases->product_name; ?> <br>
+                                                            <span class="text-primary">Payment Status: <?php echo $purchases->cart_checkout_status; ?></span>
                                                         </a>
                                                         <span class="widget-list-item-description-subtitle badge badge-success badge-style-light">
                                                             <?php echo  date('d M Y g:ia', strtotime($purchases->cart_product_added_at)); ?>
