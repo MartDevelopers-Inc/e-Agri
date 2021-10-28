@@ -104,6 +104,20 @@ if (isset($_POST['add'])) {
 
 /* Update Product Images */
 if (isset($_POST['update_images'])) {
+    $product_id = $_POST['product_id'];
+    $product_name = $_POST['product_name'];
+
+    /* Process Posted Images */
+    $img_1 = explode(".", $_FILES['product_image_1']);
+    $img_2 = explode(".", $_FILES['product_image_2']);
+    $img_3 = explode(".", $_FILES['product_image_3']);
+
+    /* Give New File Names */
+    $new_img_1 = $product_name . (round(microtime(true)) . '.' . end($img_1));
+    $new_img_2 = $product_name . (round(microtime(true)) . '.' . end($img_2));
+    $new_img_3 = $product_name . (round(microtime(true)) . '.' . end($img_3));
+
+    /* Move Uploaded Images */
 }
 
 /* Update product */
