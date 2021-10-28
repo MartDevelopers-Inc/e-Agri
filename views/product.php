@@ -96,7 +96,7 @@ require_once('../partials/head.php');
                                     <div class="card">
                                         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                             <div class="carousel-inner">
-                                                <?php if ($product->product_image_1 || $product->product_image_2 || $product->product_image_3) {
+                                                <?php if ($product->product_image_1 != '' || $product->product_image_2  != '' || $product->product_image_3 != '') {
                                                 ?>
                                                     <div class="carousel-item active">
                                                         <img src="../public/backend_assets/images/products/<?php echo $product->product_image_1; ?>" class="d-block w-100" alt="...">
@@ -108,7 +108,7 @@ require_once('../partials/head.php');
                                                         <img src="../public/backend_assets/images/products/<?php echo $product->product_image_3; ?>" class="d-block w-100" alt="...">
                                                     </div>
                                                 <?php } else { ?>
-                                                    <div class="carousel-item">
+                                                    <div class="carousel-item active">
                                                         <img src="../public/backend_assets/images/products/no_img.jpg" class="d-block w-100" alt="...">
                                                     </div>
                                                 <?php } ?>

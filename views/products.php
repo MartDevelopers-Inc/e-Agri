@@ -113,9 +113,9 @@ if (isset($_POST['update_images'])) {
     $img_3 = explode(".", $_FILES['product_image_3']["name"]);
 
     /* Give New File Names */
-    $new_img_1 = $product_name . '_' . (round(microtime(true)) . '.' . end($img_1));
-    $new_img_2 = $product_name . '_' . (round(microtime(true)) . '.' . end($img_2));
-    $new_img_3 = $product_name . '_' . (round(microtime(true)) . '.' . end($img_3));
+    $new_img_1 = $sys_img_code_alpha . '.' . end($img_1);
+    $new_img_2 = $sys_img_code_beta . '.' . end($img_2);
+    $new_img_3 = $sys_img_code_gamma . '.' . end($img_3);
 
     /* Move Uploaded Images */
     move_uploaded_file($_FILES["product_image_1"]["tmp_name"], "../public/backend_assets/images/products/" . $new_img_1);
@@ -171,9 +171,9 @@ if (isset($_POST['update'])) {
 /* Delete Product */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $
 
-    /* Delete */
-    $del = "DELETE FROM products WHERE product_id = ?";
+    /* Delete */$del = "DELETE FROM products WHERE product_id = ?";
     $prepare  = $mysqli->prepare($del);
     $bind = $prepare->bind_param('s', $delete);
     $prepare->execute();
