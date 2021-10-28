@@ -65,6 +65,21 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
+/* Update Cart */
+if (isset($_POST['update_cart'])) {
+    $cart_id = $_POST['cart_id'];
+    $cart_product_quantity = $_POST['cart_product_quantity'];
+    /* Persist */
+    $update = "UPDATE cart SET cart_product_quantity =? WHERE cart_id =?";
+    $prepare = $mysqli->prepare($mysqli);
+    $bind = $prepare->bind_param('ss', $cart_product_quantity, $cart_id);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Cart Updated, Proceed To Checkout";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
