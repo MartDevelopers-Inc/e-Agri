@@ -108,14 +108,14 @@ if (isset($_POST['update_images'])) {
     $product_name = $_POST['product_name'];
 
     /* Process Posted Images */
-    $img_1 = explode(".", $_FILES['product_image_1']);
-    $img_2 = explode(".", $_FILES['product_image_2']);
-    $img_3 = explode(".", $_FILES['product_image_3']);
+    $img_1 = explode(".", $_FILES['product_image_1']["name"]);
+    $img_2 = explode(".", $_FILES['product_image_2']["name"]);
+    $img_3 = explode(".", $_FILES['product_image_3']["name"]);
 
     /* Give New File Names */
-    $new_img_1 = $product_name . (round(microtime(true)) . '.' . end($img_1));
-    $new_img_2 = $product_name . (round(microtime(true)) . '.' . end($img_2));
-    $new_img_3 = $product_name . (round(microtime(true)) . '.' . end($img_3));
+    $new_img_1 = $product_name . '' . (round(microtime(true)) . '.' . end($img_1));
+    $new_img_2 = $product_name . '' . (round(microtime(true)) . '.' . end($img_2));
+    $new_img_3 = $product_name . '' . (round(microtime(true)) . '.' . end($img_3));
 
     /* Move Uploaded Images */
     move_uploaded_file($_FILES["product_image_1"]["tmp_name"], "../public/backend_assets/images/products/" . $new_img_1);
@@ -410,7 +410,7 @@ require_once('../partials/head.php');
                                                                                     <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="product_image_3" class="form-control form-control-rounded">
                                                                                 </div>
                                                                                 <div class="col-12 d-flex justify-content-end">
-                                                                                    <button type="submit" name="update" class="btn btn-primary">Update Product</button>
+                                                                                    <button type="submit" name="update_images" class="btn btn-primary">Upload Product Image</button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
