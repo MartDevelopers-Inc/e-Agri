@@ -88,16 +88,15 @@ if (isset($_POST['pay'])) {
     $payment_transaction_code  = $_POST['payment_transaction_code'];
     $payment_amount = $_POST['payment_amount'];
     /* Product */
+    $product_id = $_POST['product_id'];
+    $product_qty = $_POST['product_qty'];
+    $cart_quantity = $_POST['cart_quantity'];
+    $new_quantity = $product_qty - $cart_quantity;
+    $checkout_status = 'Paid';
     /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
     if ($cart_quantity > $product_qty) {
         $err = "No Available Quantities To Process Your Order";
     } else {
-        $product_id = $_POSt['product_id'];
-        $product_qty = $_POST['product_qty'];
-        $cart_quantity = $_POST['cart_quantity'];
-        $new_quantity = $product_qty - $cart_quantity;
-
-        $checkout_status = 'Paid';
 
         /* Post Payment */
         $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
@@ -122,7 +121,7 @@ if (isset($_POST['pay'])) {
         $cartbind = $cartprep->bind_param(
             'ss',
             $checkout_status,
-            $cart_id
+            $payment_cart_id
         );
         $productbind = $productprep->bind_param(
             'ss',

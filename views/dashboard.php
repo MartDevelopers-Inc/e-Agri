@@ -233,6 +233,7 @@ require_once('../partials/head.php');
                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id 
                                             INNER JOIN products p ON p.product_id = c.cart_product_id
                                             INNER JOIN users u ON u.user_id  = c.cart_user_id
+                                            ORDER BY pa.payment_date_posted DESC
                                             ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok

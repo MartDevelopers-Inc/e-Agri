@@ -184,6 +184,7 @@ require_once('../partials/head.php');
                                                             $ret = "SELECT * FROM  payment pa
                                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id
                                                             INNER JOIN products p ON p.product_id = c.cart_product_id
+                                                            INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
                                                             INNER JOIN users u ON u.user_id = c.cart_user_id
                                                             WHERE p.product_user_id = '$view'  ";
                                                             $stmt = $mysqli->prepare($ret);
