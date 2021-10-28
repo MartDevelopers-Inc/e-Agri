@@ -180,7 +180,7 @@ require_once('../partials/head.php');
                             <div class="modal-dialog  modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Register New Agricultural Products</h4>
+                                        <h4 class="modal-title">Register New Agricultural Product</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -190,8 +190,22 @@ require_once('../partials/head.php');
                                                 <input type="text" required name="product_name" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Category</label>
+                                                <select class="js-states form-control" tabindex="-1" style="width: 100%" name="product_category_id">
+                                                    <?php
+                                                    $ret = "SELECT * FROM  product_categories ORDER BY category_name ASC ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($categories = $res->fetch_object()) {
+                                                    ?>
+                                                        <option value="<?php echo $categories->category_id; ?>"><?php echo $categories->category_code . ' - ' . $categories->category_name; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
                                                 <label for="inputEmail4" class="form-label">Farmer Name</label>
-                                                <select class="js-states form-control" tabindex="-1" style="width: 100%"  name="product_user_id">
+                                                <select class="js-states form-control" tabindex="-1" style="width: 100%" name="product_user_id">
                                                     <?php
                                                     $ret = "SELECT * FROM  users WHERE user_access_level = 'farmer'  ";
                                                     $stmt = $mysqli->prepare($ret);
@@ -203,14 +217,21 @@ require_once('../partials/head.php');
                                                     <?php } ?>
                                                 </select>
                                             </div>
-
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
+                                                <input type="text" required name="product_price" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
+                                                <input type="text" required name="product_quantity" class="form-control-rounded form-control">
+                                            </div>
                                             <div class="col-12">
                                                 <label for="inputAddress" class="form-label">Details</label>
                                                 <textarea type="text" required name="product_details" rows="5" class="form-control-rounded form-control"></textarea>
                                             </div>
 
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button type="submit" name="add" class="btn btn-primary">Add Category</button>
+                                                <button type="submit" name="add" class="btn btn-primary">Add Product</button>
                                             </div>
                                         </form>
                                     </div>
@@ -221,87 +242,7 @@ require_once('../partials/head.php');
 
                         <div class="row">
                             <div class="row">
-                                <?php
-                                $ret = "SELECT * FROM  product_categories ORDER BY category_name ASC  ";
-                                $stmt = $mysqli->prepare($ret);
-                                $stmt->execute(); //ok
-                                $res = $stmt->get_result();
-                                while ($categories = $res->fetch_object()) {
-                                ?>
-                                    <div class="col-xl-4">
-                                        <div class="card widget widget-connection-request">
-                                            <div class="card-header">
-                                                <h5 class="card-title"><a class="text-dark" href="product_category?view=<?php echo $categories->category_id; ?>"><?php echo $categories->category_name; ?></a> <span class="badge badge-secondary badge-style-light">Code: <?php echo $categories->category_code; ?></span></h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="widget-connection-request-container d-flex">
-                                                    <div class="widget-connection-request-avatar">
-                                                        <div class="avatar avatar-xl text-success m-r-xs">
-                                                            <i class="fas fa-apple-alt fa-3x "></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="widget-connection-request-info flex-grow-1">
-                                                        <span class="widget-connection-request-info-about">
-                                                            <?php echo substr($categories->category_details, 0, 100); ?>...
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-connection-request-actions d-flex">
-                                                    <a data-bs-toggle="modal" href="#edit-<?php echo $categories->category_id; ?>" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="fas fa-edit"></i>Edit</a>
-                                                    <a data-bs-toggle="modal" href="#delete-<?php echo $categories->category_id; ?>" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="fas fa-trash"></i>Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Edit Modals -->
-                                    <div class="modal fade" id="edit-<?php echo $categories->category_id; ?>">
-                                        <div class="modal-dialog  modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Update <?php echo $categories->category_name; ?> Details</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="row g-3" method="POST">
-                                                        <div class="col-md-12">
-                                                            <label for="inputEmail4" class="form-label">Category Name</label>
-                                                            <input type="text" value="<?php echo $categories->category_name; ?>" required name="category_name" class="form-control-rounded form-control">
-                                                            <input type="hidden" value="<?php echo $categories->category_id; ?>" required name="category_id" class="form-control-rounded form-control">
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="inputAddress" class="form-label">Category Details</label>
-                                                            <textarea type="text" required name="category_details" rows="4" class="form-control-rounded form-control"><?php echo $categories->category_details; ?></textarea>
-                                                        </div>
-                                                        <div class="col-12 d-flex justify-content-end">
-                                                            <button type="submit" name="update" class="btn btn-primary">Update Category</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Edit Modal -->
 
-                                    <!-- Delete Modal -->
-                                    <div class="modal fade" id="delete-<?php echo $categories->category_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body text-center text-danger">
-                                                    <h4>Delete <?php echo $categories->category_name; ?> ?</h4>
-                                                    <br>
-                                                    <p>Heads Up, You are about to delete <?php echo $categories->category_name; ?> Details. This action is irrevisble.</p>
-                                                    <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
-                                                    <a href="product_categories?delete=<?php echo $categories->category_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Delete Modal -->
-                                <?php } ?>
                             </div>
                         </div>
                     </div>
