@@ -91,4 +91,8 @@ $sys_gen_id_alt_2 = bin2hex(random_bytes($length));
 $a = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 5);
 $b = substr(str_shuffle("1234567890"), 1, 5);
 
-/* System Generated Marketing And Affliate Codes */
+
+/* System Generated Image Codes */
+$sys_img_code_alpha = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 3);
+$sys_img_code_beta = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 3);
+$sys_img_code_gamma = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 3);

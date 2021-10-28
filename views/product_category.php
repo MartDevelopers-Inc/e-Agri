@@ -74,7 +74,7 @@ require_once('../partials/head.php');
         <div class="app-container">
             <?php require_once('../partials/header.php');
             $view = $_GET['view'];
-            $ret = "SELECT * FROM  product_categories ORDER BY category_name ASC  ";
+            $ret = "SELECT * FROM  product_categories WHERE category_id = '$view' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
@@ -98,8 +98,8 @@ require_once('../partials/head.php');
                                                 <h5 class="widget-info-title">
                                                     <i class="fas fa-apple-alt fa-4x text-success"></i>
                                                 </h5>
-                                                <h5 class="widget-info-title">Name: <?php echo $category->category_name; ?></h5>
-                                                <h5 class="widget-info-title"><i class="fas fa-tag"></i> Code: <?php echo $category->category_code; ?></h5>
+                                                <h5 class="widget-info-title text-primary">Name: <?php echo $category->category_name; ?></h5>
+                                                <h5 class="widget-info-title text-primary"> Code: <?php echo $category->category_code; ?></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@ require_once('../partials/head.php');
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
-                                                <h5 class="widget-info-title"><?php echo $category->category_name; ?> Details</h5>
+                                                <h5 class="widget-info-title text-primary"><?php echo $category->category_name; ?> Details</h5>
                                                 <p>
                                                     <?php echo $category->category_details; ?>
                                                 </p>
@@ -133,7 +133,7 @@ require_once('../partials/head.php');
                                                                 <th>SKU Code</th>
                                                                 <th>Name</th>
                                                                 <th>Quantity</th>
-                                                                <th>Price</th>
+                                                                <th>Price(Kg)</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -157,10 +157,10 @@ require_once('../partials/head.php');
                                                                         <?php echo $product->product_sku_code; ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $product->produt_name; ?>
+                                                                        <?php echo $product->product_name; ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $product->product_quantity; ?>
+                                                                        <?php echo $product->product_quantity; ?> Kgs
                                                                     </td>
                                                                     <td>
                                                                         Ksh <?php echo $product->product_price; ?>

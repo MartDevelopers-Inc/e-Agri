@@ -162,7 +162,7 @@ require_once('../partials/head.php');
                                                                     <td><?php echo $product->product_sku_code; ?></td>
                                                                     <td><?php echo $product->category_name; ?></td>
                                                                     <td>Ksh <?php echo $product->product_price; ?></td>
-                                                                    <td><?php echo $product->product_quantity; ?></td>
+                                                                    <td><?php echo $product->product_quantity; ?> Kgs</td>
                                                                 </tr>
                                                             <?php } ?>
                                                         </tbody>
@@ -184,6 +184,7 @@ require_once('../partials/head.php');
                                                             $ret = "SELECT * FROM  payment pa
                                                             INNER JOIN cart c ON c.cart_id = pa.payment_cart_id
                                                             INNER JOIN products p ON p.product_id = c.cart_product_id
+                                                            INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
                                                             INNER JOIN users u ON u.user_id = c.cart_user_id
                                                             WHERE p.product_user_id = '$view'  ";
                                                             $stmt = $mysqli->prepare($ret);

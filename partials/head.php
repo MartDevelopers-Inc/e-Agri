@@ -103,6 +103,7 @@ while ($sys = $res->fetch_object()) {
         <link rel="stylesheet" href="../public/backend_assets/iziToast/iziToast.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
+        <!-- Select 2 -->
+        <link href="../public/backend_assets/plugins/select2/css/select2.min.css" rel="stylesheet">
     </head>
 <?php } ?>

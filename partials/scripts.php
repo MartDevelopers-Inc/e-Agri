@@ -1,5 +1,7 @@
 <!-- J Querry -->
 <script src="../public/backend_assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+<!-- Bootstrap popper -->
+<script src="../public/backend_assets/plugins/bootstrap/js/popper.min.js"></script>
 <!-- Bootstrap -->
 <script src="../public/backend_assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- Perfect Scrollbar -->
@@ -7,7 +9,7 @@
 <!-- Pace Js -->
 <script src="../public/backend_assets/plugins/pace/pace.min.js"></script>
 <!-- App Main Js -->
-<script src="../public/backend_assets/js/main.min.js"></script>
+<script src="../public/backend_assets/js/main.js"></script>
 <!-- Custom Js -->
 <script src="../public/backend_assets/js/custom.js"></script>
 <!-- Alerts Js -->
@@ -67,3 +69,14 @@
 
 <?php }
 ?>
+<!-- Select 2 Js -->
+<script src="../public/backend_assets/plugins/select2/js/select2.full.min.js"></script>
+<script>
+    $('.select').select2();
+    /* File Upload */
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    $("input[type='number']").inputSpinner()
+</script>
