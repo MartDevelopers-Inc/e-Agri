@@ -171,14 +171,23 @@ if (isset($_POST['update'])) {
 /* Delete Product */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $
-
-    /* Delete */$del = "DELETE FROM products WHERE product_id = ?";
+    /* Get Product Images */
+    $img_1 = $_GET['img_1'];
+    $img_2 = $_GET['img_2'];
+    $img_3 = $_GET['img_3'];
+    /* Delete */
+    $del = "DELETE FROM products WHERE product_id = ?";
     $prepare  = $mysqli->prepare($del);
     $bind = $prepare->bind_param('s', $delete);
     $prepare->execute();
 
-    if ($prepare) {
+    /* Delete File Images */
+    $img1_dir = '../public/backend_assets/images/products/' . $img_1;
+    $img2_dir = '../public/backend_assets/images/products/' . $img_2;
+    $img3_dir = '../public/backend_assets/images/products/' . $img_3;
+
+
+    if ($prepare && unlink($img1_dir) && unlink($img2_dir) && unlink($img3_dir)) {
         $success = "Deleted" && header('refresh:1; products');
     } else {
         $err = "Failed!, Please Try Again Later";

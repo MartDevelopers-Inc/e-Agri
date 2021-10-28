@@ -75,7 +75,9 @@ require_once('../partials/head.php');
         <div class="app-container">
             <?php require_once('../partials/header.php');
             $view = $_GET['view'];
-            $ret = "SELECT * FROM  products WHERE product_id = '$view'  ";
+            $ret = "SELECT * FROM  products p
+            INNER JOIN users s ON s.user_id = p.product_user_id
+             WHERE product_id = '$view'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
@@ -87,7 +89,7 @@ require_once('../partials/head.php');
                             <div class="row">
                                 <div class="col">
                                     <div class="page-description">
-                                        <h1><?php echo $product->product_name; ?></h1>
+                                        <h1><?php echo $product->product_name . ' -  ' . $product->product_sku_code; ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +130,19 @@ require_once('../partials/head.php');
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
-                                                <h5 class="widget-info-title text-primary"><?php echo $product->product_name; ?> Details</h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Product SKU: </span> <?php echo $product->product_sku_code; ?></h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Available Quantity:</span> <?php echo $product->product_quantity; ?> Kgs</h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Price Per KG:</span> Ksh <?php echo $product->product_price; ?></h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Farmer Name:</span> <?php echo $product->user_name; ?></h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Farmer Phone Number:</span> <?php echo $product->user_phone_no; ?></h5>
+                                                <h5 class="widget-info-title"><span class="text-primary">Farmer Email: </span> <?php echo $product->user_email; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card widget widget-info">
+                                        <div class="card-body">
+                                            <div class="widget-info-container">
+                                                <h5 class="widget-info-title text-primary">Details</h5>
                                                 <p>
                                                     <?php echo $product->product_details; ?>
                                                 </p>
