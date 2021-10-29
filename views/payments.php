@@ -147,9 +147,9 @@ require_once('../partials/head.php');
                                                             Date Paid: <?php echo date('d, M Y g:ia', strtotime($products->payment_date_posted)); ?>
                                                         </td>
                                                         <td>
-                                                            <a href="print_payment_receipt?print=<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-primary">
+                                                            <!-- <a href="print_payment_receipt?print=<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-primary">
                                                                 <i class="fas fa-print"></i> Print Receipt
-                                                            </a>
+                                                            </a> -->
                                                             <a data-bs-toggle="modal" href="#delete-<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-danger">
                                                                 <i class="fas fa-trash"></i> Delete
                                                             </a>

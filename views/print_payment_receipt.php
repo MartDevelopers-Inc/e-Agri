@@ -72,7 +72,7 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
 /* Convert Logo To Base64 Image */
-$path = '../public/backend_assets/images/logo.png';
+$path = '../public/backend_assets/images/neptune.png';
 $type = pathinfo($path, PATHINFO_EXTENSION);
 $data = file_get_contents($path);
 $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
