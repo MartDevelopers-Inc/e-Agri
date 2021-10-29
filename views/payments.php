@@ -148,11 +148,30 @@ require_once('../partials/head.php');
                                                         </td>
                                                         <td>
                                                             <a data-bs-toggle="modal" href="print_payment_receipt?print=<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-primary">
-                                                                <i class="fas fa-printer"></i> Print Receipt
+                                                                <i class="fas fa-print"></i> Print Receipt
                                                             </a>
-                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $products->payment_order_id; ?>" class="badge rounded-pill badge-danger">
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-danger">
                                                                 <i class="fas fa-trash"></i> Delete
                                                             </a>
+                                                            <!-- Delete Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $products->payment_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $products->product_name; ?> Order Payment Record</h4>
+                                                                            <br>
+                                                                            <p>Heads Up, You are about to delete <?php echo $products->product_name; ?> order payment record. This action is irrevisble.</p>
+                                                                            <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                                            <a href="payments?delete=<?php echo $products->payment_order_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
