@@ -182,7 +182,7 @@ while ($sys = $res->fetch_object()) {
                 </h3>
                 <hr style="width:100%" , color="blue">
                 <hr class="yellow">
-                <h4>Farmers</h4>
+                <h4>Customers</h4>
             </h3>
             <table border="1" cellspacing="0" width="98%" style="font-size:9pt">
                 <thead>
@@ -193,7 +193,7 @@ while ($sys = $res->fetch_object()) {
                         <th>National ID NO</th>
                         <th>Contacts</th>
                         <th>Email</th>
-                        <th>Date Added</th>
+                        <th>Date Joined</th>
                     </tr>
                 </thead>
                 <tbody>
