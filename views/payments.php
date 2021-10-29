@@ -93,7 +93,7 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>Processed Cart Checkouts</h1>
+                                    <h1>Order Payments</h1>
                                 </div>
                             </div>
                         </div>
@@ -109,6 +109,7 @@ require_once('../partials/head.php');
                                                     <th>Product Details</th>
                                                     <th>Cart Details</th>
                                                     <th>Payment Details</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -144,6 +145,14 @@ require_once('../partials/head.php');
                                                             Txn ID : <?php echo $products->payment_transaction_code; ?><br>
                                                             Amount : Ksh <?php echo $products->payment_amount; ?><br>
                                                             Date Paid: <?php echo date('d, M Y g:ia', strtotime($products->payment_date_posted)); ?>
+                                                        </td>
+                                                        <td>
+                                                            <a data-bs-toggle="modal" href="print_payment_receipt?print=<?php echo $products->payment_id; ?>" class="badge rounded-pill badge-primary">
+                                                                <i class="fas fa-printer"></i> Print Receipt
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $products->payment_order_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
