@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Oct 28 2021
+ * Created on Fri Oct 29 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -63,82 +63,20 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
-require_once('../config/codeGen.php');
 checklogin();
-/* Update Cart */
-if (isset($_POST['update_cart'])) {
-    $cart_id = $_POST['cart_id'];
-    $cart_product_quantity = $_POST['cart_product_quantity'];
-    /* Persist */
-    $update = "UPDATE cart SET cart_product_quantity =? WHERE cart_id =?";
-    $prepare = $mysqli->prepare($update);
-    $bind = $prepare->bind_param('ss', $cart_product_quantity, $cart_id);
+
+/* Delete Payment */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    $sql = "DELETE FROM orders WHERE order_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
     $prepare->execute();
     if ($prepare) {
-        $success = "Cart Updated, Proceed To Checkout";
+        $success = "Payment Deleted" && header('refresh:1; payments');
     } else {
         $err = "Failed!, Please Try Again Later";
-    }
-}
-
-/* Pay Order */
-if (isset($_POST['pay'])) {
-    $payment_id = $sys_gen_id;
-    $payment_cart_id = $_POST['payment_cart_id'];
-    $payment_transaction_code  = $_POST['payment_transaction_code'];
-    $payment_amount = $_POST['payment_amount'];
-    /* Product */
-    $product_id = $_POST['product_id'];
-    $product_qty = $_POST['product_qty'];
-    $cart_quantity = $_POST['cart_quantity'];
-    $new_quantity = $product_qty - $cart_quantity;
-    $checkout_status = 'Paid';
-    /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
-    if ($cart_quantity > $product_qty) {
-        $err = "No Available Quantities To Process Your Order";
-    } else {
-
-        /* Post Payment */
-        $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
-        /* Update Cart */
-        $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
-        /* Decrent Product Quantity */
-        $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
-
-        /* Prepare Statements */
-        $payprep = $mysqli->prepare($payment);
-        $cartprep = $mysqli->prepare($cart);
-        $productprep = $mysqli->prepare($product);
-
-        /* Binds */
-        $paybind = $payprep->bind_param(
-            'ssss',
-            $payment_id,
-            $payment_cart_id,
-            $payment_transaction_code,
-            $payment_amount
-        );
-        $cartbind = $cartprep->bind_param(
-            'ss',
-            $checkout_status,
-            $payment_cart_id
-        );
-        $productbind = $productprep->bind_param(
-            'ss',
-            $new_quantity,
-            $product_id
-        );
-
-        /* Executes */
-        $payprep->execute();
-        $cartprep->execute();
-        $productprep->execute();
-
-        if ($payprep && $cartprep && $productprep) {
-            $success = "Payment Posted";
-        } else {
-            $err = "Failed!, Please Try Again Later";
-        }
     }
 }
 require_once('../partials/head.php');

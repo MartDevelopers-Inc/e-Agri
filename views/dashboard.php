@@ -204,8 +204,8 @@ require_once('../partials/head.php');
                                                 <li class="widget-list-item widget-list-item-green">
                                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">shopping_basket</i></span>
                                                     <span class="widget-list-item-description">
-                                                        <a href="#" class="widget-list-item-description-title">
-                                                            <?php echo $purchases->user_name; ?>, Purchased <?php echo $purchases->cart_product_quantity . 'Kgs Of ' . $purchases->product_name; ?> <br>
+                                                        <a href="successful_checkouts" class="widget-list-item-description-title">
+                                                            <?php echo $purchases->user_name; ?>, Purchased <?php echo $purchases->cart_product_quantity . ' Kgs Of ' . $purchases->product_name; ?> <br>
                                                             <span class="text-primary">Payment Status: <?php echo $purchases->cart_checkout_status; ?></span>
                                                         </a>
                                                         <span class="widget-list-item-description-subtitle badge badge-success badge-style-light">
@@ -243,12 +243,13 @@ require_once('../partials/head.php');
                                                 <li class="widget-list-item widget-list-item-green">
                                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">paid</i></span>
                                                     <span class="widget-list-item-description">
-                                                        <a href="" class="widget-list-item-description-title">
+                                                        <a href="payments" class="widget-list-item-description-title">
                                                             <?php echo $payments->payment_transaction_code; ?> CONFIRMED<br>
-                                                            <?php echo $payments->user_name; ?> Paid Ksh <?php echo $payments->payment_amount; ?>
-                                                            For <?php echo $payments->product_name; ?> Purchase.
+                                                            <span class="text-success"><?php echo $payments->user_name; ?></span>
+                                                            Paid Ksh <?php echo $payments->payment_amount; ?>
+                                                            For <?php echo $payments->product_name; ?> <br> Order.
                                                         </a>
-                                                        <span class="widget-list-item-description-subtitle">
+                                                        <span class="widget-list-item-description-subtitle text-successs">
                                                             Posted On: <?php echo date('d M Y g:ia', strtotime($payments->payment_date_posted)); ?>
                                                         </span>
                                                     </span>
