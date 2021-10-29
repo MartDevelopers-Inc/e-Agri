@@ -69,7 +69,7 @@ checklogin();
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
 
-    $sql = "DELETE FROM orders WHERE order_id = ?";
+    $sql = "DELETE FROM cart WHERE cart_id = ?";
     $prepare = $mysqli->prepare($sql);
     $bind = $prepare->bind_param('s', $delete);
     $prepare->execute();
@@ -166,7 +166,7 @@ require_once('../partials/head.php');
                                                                             <br>
                                                                             <p>Heads Up, You are about to delete <?php echo $products->product_name; ?> order payment record. This action is irrevisble.</p>
                                                                             <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
-                                                                            <a href="payments?delete=<?php echo $products->payment_order_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="payments?delete=<?php echo $products->payment_cart_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
