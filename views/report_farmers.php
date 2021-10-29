@@ -168,15 +168,17 @@ while ($sys = $res->fetch_object()) {
         <body style="margin:1px;">
             <div class="footer">
                 <hr>
-                <i>' . $sys->sys_name . ' | ' . $sys->sys_tagline . ' Farmers Report Generated On ' . date('d, M Y') . '</i>
+                <i>' . $sys->sys_name . ' |  Farmers Report Generated On ' . date('d, M Y') . '</i>
             </div>
 
             <h3 class="list_header" align="center">
                 <img src="' . $logo . '" align="center">
                 <br>
                 <h3>
-                    ' . $sys->sys_name . '<br>
-                    ' . $sys->sys_tagline . ' <br>
+                ' . $sys->sys_name . '<br>
+                ' . $sys->sys_contacts . ' <br>
+                ' . $sys->sys_email . '<br>
+                ' . $sys->sys_tagline . ' <br>
                 </h3>
                 <hr style="width:100%" , color="blue">
                 <hr class="yellow">
@@ -191,20 +193,19 @@ while ($sys = $res->fetch_object()) {
                         <th>National ID NO</th>
                         <th>Contacts</th>
                         <th>Email</th>
-                        <th>Email</th>
                         <th>Date Added</th>
                     </tr>
                 </thead>
                 <tbody>
                 ';
-                $ret = "SELECT * FROM  users WHERE user_access_level  = 'farmer'  ";
-                $stmt = $mysqli->prepare($ret);
-                $stmt->execute(); //ok
-                $res = $stmt->get_result();
-                $cnt = 1;
-                while ($users = $res->fetch_object()) {
-                    $html .=
-                '
+                    $ret = "SELECT * FROM  users WHERE user_access_level  = 'farmer'  ";
+                    $stmt = $mysqli->prepare($ret);
+                    $stmt->execute(); //ok
+                    $res = $stmt->get_result();
+                    $cnt = 1;
+                    while ($users = $res->fetch_object()) {
+                        $html .=
+                            '
                     <tr>
                         <td>' . $cnt . '</td>
                         <td width="100%">' . $users->user_name . '</td>
