@@ -175,7 +175,81 @@ require_once('../partials/head.php');
                         <!-- End Moodal -->
                         <div class="row">
                             <div class="row">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table id="datatable1" class="display table" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Blog Category Name</th>
+                                                    <th>Posted Blogs</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM  blog_categories";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($category = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $category->blog_category_name; ?></td>
+                                                        <td><?php echo $blogs_count; ?></td>
 
+                                                        <td>
+                                                            <a href="product?view=<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-success">
+                                                                <i class="fas fa-tag"></i> View Posted Blogs
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#edit-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-warning">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </a>
+
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </a>
+                                                            <!-- Update Modal -->
+                                                            <div class="modal fade" id="edit-<?php echo $category->blog_category_id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update <?php echo $category->blog_category_name; ?></h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
+                                                            <!-- Delete Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $category->blog_category_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $category->blog_category_name; ?> Details ?</h4>
+                                                                            <br>
+                                                                            <p>Heads Up, You are about to delete <?php echo $category->blog_category_name; ?> Details. This action is irrevisble.</p>
+                                                                            <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                                            <a href="blogging_engine?delete=<?php echo $category->category_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
