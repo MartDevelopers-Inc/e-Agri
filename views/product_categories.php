@@ -65,6 +65,7 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
+
 /* Add Product Category */
 if (isset($_POST['add'])) {
     $category_id = $sys_gen_id;
@@ -125,6 +126,7 @@ if (isset($_GET['delete'])) {
         $err = "Failed!, Please Try Again Later";
     }
 }
+
 require_once('../partials/head.php');
 ?>
 
