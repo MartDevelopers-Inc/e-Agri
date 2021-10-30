@@ -224,7 +224,9 @@ require_once('../partials/head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM  blogs WHERE blog_blog_category_id = '$view'";
+                                                    $ret = "SELECT * FROM  blogs b 
+                                                    INNER JOIN  users u ON u.user_id = b.blog_published_by
+                                                    WHERE blog_blog_category_id = '$view'";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -236,7 +238,7 @@ require_once('../partials/head.php');
                                                             <td><?php echo  date('d M Y g:ia', strtotime($blogs->blog_date_published)); ?></td>
 
                                                             <td>
-                                                                <a href="blogging_engine_blog_posts?view=<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-success">
+                                                                <a data-bs-toggle="modal" href="#read-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-success">
                                                                     <i class="fas fa-eye"></i> Full Read
                                                                 </a>
                                                                 <a data-bs-toggle="modal" href="#edit-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-warning">
@@ -323,6 +325,44 @@ require_once('../partials/head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- Blog Edit Images End Modal -->
+
+                                                                <!-- Full Read Blog Post -->
+                                                                <div class="modal fade" id="read-<?php echo $blogs->blog_id; ?>">
+                                                                    <div class="modal-dialog  modal-xl">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Blog Post Details</h4>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <?php
+                                                                                if ($blogs->blog_image_1 == '') {
+                                                                                } else {
+                                                                                ?>
+                                                                                    <img class="img-fluid" src="../public/backend_assets/images/blogs/<?php echo $blogs->blog_image_1; ?>">
+                                                                                    <hr>
+                                                                                <?php }
+                                                                                echo $blogs->blog_details; ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                if ($blogs->blog_video_url_1 == '') {
+                                                                                } else {
+                                                                                ?>
+                                                                                    <div class="d-flex justify-content-center text-primary">
+                                                                                        <a class="btn btn-success" target="_blank" href="<?php echo $blogs->blog_video_url_1; ?>">
+                                                                                            <i class="fas fa-video"></i> Watch Video Clip
+                                                                                        </a>
+                                                                                    </div>
+                                                                                <?php } ?>
+                                                                                <hr>
+                                                                                <div class="d-flex justify-content-end text-primary">
+                                                                                    <p>Published On : <?php echo date('M, d Y g:ia', strtotime($blogs->blog_date_published)); ?><br>
+                                                                                        Published By : <?php echo $blogs->user_name; ?></p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> <!-- End Modal -->
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
