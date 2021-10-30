@@ -92,6 +92,41 @@ if (isset($_POST['add_category'])) {
         }
     }
 }
+
+/* Update Category */
+if (isset($_POST['update'])) {
+    $blog_category_id = $_POST['blog_category_id'];
+    $blog_category_name = $_POST['blog_category_name'];
+
+    /* Persist */
+    $sql = "UPDATE blog_categries SET blog_category_name =? WHERE blog_category_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('ss', $blog_category_name, $blog_category_id);
+    $prepare->execute();
+
+    if ($prepare) {
+        $success = "$blog_category_name, Category Updated";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
+
+/* Delete Category */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    /* Persist */
+    $sql = "DELETE FROM blog_categories WHERE blog_category_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1; blogging_engine');
+    } else {
+        $er = "Failed, Please Try Again Later";
+    }
+}
+
 require_once('../partials/head.php');
 ?>
 
@@ -106,49 +141,13 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>STMP Configurations</h1>
+                                    <h1>Blog Categories</h1>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="row">
-                                <?php
-                                $ret = "SELECT * FROM  mailer_setttings ";
-                                $stmt = $mysqli->prepare($ret);
-                                $stmt->execute(); //ok
-                                $res = $stmt->get_result();
-                                while ($sys = $res->fetch_object()) {
-                                ?>
-                                    <div class="col-12">
-                                        <div class="card widget widget-connection-request">
-                                            <div class="card-body">
-                                                <form class="row g-3" method="POST">
-                                                    <div class="col-md-6">
-                                                        <label for="inputEmail4" class="form-label">STMP Host</label>
-                                                        <input type="text" required name="mailer_host" value="<?php echo $sys->mailer_host; ?>" class="form-control-rounded form-control">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label for="inputAddress" class="form-label">STMP Username</label>
-                                                        <input type="text" required name="mailer_username" value="<?php echo $sys->mailer_username; ?>" class="form-control-rounded form-control">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="inputEmail4" class="form-label">STMP Send Emails From</label>
-                                                        <input type="text" required name="mailer_from_email" value="<?php echo $sys->mailer_from_email; ?>" class="form-control-rounded form-control">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label for="inputAddress" class="form-label">STMP Password</label>
-                                                        <input type="password" required name="mailer_password" value="<?php echo $sys->mailer_password; ?>" class="form-control-rounded form-control">
-                                                    </div>
 
-
-                                                    <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" name="update_mailer" class="btn btn-primary">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
                             </div>
                         </div>
                     </div>
