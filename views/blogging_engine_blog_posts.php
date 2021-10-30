@@ -232,7 +232,17 @@ require_once('../partials/head.php');
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
                                                                             <div class="modal-body">
-
+                                                                                <form class="row g-3" method="POST">
+                                                                                    <div class="col-md-12">
+                                                                                        <label for="inputEmail4" class="form-label">Blog Details</label>
+                                                                                        <textarea type="text" rows="10" required name="blog_details" class="form-control-rounded form-control summernote"><?php echo $blogs->blog_details; ?></textarea>
+                                                                                        <!-- Hide This -->
+                                                                                        <input type="hidden" value="<?php echo $blogs->blog_id; ?>" required name="blog_id" class="form-control-rounded form-control">
+                                                                                    </div>
+                                                                                    <div class="col-12 d-flex justify-content-end">
+                                                                                        <button type="submit" name="update" class="btn btn-primary">Update Blog</button>
+                                                                                    </div>
+                                                                                </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
