@@ -129,7 +129,38 @@ if (isset($_GET['delete'])) {
 }
 
 /* Update Blog Images And Vide Urls */
-if (isset($_POST['blog_images'])) {
+/* Update Product Images */
+if (isset($_POST['update_media'])) {
+    $blog_id = $_POST['blog_id'];
+
+    /* Process Posted Images */
+    $img_1 = explode(".", $_FILES['product_image_1']["name"]);
+    
+
+    /* Give New File Names */
+    $new_img_1 = $sys_img_code_alpha . '.' . end($img_1);
+    
+
+    /* Move Uploaded Images */
+    move_uploaded_file($_FILES["product_image_1"]["tmp_name"], "../public/backend_assets/images/blogs/" . $new_img_1);
+   
+
+    /* Persist Changes */
+    $update = "UPDATE products SET product_image_1 =?, product_image_2 =?, product_image_3 =? WHERE product_id = ?";
+    $prepare = $mysqli->prepare($update);
+    $bind = $prepare->bind_param(
+        'ssss',
+        $new_img_1,
+        $new_img_2,
+        $new_img_3,
+        $product_id
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Images Uploaded";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
 }
 require_once('../partials/head.php');
 ?>
@@ -289,7 +320,7 @@ require_once('../partials/head.php');
                                                                                         <input type="text" name="blog_video_url_1" value="<?php echo $blogs->blog_video_url_1; ?>" class="form-control form-control-rounded">
                                                                                     </div>
                                                                                     <div class="col-12 d-flex justify-content-end">
-                                                                                        <button type="submit" name="update_images" class="btn btn-primary">Upload Media</button>
+                                                                                        <button type="submit" name="update_media" class="btn btn-primary">Upload Media</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
