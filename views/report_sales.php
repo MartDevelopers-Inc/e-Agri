@@ -187,6 +187,7 @@ while ($sys = $res->fetch_object()) {
             <table border="1" cellspacing="0" width="98%" style="font-size:9pt">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Customer Details</th>
                         <th>Product Details</th>
                         <th>Cart Details</th>
@@ -205,6 +206,7 @@ while ($sys = $res->fetch_object()) {
                 $stmt = $mysqli->prepare($ret);
                 $stmt->execute(); //ok
                 $res = $stmt->get_result();
+                $cnt = 1;
                 while ($products = $res->fetch_object()) {
                         $html .=
                             '
@@ -222,7 +224,7 @@ while ($sys = $res->fetch_object()) {
                         <td>
                             QTY: '. $products->cart_product_quantity.' Kgs<br>
                             Amount: Ksh '. ($products->cart_product_quantity * $products->product_price).'<br>
-                            Date Added: '. date('d M Y g:ia', strtotime($products->cart_product_added_at)).'><br>
+                            Date Added: '. date('d M Y g:ia', strtotime($products->cart_product_added_at)).'<br>
                         </td>
                         <td>
                             Txn ID : '.$products->payment_transaction_code.'<br>
@@ -244,7 +246,7 @@ while ($sys = $res->fetch_object()) {
     $dompdf->set_paper('A4');
     $dompdf->set_option('isHtml5ParserEnabled', true);
     $dompdf->render();
-    $dompdf->stream('Products', array("Attachment" => 1));
+    $dompdf->stream('Sales Records', array("Attachment" => 1));
     $options = $dompdf->getOptions();
     $options->setDefaultFont('');
     $dompdf->setOptions($options);
