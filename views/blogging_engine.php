@@ -142,9 +142,37 @@ require_once('../partials/head.php');
                             <div class="col">
                                 <div class="page-description">
                                     <h1>Blog Categories</h1>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                            <i class="fas fa-plus"></i> Register New Blog Category
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Add Modal -->
+                        <div class="modal fade" id="add_modal">
+                            <div class="modal-dialog  modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Register New Product Category</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3" method="POST">
+                                            <div class="col-md-12">
+                                                <label for="inputEmail4" class="form-label">Category Name</label>
+                                                <input type="text" required name="blog_category_name" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Moodal -->
                         <div class="row">
                             <div class="row">
 
