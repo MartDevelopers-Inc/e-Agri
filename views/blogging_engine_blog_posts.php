@@ -198,7 +198,7 @@ require_once('../partials/head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM  blogs";
+                                                    $ret = "SELECT * FROM  blogs WHERE blog_blog_category_id = '$view'";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -216,8 +216,8 @@ require_once('../partials/head.php');
                                                                 <a data-bs-toggle="modal" href="#edit-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-warning">
                                                                     <i class="fas fa-edit"></i> Edit Content
                                                                 </a>
-                                                                <a data-bs-toggle="modal" href="#media-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-warning">
-                                                                    <i class="fas fa-edit"></i> Edit Post Media
+                                                                <a data-bs-toggle="modal" href="#media-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-primary">
+                                                                    <i class="fas fa-image"></i> Edit Post Media
                                                                 </a>
 
                                                                 <a data-bs-toggle="modal" href="#delete-<?php echo $blogs->blog_id; ?>" class="badge rounded-pill badge-danger">
@@ -268,6 +268,35 @@ require_once('../partials/head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Modal -->
+
+                                                                <!-- Blog Edit Images -->
+                                                                <div class="modal fade" id="media-<?php echo $blogs->blog_id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Update Blog Post Media</h4>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form class="row g-3" method="POST" enctype="multipart/form-data">
+                                                                                    <input type="hidden" required name="product_id" value="<?php echo $blogs->blog_id; ?>" class="form-control-rounded form-control">
+                                                                                    <div class="col-md-12">
+                                                                                        <label for="inputAddress" class="form-label">Blog Post Image</label>
+                                                                                        <input accept=".webp, .png, .jpg, .jpeg" type="file" name="blog_image_1" class="form-control form-control-rounded">
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <label for="inputAddress" class="form-label">Blog Post Video Clip Url</label>
+                                                                                        <input type="text" name="blog_video_url_1" value="<?php echo $blogs->blog_video_url_1; ?>" class="form-control form-control-rounded">
+                                                                                    </div>
+                                                                                    <div class="col-12 d-flex justify-content-end">
+                                                                                        <button type="submit" name="update_images" class="btn btn-primary">Upload Media</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Blog Edit Images End Modal -->
                                                             </td>
                                                         </tr>
                                                     <?php } ?>

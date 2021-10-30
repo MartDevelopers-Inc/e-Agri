@@ -99,7 +99,7 @@ if (isset($_POST['update'])) {
     $blog_category_name = $_POST['blog_category_name'];
 
     /* Persist */
-    $sql = "UPDATE blog_categries SET blog_category_name =? WHERE blog_category_id = ?";
+    $sql = "UPDATE blog_categories SET blog_category_name =? WHERE blog_category_id = ?";
     $prepare = $mysqli->prepare($sql);
     $bind = $prepare->bind_param('ss', $blog_category_name, $blog_category_id);
     $prepare->execute();
