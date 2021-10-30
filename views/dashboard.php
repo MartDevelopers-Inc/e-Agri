@@ -244,8 +244,8 @@ require_once('../partials/head.php');
                                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">paid</i></span>
                                                     <span class="widget-list-item-description">
                                                         <a href="payments" class="widget-list-item-description-title">
-                                                            <?php echo $payments->payment_transaction_code; ?> CONFIRMED<br>
-                                                            <span class="text-success"><?php echo $payments->user_name; ?></span>
+                                                            <span class="text-success"><?php echo $payments->payment_transaction_code; ?></span> CONFIRMED<br>
+                                                            <span class="text-primary"><?php echo $payments->user_name; ?></span>
                                                             Paid Ksh <?php echo $payments->payment_amount; ?>
                                                             For <?php echo $payments->product_name; ?> <br> Order.
                                                         </a>

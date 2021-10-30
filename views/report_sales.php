@@ -168,7 +168,7 @@ while ($sys = $res->fetch_object()) {
         <body style="margin:1px;">
             <div class="footer">
                 <hr>
-                <i>' . $sys->sys_name . ' |  Product Categories Report Generated On ' . date('d, M Y') . '</i>
+                <i>' . $sys->sys_name . ' |  Sales Report Generated On ' . date('d, M Y') . '</i>
             </div>
 
             <h3 class="list_header" align="center">
@@ -182,43 +182,52 @@ while ($sys = $res->fetch_object()) {
                 </h3>
                 <hr style="width:100%" , color="blue">
                 <hr class="yellow">
-                <h4>Product Categories</h4>
+                <h4>Sales Reports</h4>
             </h3>
             <table border="1" cellspacing="0" width="98%" style="font-size:9pt">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>SKU #</th>
-                        <th>Price Per Kg</th>
-                        <th>Quantity</th>
-                        <th>Category</th>
-                        <th>Farmer Details</th>
+                        <th>Customer Details</th>
+                        <th>Product Details</th>
+                        <th>Cart Details</th>
+                        <th>Payment Details</th>
                     </tr>
                 </thead>
                 <tbody>
                 ';
-                $ret = "SELECT * FROM  products p
-                INNER JOIN users u ON u.user_id = p.product_user_id
-                INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
+                $ret = "SELECT * FROM cart c 
+                INNER JOIN products p ON p.product_id = c.cart_product_id
+                INNER JOIN users u ON u.user_id  = c.cart_user_id 
+                INNER JOIN payment pd ON pd.payment_cart_id  = c.cart_id
+                WHERE cart_checkout_status  != 'Pending'
+                ORDER BY c.cart_product_added_at DESC
                 ";
                 $stmt = $mysqli->prepare($ret);
                 $stmt->execute(); //ok
                 $res = $stmt->get_result();
-                $cnt = 1;
                 while ($products = $res->fetch_object()) {
                         $html .=
                             '
                     <tr>
                         <td>' . $cnt . '</td>
-                        <td width="100%">' . $products->product_name . '</td>
-                        <td width="90%">' . $products->product_sku_code . '</td>
-                        <td width="50%">Ksh ' . $products->product_price . ' </td>
-                        <td width="50%">' . $products->product_quantity . ' Kgs</td>
-                        <td width="100%">' . $products->category_name . '</td>
-                        <td width="100%">
-                            Name:  ' .$products->user_name. '<br>
-                            Phone: ' .$products->user_phone_no. ' <br>
+                        <td>
+                            Name: '.$products->user_name.'<br>
+                            Phone: '.$products->user_phone_no.'<br>
+                        </td>
+                        <td>
+                            Name: '. $products->product_name.'<br>
+                            SKU: '.  $products->product_sku_code.'<br>
+                            Unit(Kg) Price: Ksh '.$products->product_price.'<br>
+                        </td>
+                        <td>
+                            QTY: '. $products->cart_product_quantity.' Kgs<br>
+                            Amount: Ksh '. ($products->cart_product_quantity * $products->product_price).'<br>
+                            Date Added: '. date('d M Y g:ia', strtotime($products->cart_product_added_at)).'><br>
+                        </td>
+                        <td>
+                            Txn ID : '.$products->payment_transaction_code.'<br>
+                            Amount : Ksh '. $products->payment_amount.'<br>
+                            Date Paid:  '.date('d, M Y g:ia', strtotime($products->payment_date_posted)).'
                         </td>
                     </tr>
                     ';
