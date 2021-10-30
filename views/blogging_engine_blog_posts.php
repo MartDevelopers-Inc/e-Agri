@@ -132,32 +132,27 @@ if (isset($_GET['delete'])) {
 /* Update Product Images */
 if (isset($_POST['update_media'])) {
     $blog_id = $_POST['blog_id'];
+    $blog_video_url = $_POST['blog_video_url'];
 
     /* Process Posted Images */
-    $img_1 = explode(".", $_FILES['product_image_1']["name"]);
-    
-
+    $img_1 = explode(".", $_FILES['blog_image_1']["name"]);
     /* Give New File Names */
     $new_img_1 = $sys_img_code_alpha . '.' . end($img_1);
-    
-
     /* Move Uploaded Images */
-    move_uploaded_file($_FILES["product_image_1"]["tmp_name"], "../public/backend_assets/images/blogs/" . $new_img_1);
-   
+    move_uploaded_file($_FILES["blog_image_1"]["tmp_name"], "../public/backend_assets/images/blogs/" . $new_img_1);
 
     /* Persist Changes */
-    $update = "UPDATE products SET product_image_1 =?, product_image_2 =?, product_image_3 =? WHERE product_id = ?";
+    $update = "UPDATE blogs SET blog_image_1 =?, blog_video_url =? WHERE blog_id = ?";
     $prepare = $mysqli->prepare($update);
     $bind = $prepare->bind_param(
         'ssss',
-        $new_img_1,
-        $new_img_2,
-        $new_img_3,
-        $product_id
+        $blog_image_1,
+        $blog_video_url,
+        $blog_id
     );
     $prepare->execute();
     if ($prepare) {
-        $success = "Images Uploaded";
+        $success = "Blog Post Media Uploaded";
     } else {
         $err = "Failed!, Please Try Again Later";
     }
@@ -313,7 +308,7 @@ require_once('../partials/head.php');
                                                                                     <input type="hidden" required name="product_id" value="<?php echo $blogs->blog_id; ?>" class="form-control-rounded form-control">
                                                                                     <div class="col-md-12">
                                                                                         <label for="inputAddress" class="form-label">Blog Post Image</label>
-                                                                                        <input accept=".webp, .png, .jpg, .jpeg" type="file" name="blog_image_1" class="form-control form-control-rounded">
+                                                                                        <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="blog_image_1" class="form-control form-control-rounded">
                                                                                     </div>
                                                                                     <div class="col-md-12">
                                                                                         <label for="inputAddress" class="form-label">Blog Post Video Clip Url</label>
