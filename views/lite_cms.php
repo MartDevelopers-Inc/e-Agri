@@ -95,8 +95,28 @@ if (isset($_POST['update'])) {
 }
 
 /* Update Mailer Settings */
-if(isset($_POST['update_mailer'])){
-    
+if (isset($_POST['update_mailer'])) {
+    $mailer_host = $_POST['mailer_settings'];
+    $mailer_username = $_POST['mailer_username'];
+    $mailer_from_email  = $_POST['mailer_from_email'];
+    $mailer_password = $_POST['mailer_password'];
+
+    /* Persit This */
+    $update = "UPDATE mailer_setttings SET mailer_host =?, mailer_username =?, mailer_from_email =?, mailer_password =?";
+    $prepare = $mysqli->prepare($update);
+    $bind = $prepare->bind_param(
+        'ssss',
+        $mailer_host,
+        $mailer_username,
+        $mailer_from_email,
+        $mailer_password
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "STMP Mailer Configurations Updated";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
 }
 
 require_once('../partials/head.php');
