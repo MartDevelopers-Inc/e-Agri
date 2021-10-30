@@ -65,67 +65,35 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
-/* Blog Categories */
-if (isset($_POST['add_category'])) {
-    $blog_category_id = $sys_gen_id;
-    $blog_category_name = $_POST['blog_category_name'];
 
-    /* Check If Category Exists */
-    $sql = "SELECT * FROM  blog_categories  WHERE blog_category_name = '$blog_category_name'";
-    $res = mysqli_query($mysqli, $sql);
-    if (mysqli_num_rows($res) > 0) {
-        $row = mysqli_fetch_assoc($res);
-        if ($blog_category_name == $row['blog_category_name']) {
-            $err = 'Category Already Available';
-        }
-    } else {
-
-        /* Persist This */
-        $sql = "INSERT INTO blog_categories (blog_category_id, blog_category_name) VALUES(?,?)";
-        $prepare = $mysqli->prepare($sql);
-        $bind = $prepare->bind_param('ss', $blog_category_id, $blog_category_name);
-        $prepare->execute();
-        if ($prepare) {
-            $success = "$blog_category_name, Added";
-        } else {
-            $err = "Failed!, Please Try Again Later";
-        }
-    }
-}
-
-/* Update Category */
-if (isset($_POST['update'])) {
-    $blog_category_id = $_POST['blog_category_id'];
-    $blog_category_name = $_POST['blog_category_name'];
+/* Add Blog Post */
+if (isset($_POST['publish'])) {
+    $blog_id = $sys_gen_id;
+    $blog_blog_category_id = $_GET['view'];
+    $blog_details = $_POST['blog_details'];
+    $blog_published_by = $_SESSION['user_id'];
 
     /* Persist */
-    $sql = "UPDATE blog_categries SET blog_category_name =? WHERE blog_category_id = ?";
+    $sql = "INSERT INTO  blogs(blog_id, blog_blog_category_id, blog_details, blog_published_by) VALUES(?,?,?,?)";
     $prepare = $mysqli->prepare($sql);
-    $bind = $prepare->bind_param('ss', $blog_category_name, $blog_category_id);
+    $bind = $prepare->bind_param(
+        'ssss',
+        $blog_id,
+        $blog_blog_category_id,
+        $blog_details,
+        $blog_published_by
+    );
     $prepare->execute();
-
     if ($prepare) {
-        $success = "$blog_category_name, Category Updated";
+        $success = "Blog Post Published";
     } else {
         $err = "Failed!, Please Try Again Later";
     }
 }
 
-/* Delete Category */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+/* Update Blog Post */
 
-    /* Persist */
-    $sql = "DELETE FROM blog_categories WHERE blog_category_id = ?";
-    $prepare = $mysqli->prepare($sql);
-    $bind = $prepare->bind_param('s', $delete);
-    $prepare->execute();
-    if ($prepare) {
-        $success = "Deleted" && header('refresh:1; blogging_engine');
-    } else {
-        $er = "Failed, Please Try Again Later";
-    }
-}
+/* Delete Blog Post */
 
 require_once('../partials/head.php');
 ?>
