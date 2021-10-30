@@ -132,7 +132,7 @@ if (isset($_GET['delete'])) {
 /* Update Product Images */
 if (isset($_POST['update_media'])) {
     $blog_id = $_POST['blog_id'];
-    $blog_video_url = $_POST['blog_video_url'];
+    $blog_video_url_1 = $_POST['blog_video_url_1'];
 
     /* Process Posted Images */
     $img_1 = explode(".", $_FILES['blog_image_1']["name"]);
@@ -142,12 +142,12 @@ if (isset($_POST['update_media'])) {
     move_uploaded_file($_FILES["blog_image_1"]["tmp_name"], "../public/backend_assets/images/blogs/" . $new_img_1);
 
     /* Persist Changes */
-    $update = "UPDATE blogs SET blog_image_1 =?, blog_video_url =? WHERE blog_id = ?";
+    $update = "UPDATE blogs SET blog_image_1 =?, blog_video_url_1 =? WHERE blog_id = ?";
     $prepare = $mysqli->prepare($update);
     $bind = $prepare->bind_param(
-        'ssss',
-        $blog_image_1,
-        $blog_video_url,
+        'sss',
+        $new_img_1,
+        $blog_video_url_1,
         $blog_id
     );
     $prepare->execute();
@@ -305,7 +305,7 @@ require_once('../partials/head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <form class="row g-3" method="POST" enctype="multipart/form-data">
-                                                                                    <input type="hidden" required name="product_id" value="<?php echo $blogs->blog_id; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" required name="blog_id" value="<?php echo $blogs->blog_id; ?>" class="form-control-rounded form-control">
                                                                                     <div class="col-md-12">
                                                                                         <label for="inputAddress" class="form-label">Blog Post Image</label>
                                                                                         <input required accept=".webp, .png, .jpg, .jpeg" type="file" name="blog_image_1" class="form-control form-control-rounded">
