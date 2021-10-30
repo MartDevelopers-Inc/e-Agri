@@ -113,7 +113,25 @@ if (isset($_POST['update'])) {
 }
 
 /* Delete Blog Post */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view']; /* Blog Category ID */
+    /* Persist */
+    $sql = "DELETE FROM blogs WHERE blog_id = ?";
+    $prepare  = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1; blogging_engine_blog_posts?view=' . $view);
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 
+/* Update Blog Images And Vide Urls */
+if (isset($_POST['blog_images'])) {
+    
+}
 require_once('../partials/head.php');
 ?>
 
