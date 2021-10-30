@@ -130,7 +130,6 @@ if (isset($_GET['delete'])) {
 
 /* Update Blog Images And Vide Urls */
 if (isset($_POST['blog_images'])) {
-    
 }
 require_once('../partials/head.php');
 ?>
@@ -139,134 +138,142 @@ require_once('../partials/head.php');
     <div class="app align-content-stretch d-flex flex-wrap">
         <?php require_once('../partials/sidebar.php'); ?>
         <div class="app-container">
-            <?php require_once('../partials/header.php'); ?>
-            <div class="app-content">
-                <div class="content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col">
-                                <div class="page-description">
-                                    <h1>Blog Categories</h1>
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
-                                            <i class="fas fa-plus"></i> Register New Blog Category
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Add Modal -->
-                        <div class="modal fade" id="add_modal">
-                            <div class="modal-dialog  modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Register New Product Category</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="row g-3" method="POST">
-                                            <div class="col-md-12">
-                                                <label for="inputEmail4" class="form-label">Category Name</label>
-                                                <input type="text" required name="blog_category_name" class="form-control-rounded form-control">
-                                            </div>
-                                            <div class="col-12 d-flex justify-content-end">
-                                                <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Moodal -->
-                        <div class="row">
+            <?php require_once('../partials/header.php');
+            $view = $_GET['view'];
+            $ret = "SELECT * FROM  blog_categories WHERE blog_category_id = '$view'";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($category = $res->fetch_object()) {
+            ?>
+                <div class="app-content">
+                    <div class="content-wrapper">
+                        <div class="container-fluid">
                             <div class="row">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <table id="datatable1" class="display table" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Blog Category Name</th>
-                                                    <th>Posted Blogs</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $ret = "SELECT * FROM  blog_categories";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($category = $res->fetch_object()) {
-                                                    /* Count All Available Blog Posts Per Category */
-                                                    $query = "SELECT COUNT(*) FROM blogs WHERE blog_blog_category_id = '$category->blog_category_id' ";
-                                                    $stmt = $mysqli->prepare($query);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($blogs_count);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                ?>
+                                <div class="col">
+                                    <div class="page-description">
+                                        <h1>Published Blog Posts Under : <?php echo $category->blog_category_name; ?></h1>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                                <i class="fas fa-plus"></i> Publish Post
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Modal -->
+                            <div class="modal fade" id="add_modal">
+                                <div class="modal-dialog  modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Publish Blog Post</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="row g-3" method="POST">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail4" class="form-label">Blog Details</label>
+                                                    <textarea type="text" rows="10" required name="blog_details" class="form-control-rounded form-control summernote"></textarea>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button type="submit" name="publish" class="btn btn-primary">Publish Blog</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Moodal -->
+                            <div class="row">
+                                <div class="row">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <table id="datatable1" class="display table" style="width:100%">
+                                                <thead>
                                                     <tr>
-                                                        <td><?php echo $category->blog_category_name; ?></td>
-                                                        <td><?php echo $blogs_count; ?> Post(s)</td>
-
-                                                        <td>
-                                                            <a href="blogging_engine_blog_posts?view=<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-success">
-                                                                <i class="fas fa-tag"></i> View Posted Blogs
-                                                            </a>
-                                                            <a data-bs-toggle="modal" href="#edit-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-warning">
-                                                                <i class="fas fa-edit"></i> Edit
-                                                            </a>
-
-                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-danger">
-                                                                <i class="fas fa-trash"></i> Delete
-                                                            </a>
-                                                            <!-- Update Modal -->
-                                                            <div class="modal fade" id="edit-<?php echo $category->blog_category_id; ?>">
-                                                                <div class="modal-dialog  modal-lg">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title">Update <?php echo $category->blog_category_name; ?></h4>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- End Modal -->
-
-                                                            <!-- Delete Modal -->
-                                                            <div class="modal fade" id="delete-<?php echo $category->blog_category_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body text-center text-danger">
-                                                                            <h4>Delete <?php echo $category->blog_category_name; ?> Details ?</h4>
-                                                                            <br>
-                                                                            <p>Heads Up, You are about to delete <?php echo $category->blog_category_name; ?> Details. This action is irrevisble.</p>
-                                                                            <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
-                                                                            <a href="blogging_engine?delete=<?php echo $category->blog_category_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- End Modal -->
-                                                        </td>
+                                                        <th>Blog Category Name</th>
+                                                        <th>Posted Blogs</th>
+                                                        <th>Action</th>
                                                     </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM  blog_categories";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($category = $res->fetch_object()) {
+                                                        /* Count All Available Blog Posts Per Category */
+                                                        $query = "SELECT COUNT(*) FROM blogs WHERE blog_blog_category_id = '$category->blog_category_id' ";
+                                                        $stmt = $mysqli->prepare($query);
+                                                        $stmt->execute();
+                                                        $stmt->bind_result($blogs_count);
+                                                        $stmt->fetch();
+                                                        $stmt->close();
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $category->blog_category_name; ?></td>
+                                                            <td><?php echo $blogs_count; ?> Post(s)</td>
+
+                                                            <td>
+                                                                <a href="blogging_engine_blog_posts?view=<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-success">
+                                                                    <i class="fas fa-tag"></i> View Posted Blogs
+                                                                </a>
+                                                                <a data-bs-toggle="modal" href="#edit-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-warning">
+                                                                    <i class="fas fa-edit"></i> Edit
+                                                                </a>
+
+                                                                <a data-bs-toggle="modal" href="#delete-<?php echo $category->blog_category_id; ?>" class="badge rounded-pill badge-danger">
+                                                                    <i class="fas fa-trash"></i> Delete
+                                                                </a>
+                                                                <!-- Update Modal -->
+                                                                <div class="modal fade" id="edit-<?php echo $category->blog_category_id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Update <?php echo $category->blog_category_name; ?></h4>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal -->
+
+                                                                <!-- Delete Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $category->blog_category_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $category->blog_category_name; ?> Details ?</h4>
+                                                                                <br>
+                                                                                <p>Heads Up, You are about to delete <?php echo $category->blog_category_name; ?> Details. This action is irrevisble.</p>
+                                                                                <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                                                <a href="blogging_engine?delete=<?php echo $category->blog_category_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal -->
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
     <!-- Javascripts -->

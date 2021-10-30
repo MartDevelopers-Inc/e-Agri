@@ -98,6 +98,8 @@ while ($sys = $res->fetch_object()) {
 
         <link rel="icon" type="image/png" sizes="32x32" href="../public/backend_assets/images/neptune.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="../public/backend_assets/images/neptune.png" />
+        <!-- Summer Note -->
+        <link href="../public/backend_assets/plugins/summernote/summernote-lite.min.css" rel="stylesheet">
 
         <!-- Izi Alerts -->
         <link rel="stylesheet" href="../public/backend_assets/iziToast/iziToast.min.css">
