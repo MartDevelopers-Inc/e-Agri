@@ -92,6 +92,25 @@ if (isset($_POST['publish'])) {
 }
 
 /* Update Blog Post */
+if (isset($_POST['update'])) {
+    $blog_id = $_POST['blog_id'];
+    $blog_details = $_POST['blog_details'];
+
+    /* Persist */
+    $sql = "UPDATE blogs SET blog_details = ? WHERE blog_id =?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param(
+        'ss',
+        $blog_details,
+        $blog_id
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success  = "Blog Post Updated";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 
 /* Delete Blog Post */
 
