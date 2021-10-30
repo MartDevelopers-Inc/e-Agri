@@ -16,6 +16,9 @@
 <script src="../public/backend_assets/iziToast/iziToast.min.js"></script>
 <!-- Dashboard Js -->
 <script src="../public/backend_assets/js/pages/dashboard.js"></script>
+<!-- Summernote Js -->
+<script src="../public/backend_assets/plugins/summernote/summernote-lite.min.js"></script>
+<script src="../public/backend_assets/js/pages/text-editor.js"></script>
 <!-- Datatable Js -->
 <script src="../public/backend_assets/plugins/datatables/datatables.min.js"></script>
 <!-- Data Table Init -->

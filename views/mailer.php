@@ -68,7 +68,7 @@ checklogin();
 
 /* Update Mailer Settings */
 if (isset($_POST['update_mailer'])) {
-    $mailer_host = $_POST['mailer_settings'];
+    $mailer_host = $_POST['mailer_host'];
     $mailer_username = $_POST['mailer_username'];
     $mailer_from_email  = $_POST['mailer_from_email'];
     $mailer_password = $_POST['mailer_password'];
