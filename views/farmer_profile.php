@@ -63,6 +63,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
+require_once('../config/codeGen.php');
 checklogin();
 /* Update User Profile */
 if (isset($_POST['Update_Profile'])) {
@@ -134,8 +135,8 @@ if (isset($_POST['Update_profile_pic'])) {
     $prepare = $mysqli->prepare($update);
     $bind = $prepare->bind_param(
         'ss',
-        $user_dpic,
-        $usre_id
+        $new_img_1,
+        $user_id
     );
     $prepare->execute();
     if ($prepare) {
@@ -255,7 +256,7 @@ require_once('../partials/head.php'); ?>
                                         </div>
 
                                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="security-tab">
-                                            <form method="post">
+                                            <form method="post" enctype="multipart/form-data">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="row m-t-xxl">
