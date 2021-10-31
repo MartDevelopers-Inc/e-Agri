@@ -112,9 +112,14 @@ while ($sys = $res->fetch_object()) {
                                     <li>
                                         <a href="contacts">Contacts</a>
                                     </li>
-
+                                    <li>
+                                        <a href="customer_signup">Register Customer Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="farmer_signup">Register Farmer Account</a>
+                                    </li>
                                     <li class="li-btn">
-                                        <a class="custom-btn custom-btn--small custom-btn--style-2" target="_blank" href="login">Sign In</a>
+                                        <a class="custom-btn custom-btn--small custom-btn--style-2" href="login">Sign In</a>
                                     </li>
                                 </ul>
                             </nav>

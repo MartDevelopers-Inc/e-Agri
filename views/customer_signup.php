@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Fri Oct 22 2021
+ * Created on Sun Oct 31 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -59,37 +59,52 @@
  * IN NO EVENT WILL MartDevelopers Inc  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
+
+
+
 /* Handle User Login  */
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 
-if (isset($_POST['sign_in'])) {
+if (isset($_POST['sign_up'])) {
+    $user_id = $sys_gen_id;
+    $user_created_at = date('d M Y');
+    $user_number = $a . $b;
+    $user_access_level = 'customer';
+    $user_name = $_POST['user_name'];
     $user_email = $_POST['user_email'];
+    $user_phone_no = $_POST['user_phone_no'];
     $user_password = sha1(md5($_POST['user_password']));
-
-    $stmt = $mysqli->prepare("SELECT user_email, user_password, user_access_level, user_id FROM users
-     WHERE user_email=? AND user_password=? ");
-    $stmt->bind_param('ss', $user_email, $user_password);
-    $stmt->execute();
-    $stmt->bind_result($user_email, $user_password, $user_access_level, $user_id);
-    $rs = $stmt->fetch();
-
-    /* Persist Sessions */
-    $_SESSION['user_id'] = $user_id;
-    $_SESSION['user_access_level'] = $user_access_level;
-
-    if ($rs && $_SESSION['user_access_level'] == 'admin') {
-        header("location:dashboard");
-    } else if ($rs && $_SESSION['user_access_level'] == 'farmer') {
-        header("location:farmer_home");
-    } else if ($rs && $_SESSION['user_access_level'] == 'customer') {
-        header("location:home");
+    $confirm_user_password = sha1(md5($_POST['confirm_user_password']));
+    /* Check If These Shits Match */
+    if ($user_password != $confirm_user_password) {
+        $err = "Passwords Does Not Match";
     } else {
-        $err = "Access Denied Please Check Your Email Or Password";
+        /* Post This User Details, But Before That Check If This MF exists */
+        $sql = "SELECT * FROM  users  WHERE user_phone_no ='$user_phone_no' || user_email = '$user_email' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($user_phone_no == $row['user_phone_no'] || $user_email == $row['user_email']) {
+                $err = 'Account With That Phone Number Or Email  Already Exists';
+            }
+        } else {
+            /* Now Persist This MF Details */
+            $query = 'INSERT INTO users(user_id, user_name, user_email, user_phone_no, user_password, user_number, user_access_level, user_created_at) VALUES(?,?,?,?,?,?,?,?)';
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssss', $user_id, $user_name, $user_email, $user_phone_no, $user_password, $user_number, $user_access_level, $user_created_at);
+            $stmt->execute();
+            if ($stmt) {
+                $success = 'Welcome ' . $user_name . ', Your Account  Has Been Created, Proceed To Login ';
+            } else {
+                $err = 'Please Try Again Or Try Later';
+            }
+        }
     }
 }
+
 require_once('../partials/head.php');
 
 /* Pop System Settings Here */
@@ -105,26 +120,34 @@ while ($sys = $res->fetch_object()) {
             <div class="app-auth-background">
             </div>
             <div class="app-auth-container">
-                <div class="logo">
+                <div class="logo text-center">
                     <a href=""><?php echo $sys->sys_name; ?></a>
                 </div>
-                <p class="auth-description">Please sign-in to your account and continue to the dashboard.
-                    <br>Don't have a account? <a href="index">Sign Up</a>
-                </p>
+                <br>
+                <p class="auth-description">Please enter your credentials to create a customer account.<br>Already have a customer account? <a href="login">Sign In</a></p>
                 <form method="post">
-
                     <div class="auth-credentials m-b-xxl">
-                        <label for="signInEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control m-b-md" name="user_email" required id="signInEmail">
+                        <label for="signInEmail" class="form-label">Full Name</label>
+                        <input type="text" name="user_name" class="form-control m-b-md" name="user_email" required>
+
+                        <label for="signInEmail" class="form-label">Email Address</label>
+                        <input type="text" name="user_email" class="form-control m-b-md" name="user_email" required>
+
+                        <label for="signInEmail" class="form-label">Phone Number</label>
+                        <input type="text" name="user_phone_no" class="form-control m-b-md" name="user_email" required>
 
                         <label for="signInPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="user_password" id="signInPassword">
+                        <input type="password" name="user_password" class="form-control" name="user_password">
+
+                        <label for="signInPassword" class="form-label">Confirm Password</label>
+                        <input type="password" name="confirm_user_password" class="form-control" name="user_password">
                     </div>
                     <div class="auth-submit">
-                        <input type="submit" name="sign_in" value="Sign In" class="btn btn-primary" />
+                        <input type="submit" name="sign_up" value="Sign Up" class="btn btn-primary" />
                         <a href="forgot_password" class="auth-forgot-password float-end">Forgot password?</a>
                     </div>
                 </form>
+                <br><br>
             </div>
         </div>
         <!-- Javascripts -->
