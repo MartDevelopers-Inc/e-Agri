@@ -141,6 +141,21 @@ if (isset($_POST['pay'])) {
         }
     }
 }
+
+/* Delete Pending Checkouts */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    $sql  = "DELETE FROM cart WHERE cart_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1; customer_pending_checkouts');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 

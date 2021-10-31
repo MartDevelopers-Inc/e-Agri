@@ -141,6 +141,23 @@ if (isset($_POST['pay'])) {
         }
     }
 }
+
+
+
+/* Delete Pending Checkouts */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    $sql  = "DELETE FROM cart WHERE cart_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1; farmer_pending_checkouts');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -258,7 +275,7 @@ require_once('../partials/head.php');
                                                                             <br>
                                                                             <p>Heads Up, You are about to delete <?php echo $products->product_name; ?> order from Cart. This action is irrevisble.</p>
                                                                             <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
-                                                                            <a href="pending_checkouts?delete=<?php echo $products->cart_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="farmer_pending_checkouts?delete=<?php echo $products->cart_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
