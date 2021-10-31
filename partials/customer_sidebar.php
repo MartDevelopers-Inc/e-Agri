@@ -81,7 +81,7 @@ while ($sys = $res->fetch_object()) {
         <div class="logo">
             <a href="home" class="logo-icon"><span class="logo-text"><?php echo $sys->sys_name; ?></span></a>
             <div class="sidebar-user-switcher user-activity-online">
-                <a href="farmer_profile">
+                <a href="customer_profile">
                     <img src="<?php echo $img; ?>"><br><br><br>
                     <span class="user-info-text">
                         <?php echo $sys->user_name; ?>
@@ -92,7 +92,7 @@ while ($sys = $res->fetch_object()) {
         <div class="app-menu">
             <ul class="accordion-menu">
                 <li>
-                    <a href="customer_home" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                    <a href="home" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                 </li>
 
                 <li>

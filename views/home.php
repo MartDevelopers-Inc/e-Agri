@@ -141,7 +141,7 @@ require_once('../partials/head.php');
                             <div class="col-xl-6">
                                 <div class="card widget widget-list">
                                     <div class="card-header">
-                                        <h5 class="card-title">Recent Purchases <a href="customer_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
+                                        <h5 class="card-title">Recent Purchases <a href="customer_successful_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="widget-list-content list-unstyled">
@@ -162,7 +162,7 @@ require_once('../partials/head.php');
                                                 <li class="widget-list-item widget-list-item-green">
                                                     <span class="widget-list-item-icon"><i class="material-icons-outlined">shopping_basket</i></span>
                                                     <span class="widget-list-item-description">
-                                                        <a href="customer_checkouts" class="widget-list-item-description-title">
+                                                        <a href="customer_successful_checkouts" class="widget-list-item-description-title">
                                                             <?php echo $purchases->user_name; ?>, Purchased <?php echo $purchases->cart_product_quantity . ' Kgs Of ' . $purchases->product_name; ?> <br>
                                                             <span class="text-primary">Payment Status: <?php echo $purchases->cart_checkout_status; ?></span>
                                                         </a>
