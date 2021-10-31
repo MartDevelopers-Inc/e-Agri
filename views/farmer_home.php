@@ -156,7 +156,7 @@ require_once('../partials/head.php');
                             <div class="col-xl-6">
                                 <div class="card widget widget-list">
                                     <div class="card-header">
-                                        <h5 class="card-title">Recent Purchases <a href="successful_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
+                                        <h5 class="card-title">Recent Purchases <a href="farmer_successful_checkouts" class="badge badge-success badge-style-light">View All</a></h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="widget-list-content list-unstyled">
@@ -196,7 +196,7 @@ require_once('../partials/head.php');
                             <div class="col-xl-6">
                                 <div class="card widget widget-list">
                                     <div class="card-header">
-                                        <h5 class="card-title">Recent Payments Logs <a href="payments" class="badge badge-success badge-style-light">View All</a></h5>
+                                        <h5 class="card-title">Recent Payments Logs <a href="farmer_payments" class="badge badge-success badge-style-light">View All</a></h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="widget-list-content list-unstyled">

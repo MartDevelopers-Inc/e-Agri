@@ -72,9 +72,9 @@ require_once('../partials/head.php');
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap">
-        <?php require_once('../partials/partials_sidebar.php'); ?>
+        <?php require_once('../partials/farmer_sidebar.php'); ?>
         <div class="app-container">
-            <?php require_once('../partials/partials_header.php'); ?>
+            <?php require_once('../partials/farmer_header.php'); ?>
             <div class="app-content">
                 <div class="content-wrapper">
                     <div class="container-fluid">
