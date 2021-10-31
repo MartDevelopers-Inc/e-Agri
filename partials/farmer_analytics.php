@@ -67,7 +67,7 @@ $query
     = "SELECT SUM(payment_amount) FROM payment p
      INNER JOIN cart c ON c.cart_id = p.payment_cart_id
      INNER JOIN products pr ON pr.product_id = c.cart_product_id
-     WHERE p.product_user_id = '$user_id'";
+     WHERE pr.product_user_id = '$user_id'";
 
 $stmt = $mysqli->prepare($query);
 $stmt->execute();
