@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Oct 28 2021
+ * Created on Sun Oct 31 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -146,9 +146,9 @@ require_once('../partials/head.php');
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap">
-        <?php require_once('../partials/sidebar.php'); ?>
+        <?php require_once('../partials/farmer_sidebar.php'); ?>
         <div class="app-container">
-            <?php require_once('../partials/header.php'); ?>
+            <?php require_once('../partials/farmer_header.php'); ?>
             <div class="app-content">
                 <div class="content-wrapper">
                     <div class="container-fluid">
@@ -175,10 +175,11 @@ require_once('../partials/head.php');
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $user_id = $_SESSION['user_id'];
                                                 $ret = "SELECT * FROM cart c 
                                                 INNER JOIN products p ON p.product_id = c.cart_product_id
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
-                                                WHERE cart_checkout_status  = 'Pending'
+                                                WHERE cart_checkout_status  = 'Pending' AND p.product_user_id = '$user_id'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -202,7 +203,7 @@ require_once('../partials/head.php');
                                                             Date Added: <?php echo  date('d M Y g:ia', strtotime($products->cart_product_added_at)); ?><br>
                                                         </td>
                                                         <td>
-                                                           <!--  <a href="checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
+                                                            <!-- <a href="farmer_checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
                                                                 <i class="fas fa-tag"></i> View
                                                             </a> -->
                                                             <a data-bs-toggle="modal" href="#edit-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-warning">
