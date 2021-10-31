@@ -179,6 +179,7 @@ require_once('../partials/head.php');
                                                         <div class="col-md-12">
                                                             <label for="inputPassword4" class="form-label">Quantity In Kgs</label>
                                                             <input type="number" value="1" required name="cart_product_quantity" class="form-control-rounded form-control">
+                                                            <input type="hidden" value="<?php echo $view; ?>" required name="cart_product_id" class="form-control-rounded form-control">
                                                         </div>
                                                         <div class="col-12 d-flex justify-content-end">
                                                             <button type="submit" name="add" class="btn btn-primary">Add To Cart</button>
