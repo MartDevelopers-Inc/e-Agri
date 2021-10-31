@@ -187,7 +187,7 @@ if (isset($_GET['delete'])) {
 
 
     if ($prepare && unlink($img1_dir) && unlink($img2_dir) && unlink($img3_dir)) {
-        $success = "Deleted" && header('refresh:1; products');
+        $success = "Deleted" && header('refresh:1; farmer_products');
     } else {
         $err = "Failed!, Please Try Again Later";
     }
