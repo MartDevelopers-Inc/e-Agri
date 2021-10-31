@@ -59,7 +59,9 @@
  * IN NO EVENT WILL MartDevelopers Inc  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
-require_once('../partials/landing_head.php'); ?>
+require_once('../config/config.php');
+require_once('../partials/landing_head.php');
+?>
 
 <body class="woocommerce-page shop-home-page">
     <div id="app">
