@@ -70,48 +70,92 @@ while ($sys = $res->fetch_object()) {
     <footer id="footer" class="footer footer--style-4">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md col-lg-6">
+                <!-- <div class="col-12 col-sm-4 col-md-3 col-lg-2">
                     <div class="footer__item">
-                        <h5 class="footer__item__title h6">Quick Links</h5>
-                        <ul>
-                            <li><a href="index">Home</a></li>
-                            <li><a href="about">About Us</a></li>
-                            <li><a href="contacts">Contact Us</a></li>
-                        </ul>
+                        <a class="site-logo" href="index">
+                            <img class="img-fluid  lazy" src="../public/landing_assets/img/blank.gif" data-src="../public/backend_assets/images/neptune.png" alt="demo" />
+                        </a>
+                    </div>
+                </div> -->
 
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="footer__item">
+                        <nav id="footer__navigation" class="navigation">
+                            <div class="row">
+                                <div class="col-6 col-sm-4">
+                                    <h5 class="footer__item__title h6">Menu</h5>
+
+                                    <ul>
+                                        <li><a href="index">Home</a></li>
+                                        <li><a href="about">About</a></li>
+                                        <li><a href="#blogs>Blog</a></li>
+                                        <li><a href=" contact">Contacts</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-6 col-sm-4">
+                                    <h5 class="footer__item__title h6">Portals</h5>
+
+                                    <ul>
+                                        <li><a href="login">Staff Login</a></li>
+                                        <li><a href="login">Customer Login</a></li>
+                                        <li><a href="login">Farmers Login</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <div class="footer__item">
+                                        <h5 class="footer__item__title h6">Contacts</h5>
+
+                                        <address>
+                                            <p>
+                                                523 Sylvan Ave, 5th Floor Mountain View, CA 940 Katoloni
+                                            </p>
+
+                                            <p>
+                                                <?php echo $sys->sys_contacts; ?>
+                                            </p>
+
+                                            <p>
+                                                <a href="mailto:<?php echo $sys->sys_email; ?>"><?php echo $sys->sys_email; ?></a>
+                                            </p>
+                                        </address>
+
+                                        <div class="social-btns">
+                                            <a href="#"><i class="fontello-twitter"></i></a>
+                                            <a href="#"><i class="fontello-facebook"></i></a>
+                                            <a href="#"><i class="fontello-linkedin-squared"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </nav>
                     </div>
                 </div>
-                <div class="col-12 col-md col-lg-6">
-                    <div class="footer__item">
-                        <h5 class="footer__item__title h6">Contacts</h5>
 
-                        <address>
-                            <p>
-                                523 Sylvan Ave, 5th Floor Mountain View, CA 940 Katoloni
-                            </p>
 
-                            <p>
-                                <?php echo $sys->sys_contacts; ?>
-                            </p>
-
-                            <p>
-                                <a href="mailto:<?php echo $sys->sys_email; ?>"><?php echo $sys->sys_email; ?></a>
-                            </p>
-                        </address>
-
-                        <div class="social-btns">
-                            <a href="#"><i class="fontello-twitter"></i></a>
-                            <a href="#"><i class="fontello-facebook"></i></a>
-                            <a href="#"><i class="fontello-linkedin-squared"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row align-items-lg-end justify-content-lg-between copyright">
-                <div class="col-12 col-lg-12">
+                <div class="col-12 col-lg-6">
                     <div class="footer__item">
                         <span class="__copy">© 2021 - <?php echo date('Y'); ?>, <?php echo $sys->sys_name; ?>. Crafted by <a class="__dev" href="https://martdev.info" target="_blank">MartDevelopers Inc</a></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="footer__item">
+                        <form class="form--horizontal no-gutters" action="#">
+                            <div class="col-sm-6">
+                                <div class="input-wrp">
+                                    <input class="textfield" name="s" type="text" placeholder="Your E-mail" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">subscribe</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
