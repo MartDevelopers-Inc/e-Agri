@@ -109,25 +109,9 @@ while ($sys = $res->fetch_object()) {
             </div>
 
             <div class="row align-items-lg-end justify-content-lg-between copyright">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-12">
                     <div class="footer__item">
                         <span class="__copy">© 2021 - <?php echo date('Y'); ?>, <?php echo $sys->sys_name; ?>. Crafted by <a class="__dev" href="https://martdev.info" target="_blank">MartDevelopers Inc</a></span>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="footer__item">
-                        <form class="form--horizontal no-gutters" action="#">
-                            <div class="col-sm-6">
-                                <div class="input-wrp">
-                                    <input class="textfield" name="s" type="text" placeholder="Your E-mail" />
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">subscribe</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

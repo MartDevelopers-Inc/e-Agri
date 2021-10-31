@@ -74,7 +74,7 @@ while ($sys = $res->fetch_object()) {
         <div class="container position-relative">
             <div class="row justify-content-between no-gutters">
 
-                <a class="top-bar__logo site-logo" href="home">
+                <a class="top-bar__logo site-logo" href="index">
                     <img class="img-fluid" src="../public/backend_assets/images/neptune.png" alt="demo" />
                 </a>
 
@@ -85,29 +85,42 @@ while ($sys = $res->fetch_object()) {
                         <div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
                             <nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
                                 <ul>
+
                                     <li>
                                         <a href="index">Home</a>
                                     </li>
+
                                     <li>
                                         <a href="about">About</a>
                                     </li>
-                                    <li>
-                                        <a href="blog">Blog</a>
+                                    <li class="has-submenu" style="display: none;">
+                                        <a href="javascript:void(0);">Shop</a>
+
+                                        <ul class="submenu">
+                                            <li><a href="shop_catalog.html">Shop Catalog</a></li>
+                                            <li><a href="single_product.html">Single Product</a></li>
+                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a href="sign_in.html">Sign In/Up</a></li>
+                                        </ul>
                                     </li>
+
+                                    <li>
+                                        <a href="blogs">Blog</a>
+                                    </li>
+
                                     <li>
                                         <a href="contacts">Contacts</a>
                                     </li>
-                                    <li>
-                                        <a href="contacts">Farmers` Portal</a>
-                                    </li>
+
                                     <li class="li-btn">
-                                        <a class="custom-btn custom-btn--small custom-btn--style-2" href="contacts">Sign Up</a>
+                                        <a class="custom-btn custom-btn--small custom-btn--style-2" target="_blank" href="login">Sign In</a>
                                     </li>
                                 </ul>
                             </nav>
 
                             <div class="top-bar__contacts">
-                                <span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
+                                <span>523 Sylvan Ave, 5th Floor Mountain View, Katoloni, Machakos</span>
                                 <span><a href="#"><?php echo $sys->sys_contacts; ?></a></span>
                                 <span><a href="mailto:<?php echo $sys->sys_email; ?>"><?php echo $sys->sys_email; ?></a></span>
 
