@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Mon Oct 25 2021
+ * Created on Sun Oct 31 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -59,6 +59,7 @@
  * IN NO EVENT WILL MartDevelopers Inc  LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT 
  * TORT OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENSE FEE PAID BY YOU, IF ANY.
  */
+
 
 session_start();
 require_once '../config/config.php';
@@ -198,9 +199,11 @@ while ($sys = $res->fetch_object()) {
                 </thead>
                 <tbody>
                 ';
+                $user_id = $_SESSION['user_id'];
                 $ret = "SELECT * FROM  products p
                 INNER JOIN users u ON u.user_id = p.product_user_id
                 INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
+                WHERE p.product_user_id = '$user_id'
                 ";
                 $stmt = $mysqli->prepare($ret);
                 $stmt->execute(); //ok
