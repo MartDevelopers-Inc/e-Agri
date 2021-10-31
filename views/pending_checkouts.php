@@ -202,9 +202,9 @@ require_once('../partials/head.php');
                                                             Date Added: <?php echo  date('d M Y g:ia', strtotime($products->cart_product_added_at)); ?><br>
                                                         </td>
                                                         <td>
-                                                            <a href="checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
+                                                           <!--  <a href="checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
                                                                 <i class="fas fa-tag"></i> View
-                                                            </a>
+                                                            </a> -->
                                                             <a data-bs-toggle="modal" href="#edit-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-warning">
                                                                 <i class="fas fa-edit"></i> Update Cart
                                                             </a>
