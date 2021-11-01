@@ -141,6 +141,21 @@ if (isset($_POST['pay'])) {
         }
     }
 }
+
+/* Delete Pending Checkouts */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    $sql  = "DELETE FROM cart WHERE cart_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Deleted" && header('refresh:1; pending_checkouts');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -202,7 +217,7 @@ require_once('../partials/head.php');
                                                             Date Added: <?php echo  date('d M Y g:ia', strtotime($products->cart_product_added_at)); ?><br>
                                                         </td>
                                                         <td>
-                                                           <!--  <a href="checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
+                                                            <!--  <a href="checkouts?view=<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-success">
                                                                 <i class="fas fa-tag"></i> View
                                                             </a> -->
                                                             <a data-bs-toggle="modal" href="#edit-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-warning">

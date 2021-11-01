@@ -108,7 +108,9 @@ while ($sys = $res->fetch_object()) {
                 <div class="logo">
                     <a href=""><?php echo $sys->sys_name; ?></a>
                 </div>
-                <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have a farmer account? <a href="farmer_signup">Sign Up</a></p>
+                <p class="auth-description">Please sign-in to your account and continue to the dashboard.
+                    <br>Don't have a account? <a href="index">Sign Up</a>
+                </p>
                 <form method="post">
 
                     <div class="auth-credentials m-b-xxl">

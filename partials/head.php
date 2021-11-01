@@ -74,9 +74,9 @@ while ($sys = $res->fetch_object()) {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Responsive Admin Dashboard Template">
+        <meta name="description" content="">
         <meta name="keywords" content="admin,dashboard">
-        <meta name="author" content="stacks">
+        <meta name="author" content="Martdevelopes Inc">
 
         <!-- Title -->
         <title><?php echo $sys->sys_name . ' | ' . $sys->sys_tagline; ?></title>
