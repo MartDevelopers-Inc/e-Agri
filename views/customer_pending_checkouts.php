@@ -193,6 +193,7 @@ require_once('../partials/head.php');
                                                 $ret = "SELECT * FROM cart c 
                                                 INNER JOIN products p ON p.product_id = c.cart_product_id
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
+                                                INNER JOIN system_settings
                                                 WHERE cart_checkout_status  = 'Pending' AND c.cart_user_id = '$user_id'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
@@ -281,6 +282,9 @@ require_once('../partials/head.php');
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
+                                                                            <h5 class="text-danger justify-content-center">
+                                                                                On the M-PESA Menu Go to "Lipa Na M-PESA and Select Buy Goods Enter this Till Number: <?php echo $products->sys_paybill_no; ?> of the outlet/or sales person you wish to pay Enter the amount you wish to pay (between KSHs.50 – KSHs.70,000) Enter your M-PESA PIN. Confirm that all details are correct and press OK You will receive a confirmation SMS from M-PESA immediately.
+                                                                            </h5>
                                                                             <form class="row g-3" method="POST" enctype="multipart/form-data">
                                                                                 <div class="col-md-6">
                                                                                     <label for="inputEmail4" class="form-label">Amount (Ksh)</label>
