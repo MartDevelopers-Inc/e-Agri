@@ -93,51 +93,56 @@ if (isset($_POST['pay'])) {
     $cart_quantity = $_POST['cart_quantity'];
     $new_quantity = $product_qty - $cart_quantity;
     $checkout_status = 'Paid';
-    /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
-    if ($cart_quantity > $product_qty) {
-        $err = "No Available Quantities To Process Your Order";
+    /* Check If Payment Code Matches System Based Standards */
+    if (strlen($payment_transaction_code) != 10) {
+        $err = "Please Enter Correct Transaction Code That You Have Received";
     } else {
-
-        /* Post Payment */
-        $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
-        /* Update Cart */
-        $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
-        /* Decrent Product Quantity */
-        $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
-
-        /* Prepare Statements */
-        $payprep = $mysqli->prepare($payment);
-        $cartprep = $mysqli->prepare($cart);
-        $productprep = $mysqli->prepare($product);
-
-        /* Binds */
-        $paybind = $payprep->bind_param(
-            'ssss',
-            $payment_id,
-            $payment_cart_id,
-            $payment_transaction_code,
-            $payment_amount
-        );
-        $cartbind = $cartprep->bind_param(
-            'ss',
-            $checkout_status,
-            $payment_cart_id
-        );
-        $productbind = $productprep->bind_param(
-            'ss',
-            $new_quantity,
-            $product_id
-        );
-
-        /* Executes */
-        $payprep->execute();
-        $cartprep->execute();
-        $productprep->execute();
-
-        if ($payprep && $cartprep && $productprep) {
-            $success = "Payment Posted";
+        /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
+        if ($cart_quantity > $product_qty) {
+            $err = "No Available Quantities To Process Your Order";
         } else {
-            $err = "Failed!, Please Try Again Later";
+
+            /* Post Payment */
+            $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
+            /* Update Cart */
+            $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
+            /* Decrent Product Quantity */
+            $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
+
+            /* Prepare Statements */
+            $payprep = $mysqli->prepare($payment);
+            $cartprep = $mysqli->prepare($cart);
+            $productprep = $mysqli->prepare($product);
+
+            /* Binds */
+            $paybind = $payprep->bind_param(
+                'ssss',
+                $payment_id,
+                $payment_cart_id,
+                $payment_transaction_code,
+                $payment_amount
+            );
+            $cartbind = $cartprep->bind_param(
+                'ss',
+                $checkout_status,
+                $payment_cart_id
+            );
+            $productbind = $productprep->bind_param(
+                'ss',
+                $new_quantity,
+                $product_id
+            );
+
+            /* Executes */
+            $payprep->execute();
+            $cartprep->execute();
+            $productprep->execute();
+
+            if ($payprep && $cartprep && $productprep) {
+                $success = "Payment Posted";
+            } else {
+                $err = "Failed!, Please Try Again Later";
+            }
         }
     }
 }
