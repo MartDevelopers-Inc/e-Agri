@@ -283,7 +283,10 @@ require_once('../partials/head.php');
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <h5 class="text-danger justify-content-center">
-                                                                                On the M-PESA Menu Go to "Lipa Na M-PESA and Select Buy Goods Enter this Till Number: <?php echo $products->sys_paybill_no; ?> of the outlet/or sales person you wish to pay Enter the amount you wish to pay (between KSHs.50 – KSHs.70,000) Enter your M-PESA PIN. Confirm that all details are correct and press OK You will receive a confirmation SMS from M-PESA immediately.
+                                                                                On the M-PESA Menu Go to "Lipa Na M-PESA and Select Buy Goods Enter this Till Number: <?php echo $products->sys_paybill_no; ?>.
+                                                                                Enter the amount Ksh <?php echo ($products->cart_product_quantity * $products->product_price); ?> :
+                                                                                Enter your M-PESA PIN. Confirm that all details are correct and press OK You will receive a confirmation SMS from M-PESA immediately.
+                                                                                Enter the confirmation code that you have received from Mpesa on the form below
                                                                             </h5>
                                                                             <form class="row g-3" method="POST" enctype="multipart/form-data">
                                                                                 <div class="col-md-6">
