@@ -278,29 +278,32 @@ require_once('../partials/head.php');
                                                                 <div class="modal-dialog  modal-lg">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title">Pay Order</h4>
+                                                                            <h4 class="modal-title">Pay Order & How To Pay Instructions</h4>
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <h5 class="text-danger justify-content-center">
-                                                                                On the M-PESA Menu Go to "Lipa Na M-PESA and Select Buy Goods Enter this Till Number: <?php echo $products->sys_paybill_no; ?>.
-                                                                                Enter the amount Ksh <?php echo ($products->cart_product_quantity * $products->product_price); ?> :
-                                                                                Enter your M-PESA PIN. Confirm that all details are correct and press OK You will receive a confirmation SMS from M-PESA immediately.
-                                                                                Enter the confirmation code that you have received from Mpesa on the form below
+                                                                                <ol class="list-group list-group-numbered">
+                                                                                    <li class="list-group-item">On the M-PESA Menu Go to Lipa Na M-PESA and Select Buy Goods.</li>
+                                                                                    <li class="list-group-item">Enter this Till Number:<span class="text-primary"><?php echo $products->sys_paybill_no; ?></span>.</li>
+                                                                                    <li class="list-group-item">Enter the amount : <span class="text-primary">Ksh <?php echo ($products->cart_product_quantity * $products->product_price); ?></span>.</li>
+                                                                                    <li class="list-group-item">Enter your M-PESA PIN. Confirm that all details are correct and press OK You will receive a confirmation SMS from M-PESA immediately.</li>
+                                                                                    <li class="list-group-item">Enter the confirmation code that you have received from Mpesa on the form below. </li>
+                                                                                </ol>
                                                                             </h5>
+                                                                            <br>
                                                                             <form class="row g-3" method="POST" enctype="multipart/form-data">
                                                                                 <div class="col-md-6">
-                                                                                    <label for="inputEmail4" class="form-label">Amount (Ksh)</label>
-                                                                                    <input type="text" readonly required name="payment_amount" value="<?php echo ($products->cart_product_quantity * $products->product_price); ?>" class="form-control-rounded form-control">
+                                                                                    <input type="hidden" readonly required name="payment_amount" value="<?php echo ($products->cart_product_quantity * $products->product_price); ?>" class="form-control-rounded form-control">
                                                                                     <!-- Hide This -->
                                                                                     <input type="hidden" required name="payment_cart_id" value="<?php echo $products->cart_id; ?>" class="form-control-rounded form-control">
                                                                                     <input type="hidden" required name="product_id" value="<?php echo $products->product_id; ?>" class="form-control-rounded form-control">
                                                                                     <input type="hidden" required name="product_qty" value="<?php echo $products->product_quantity; ?>" class="form-control-rounded form-control">
                                                                                     <input type="hidden" required name="cart_quantity" value="<?php echo $products->cart_product_quantity; ?>" class="form-control-rounded form-control">
                                                                                 </div>
-                                                                                <div class="col-md-6">
+                                                                                <div class="col-md-12">
                                                                                     <label for="inputEmail4" class="form-label">Payment Transaction Code</label>
-                                                                                    <input type="text" required name="payment_transaction_code" value="<?php echo $sys_gen_paycode; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="text" required name="payment_transaction_code" class="form-control-rounded form-control">
                                                                                 </div>
                                                                                 <div class="col-12 d-flex justify-content-end">
                                                                                     <button type="submit" name="pay" class="btn btn-primary">Pay</button>
