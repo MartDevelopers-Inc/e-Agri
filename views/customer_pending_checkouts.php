@@ -94,7 +94,7 @@ if (isset($_POST['pay'])) {
     $new_quantity = $product_qty - $cart_quantity;
     $checkout_status = 'Paid';
     /* Check If Payment Code Matches System Based Standards */
-    if (strlen($payment_transaction_code) != 10) {
+    if (strlen($payment_transaction_code) != 10 && strlen($payment_transaction_code) > 10) {
         $err = "Please Enter Correct Transaction Code That You Have Received";
     } else {
         /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
