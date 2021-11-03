@@ -73,7 +73,7 @@ if (isset($_POST['deliver_order'])) {
     $sql = "UPDATE cart SET cart_shipping_status = 'Delivered' WHERE cart_id = ?";
     $prepare = $mysqli->prepare($sql);
     $bind = $prepare->bind_param(
-        'ss',
+        's',
         $cart_id
     );
     $prepare->execute();
@@ -175,7 +175,7 @@ require_once('../partials/head.php');
                                                                             <br>
                                                                             <p>Heads Up, You are about to mark this order as delivered.</p>
                                                                             <!-- Hide This -->
-                                                                            <input type="hidden" name="cart_id">
+                                                                            <input type="hidden" name="cart_id" value="<?php echo $products->cart_id; ?>">
                                                                             <button type="button" class="text-center btn btn-danger" data-bs-dismiss="modal">No</button>
                                                                             <button type="submit" name="deliver_order" class="text-center btn btn-success">Yes</button>
                                                                         </form>
