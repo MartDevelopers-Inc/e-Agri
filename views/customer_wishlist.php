@@ -64,6 +64,21 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
+
+/* Remove Product From Cart */
+if (isset($_POST['remove'])) {
+    $wishlist_id = $_POST['wishlist_id'];
+    /* Persist */
+    $sql = "DELETE FROM wishlist WHERE wishlist_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $wishlist_id);
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Removed From Wishlist";
+    } else {
+        $err = "Failed!, Try Again Or Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
