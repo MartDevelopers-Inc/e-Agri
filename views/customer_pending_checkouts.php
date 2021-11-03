@@ -93,6 +93,13 @@ if (isset($_POST['pay'])) {
     $cart_quantity = $_POST['cart_quantity'];
     $new_quantity = $product_qty - $cart_quantity;
     $checkout_status = 'Paid';
+
+    /* Shipping Address Details */
+    $shipping_id = $sys_gen_id_alt_1;
+    $shippings_order_id  = $_POST['payment_cart_id'];
+    $shipping_address = $_POST['shipping_address'];
+
+
     /* Check If Payment Code Matches System Based Standards */
     if (strlen($payment_transaction_code) != 10 && strlen($payment_transaction_code) > 10) {
         $err = "Please Enter Correct Transaction Code That You Have Received";
@@ -105,14 +112,18 @@ if (isset($_POST['pay'])) {
             /* Post Payment */
             $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
             /* Update Cart */
-            $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
+            $cart = "UPDATE cart SET cart_checkout_status = ?, cart_shipping_status = 'On Transit' WHERE cart_id =?";
             /* Decrent Product Quantity */
             $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
+            /* Post Shipping */
+            $shipping  = "INSERT INTO shippings(shipping_id, shippings_order_id, shipping_address) VALUES(?,?,?)";
+
 
             /* Prepare Statements */
             $payprep = $mysqli->prepare($payment);
             $cartprep = $mysqli->prepare($cart);
             $productprep = $mysqli->prepare($product);
+            $shippingprep = $mysqli->prepare($shipping);
 
             /* Binds */
             $paybind = $payprep->bind_param(
@@ -132,13 +143,20 @@ if (isset($_POST['pay'])) {
                 $new_quantity,
                 $product_id
             );
+            $shippingbind = $shippingprep->bind_param(
+                'sss',
+                $shipping_id,
+                $shippings_order_id,
+                $shipping_address
+            );
 
             /* Executes */
             $payprep->execute();
             $cartprep->execute();
             $productprep->execute();
+            $shippingprep->execute();
 
-            if ($payprep && $cartprep && $productprep) {
+            if ($payprep && $cartprep && $productprep && $shippingprep) {
                 $success = "Payment Posted";
             } else {
                 $err = "Failed!, Please Try Again Later";
@@ -280,7 +298,7 @@ require_once('../partials/head.php');
 
                                                             <!-- Pay Modal -->
                                                             <div class="modal fade" id="pay-<?php echo $products->cart_id; ?>">
-                                                                <div class="modal-dialog  modal-lg">
+                                                                <div class="modal-dialog  modal-xl">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h4 class="modal-title">Pay Order & How To Pay Instructions</h4>
@@ -309,6 +327,10 @@ require_once('../partials/head.php');
                                                                                 <div class="col-md-12">
                                                                                     <label for="inputEmail4" class="form-label">Payment Transaction Code</label>
                                                                                     <input type="text" required name="payment_transaction_code" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="inputEmail4" class="form-label">Purchased Products Shipping Address</label>
+                                                                                    <textarea type="text" rows="2" required name="shipping_address" class="form-control-rounded form-control"></textarea>
                                                                                 </div>
                                                                                 <div class="col-12 d-flex justify-content-end">
                                                                                     <button type="submit" name="pay" class="btn btn-primary">Pay</button>

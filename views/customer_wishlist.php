@@ -132,7 +132,7 @@ require_once('../partials/head.php');
                                                     <li class="list-group-item">Wishlisted On : <?php echo date('M, d Y g:ia', strtotime($products->wishlist_created_on)); ?></li>
                                                     <li class="list-group-item">
                                                         <form method="POST">
-                                                            <input type="hidden" name="wishlist_product_id" value="<?php echo $product->product_id; ?>">
+                                                            <input type="hidden" name="wishlist_id" value="<?php echo $products->wishlist_id; ?>">
                                                             <button type="submit" name="remove" class="btn btn-danger">
                                                                 <i class="fas fa-heart-broken"></i> Remove <?php echo $product->product_name; ?> From Wish List
                                                             </button>
