@@ -76,7 +76,7 @@ require_once('../partials/landing_head.php');
             <!-- end header -->
 
             <!-- start hero -->
-            <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 55%" style="background-image: url(../public/landing_assets/img/intro_img/7.jpg);">
+            <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 55%" style="background-image: url(../public/landing_assets/img/home_img/img_9.jpg);">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-lg-7">

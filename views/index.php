@@ -40,26 +40,7 @@ require_once('../partials/landing_head.php'); ?>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="start-screen__slide">
-                    <div class="start-screen__bg" style="background-image: url(../public/landing_assets/img/home_img/img_8.jpg);background-position: top 30% left 70%;"></div>
-
-                    <div class="start-screen__content__item align-items-center">
-                        <div class="container">
-                            <div class="row justify-content-end">
-                                <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
-                                    <h2 class="__title"><span>Awesome</span> Organic Cosmetic <span>from  <?php echo $sys->sys_name; ?></span></h2>
-
-                                    <p class="mt-5 mt-md-8">
-                                        <span class="d-none d-sm-block"><a class="custom-btn custom-btn--big custom-btn--style-2" href="login">Discover</a></span>
-                                        <span class="d-block d-sm-none"><a class="custom-btn custom-btn--small custom-btn--style-2" href="login">Discover</a></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                
 
                 <div class="start-screen__slide">
                     <div class="start-screen__bg" style="background-image: url(../public/landing_assets/img/home_img/img_9.jpg);"></div>
