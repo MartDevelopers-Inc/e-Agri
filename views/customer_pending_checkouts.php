@@ -125,6 +125,7 @@ if (isset($_POST['pay'])) {
             $productprep = $mysqli->prepare($product);
             $shippingprep = $mysqli->prepare($shipping);
 
+            
             /* Binds */
             $paybind = $payprep->bind_param(
                 'ssss',

@@ -115,6 +115,12 @@ while ($sys = $res->fetch_object()) {
                         <li>
                             <a href="successful_checkouts">Successful Checkouts</a>
                         </li>
+                        <li>
+                            <a href="ontransit_checkouts">On Transit Checkouts</a>
+                        </li>
+                        <li>
+                            <a href="delivered_checkouts">Delivered Checkouts</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
