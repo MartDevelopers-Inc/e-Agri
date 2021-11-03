@@ -118,7 +118,7 @@ while ($sys = $res->fetch_object()) {
             </div>
             <div class="app-auth-container">
                 <div class="logo text-center">
-                    <a href=""><?php echo $sys->sys_name; ?></a>
+                    <a href="index"><?php echo $sys->sys_name; ?></a>
                 </div>
                 <br>
                 <p class="auth-description">Please enter your credentials to create a farmeraccount.<br>Already have a farmer account? <a href="login">Sign In</a></p>

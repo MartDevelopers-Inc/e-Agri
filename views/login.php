@@ -106,7 +106,7 @@ while ($sys = $res->fetch_object()) {
             </div>
             <div class="app-auth-container">
                 <div class="logo">
-                    <a href=""><?php echo $sys->sys_name; ?></a>
+                    <a href="index"><?php echo $sys->sys_name; ?></a>
                 </div>
                 <p class="auth-description">Please sign-in to your account and continue to the dashboard.
                     <br>Don't have a account? <a href="index">Sign Up</a>
