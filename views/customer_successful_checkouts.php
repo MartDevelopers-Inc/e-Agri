@@ -94,6 +94,7 @@ require_once('../partials/head.php');
                                                     <th>Customer Details</th>
                                                     <th>Product Details</th>
                                                     <th>Cart Details</th>
+                                                    <th>Shipping Details</th>
                                                     <th>Payment Details</th>
                                                 </tr>
                                             </thead>
@@ -104,6 +105,7 @@ require_once('../partials/head.php');
                                                 INNER JOIN products p ON p.product_id = c.cart_product_id
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
                                                 INNER JOIN payment pd ON pd.payment_cart_id  = c.cart_id
+                                                INNER JOIN shippings sh ON sh.shippings_order_id = c.cart_id
                                                 WHERE cart_checkout_status  != 'Pending' AND c.cart_user_id = '$user_id'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
@@ -126,6 +128,10 @@ require_once('../partials/head.php');
                                                             QTY: <?php echo $products->cart_product_quantity; ?> Kgs<br>
                                                             Amount: Ksh<?php echo ($products->cart_product_quantity * $products->product_price); ?><br>
                                                             Date Added: <?php echo  date('d M Y g:ia', strtotime($products->cart_product_added_at)); ?><br>
+                                                        </td>
+                                                        <td>
+                                                            Shipping Status: <?php echo $products->cart_shipping_status; ?> <br>
+                                                            Shipping Address: <?php echo ($products->shipping_address); ?>
                                                         </td>
                                                         <td>
                                                             Txn ID : <?php echo $products->payment_transaction_code; ?><br>

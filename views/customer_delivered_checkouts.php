@@ -79,7 +79,7 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>On Transit Orders</h1>
+                                    <h1>Delivered Orders</h1>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ require_once('../partials/head.php');
                                                 <tr>
                                                     <th>Customer Details</th>
                                                     <th>Product Details</th>
-                                                    <th>Cart Details</th>
+                                                    <th>Order Details</th>
                                                     <th>Payment Details</th>
                                                     <th>Shipping Address</th>
                                                 </tr>
@@ -107,7 +107,7 @@ require_once('../partials/head.php');
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
                                                 INNER JOIN payment pd ON pd.payment_cart_id  = c.cart_id
                                                 WHERE cart_checkout_status  != 'Pending' AND c.cart_user_id = '$user_id'
-                                                AND c.cart_shipping_status = 'On Transit'
+                                                AND c.cart_shipping_status = 'Delivered'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
                                                 $stmt = $mysqli->prepare($ret);
