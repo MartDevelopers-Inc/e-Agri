@@ -102,10 +102,13 @@ while ($sys = $res->fetch_object()) {
                     <a href=""><i class="material-icons-two-tone">shopping_cart</i>Sales<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="farmer_pending_checkouts">Pending Checkouts</a>
+                            <a href="farmer_pending_checkouts">Pending Orders</a>
                         </li>
                         <li>
-                            <a href="farmer_successful_checkouts">Successful Checkouts</a>
+                            <a href="farmer_ontransit_checkouts">On Transit Orders</a>
+                        </li>
+                        <li>
+                            <a href="farmer_delivered_checkouts">Delivered Orders</a>
                         </li>
                     </ul>
                 </li>
