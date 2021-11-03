@@ -84,53 +84,39 @@ require_once('../partials/head.php');
                             </div>
                         </div>
                         <div class="row">
-                            <div class="row">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <table id="datatable1" class="display table" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>SKU #</th>
-                                                    <th>QTY</th>
-                                                    <th>Price Per Kg</th>
-                                                    <th>Category</th>
-                                                    <th>Farmer Details</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $ret = "SELECT * FROM  products p
-                                                INNER JOIN users u ON u.user_id = p.product_user_id
-                                                INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
-                                                ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($products = $res->fetch_object()) {
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                                <?php
+                                $ret = "SELECT * FROM  products p
+                                INNER JOIN users u ON u.user_id = p.product_user_id
+                                INNER JOIN product_categories pc ON pc.category_id = p.product_category_id
+                                ";
+                                $stmt = $mysqli->prepare($ret);
+                                $stmt->execute(); //ok
+                                $res = $stmt->get_result();
+                                while ($products = $res->fetch_object()) {
+
+                                ?>
+
+                                    <div class="col">
+                                        <div class="card h-100">
+                                            <a href="customer_product?view=<?php echo $products->product_id; ?>">
+
+                                                <?php if ($products->product_image_1 != '' || $products->product_image_2  != '' || $products->product_image_3 != '') {
                                                 ?>
-                                                    <tr>
-                                                        <td><?php echo $products->product_name; ?></td>
-                                                        <td><?php echo $products->product_sku_code; ?></td>
-                                                        <td><?php echo $products->product_quantity; ?> Kgs</td>
-                                                        <td>Ksh <?php echo $products->product_price; ?></td>
-                                                        <td><?php echo $products->category_name; ?></td>
-                                                        <td>
-                                                            Name: <?php echo $products->user_name; ?><br>
-                                                            Phone: <?php echo $products->user_phone_no; ?><br>
-                                                        </td>
-                                                        <td>
-                                                            <a href="customer_product?view=<?php echo $products->product_id; ?>" class="badge rounded-pill badge-success">
-                                                                <i class="fas fa-tag"></i> View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                    <img src="../public/backend_assets/images/products/<?php echo $products->product_image_2; ?>" class="card-img-top" alt="...">
+                                                <?php } else { ?>
+                                                    <img src="../public/backend_assets/images/products/no_img.jpg" class="card-img-top" alt="...">
                                                 <?php } ?>
-                                            </tbody>
-                                        </table>
+                                            </a>
+                                            <div class="d-flex justify-content-center">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><?php echo $products->product_name; ?></li>
+                                                    <li class="list-group-item">Ksh <?php echo $products->product_price; ?> Per Kg</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
