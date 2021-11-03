@@ -66,11 +66,11 @@ require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
 
-/* Mark As Delivered */
-if (isset($_POST['deliver_order'])) {
+/* delete order */
+if (isset($_POST['delete'])) {
     $cart_id = $_POST['cart_id'];
 
-    $sql = "UPDATE cart SET cart_shipping_status = 'Delivered' WHERE cart_id = ?";
+    $sql = "DELETE FROM cart WHERE cart_id = ?";
     $prepare = $mysqli->prepare($sql);
     $bind = $prepare->bind_param(
         's',
@@ -78,7 +78,7 @@ if (isset($_POST['deliver_order'])) {
     );
     $prepare->execute();
     if ($prepare) {
-        $success = "Order Marked As Delivered";
+        $success = "Order Deleted";
     } else {
         $err = "Failed!, Please Try Again Later";
     }
@@ -97,7 +97,7 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>On Transit Orders</h1>
+                                    <h1>Delivered Orders</h1>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ require_once('../partials/head.php');
                                                 INNER JOIN products p ON p.product_id = c.cart_product_id
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
                                                 INNER JOIN payment pd ON pd.payment_cart_id  = c.cart_id
-                                                WHERE cart_checkout_status  != 'Pending' AND c.cart_shipping_status = 'On Transit'
+                                                WHERE cart_checkout_status  != 'Pending' AND c.cart_shipping_status = 'Delivered'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -154,27 +154,28 @@ require_once('../partials/head.php');
                                                         </td>
                                                         <td><?php echo $products->shipping_address; ?></td>
                                                         <td>
-                                                            <a data-bs-toggle="modal" href="#deliver-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-danger">
-                                                                <i class="fas fa-clipboard-check"></i> Mark As Delivered
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-trash"></i> Delete
                                                             </a>
+
                                                         </td>
                                                         <!-- Mark As Delivered -->
-                                                        <div class="modal fade" id="deliver-<?php echo $products->cart_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="delete-<?php echo $products->cart_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELIVERY</h5>
+                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body text-center text-danger">
                                                                         <form method="post">
-                                                                            <h4>Mark This Order As Delivered?</h4>
+                                                                            <h4>Delete This Order</h4>
                                                                             <br>
-                                                                            <p>Heads Up, You are about to mark this order as delivered.</p>
+                                                                            <p>Heads Up, You are about to delete this order.</p>
                                                                             <!-- Hide This -->
                                                                             <input type="hidden" name="cart_id" value="<?php echo $products->cart_id; ?>">
                                                                             <button type="button" class="text-center btn btn-danger" data-bs-dismiss="modal">No</button>
-                                                                            <button type="submit" name="deliver_order" class="text-center btn btn-success">Yes</button>
+                                                                            <button type="submit" name="delete" class="text-center btn btn-success">Yes</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
