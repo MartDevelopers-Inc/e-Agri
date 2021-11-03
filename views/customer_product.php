@@ -194,13 +194,18 @@ require_once('../partials/head.php');
                                                 <p>
                                                     <?php echo $product->product_details; ?>
                                                 </p>
+                                                <form method="POST">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                                        <i class="fas fa-cart-plus"></i> Add <?php echo $product->product_name; ?> To Cart
+                                                    </button>
+                                                    <!-- Hide This -->
+                                                    <input type="hidden" name="wishlist_product_id" value="<?php echo $product->product_id; ?>">
+                                                    <input type="hidden" name="wishlist_user_id" value="<?php echo $_SESSION['user_id']; ?>">
 
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
-                                                    <i class="fas fa-cart-plus"></i> Add <?php echo $product->product_name; ?> To Cart
-                                                </button>
-                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_modal">
-                                                    <i class="fas fa-heart"></i> Add <?php echo $product->product_name; ?> To Wish List
-                                                </button>
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-heart"></i> Add <?php echo $product->product_name; ?> To Wish List
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
