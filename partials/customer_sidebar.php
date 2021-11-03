@@ -99,6 +99,9 @@ while ($sys = $res->fetch_object()) {
                     <a href="customer_products"><i class="material-icons-two-tone">redeem</i>Agri Products</a>
                 </li>
                 <li>
+                    <a href="customer_products"><i class="material-icons-two-tone">redeem</i>Wishlist</a>
+                </li>
+                <li>
                     <a href=""><i class="material-icons-two-tone">shopping_cart</i>Orders<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                     <ul class="sub-menu">
                         <li>
@@ -106,6 +109,12 @@ while ($sys = $res->fetch_object()) {
                         </li>
                         <li>
                             <a href="customer_successful_checkouts">Successful Checkouts</a>
+                        </li>
+                        <li>
+                            <a href="customer_ontransit_checkouts">On Transit Checkouts</a>
+                        </li>
+                        <li>
+                            <a href="customer_delivered_checkouts">Delivered Checkouts</a>
                         </li>
                     </ul>
                 </li>
