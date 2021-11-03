@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Oct 28 2021
+ * Created on Sun Oct 31 2021
  *
  *  MartDevelopers Inc - martdev.info 
  *
@@ -65,80 +65,22 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
-/* Update Cart */
-if (isset($_POST['update_cart'])) {
+
+/* Mark As Delivered */
+if (isset($_POST['deliver_order'])) {
     $cart_id = $_POST['cart_id'];
-    $cart_product_quantity = $_POST['cart_product_quantity'];
-    /* Persist */
-    $update = "UPDATE cart SET cart_product_quantity =? WHERE cart_id =?";
-    $prepare = $mysqli->prepare($update);
-    $bind = $prepare->bind_param('ss', $cart_product_quantity, $cart_id);
+
+    $sql = "UPDATE cart SET cart_shipping_status = 'Delivered' WHERE cart_id = ?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param(
+        's',
+        $cart_id
+    );
     $prepare->execute();
     if ($prepare) {
-        $success = "Cart Updated, Proceed To Checkout";
+        $success = "Order Marked As Delivered";
     } else {
         $err = "Failed!, Please Try Again Later";
-    }
-}
-
-/* Pay Order */
-if (isset($_POST['pay'])) {
-    $payment_id = $sys_gen_id;
-    $payment_cart_id = $_POST['payment_cart_id'];
-    $payment_transaction_code  = $_POST['payment_transaction_code'];
-    $payment_amount = $_POST['payment_amount'];
-    /* Product */
-    $product_id = $_POST['product_id'];
-    $product_qty = $_POST['product_qty'];
-    $cart_quantity = $_POST['cart_quantity'];
-    $new_quantity = $product_qty - $cart_quantity;
-    $checkout_status = 'Paid';
-    /* If Cart Quantity Is Huge Than The Current Quantity Dont Allow To Pay */
-    if ($cart_quantity > $product_qty) {
-        $err = "No Available Quantities To Process Your Order";
-    } else {
-
-        /* Post Payment */
-        $payment = "INSERT INTO payment(payment_id, payment_cart_id, payment_transaction_code, payment_amount) VALUES(?,?,?,?)";
-        /* Update Cart */
-        $cart = "UPDATE cart SET cart_checkout_status = ? WHERE cart_id =?";
-        /* Decrent Product Quantity */
-        $product = "UPDATE products SET product_quantity =? WHERE product_id = ?";
-
-        /* Prepare Statements */
-        $payprep = $mysqli->prepare($payment);
-        $cartprep = $mysqli->prepare($cart);
-        $productprep = $mysqli->prepare($product);
-
-        /* Binds */
-        $paybind = $payprep->bind_param(
-            'ssss',
-            $payment_id,
-            $payment_cart_id,
-            $payment_transaction_code,
-            $payment_amount
-        );
-        $cartbind = $cartprep->bind_param(
-            'ss',
-            $checkout_status,
-            $payment_cart_id
-        );
-        $productbind = $productprep->bind_param(
-            'ss',
-            $new_quantity,
-            $product_id
-        );
-
-        /* Executes */
-        $payprep->execute();
-        $cartprep->execute();
-        $productprep->execute();
-
-        if ($payprep && $cartprep && $productprep) {
-            $success = "Payment Posted";
-        } else {
-            $err = "Failed!, Please Try Again Later";
-        }
     }
 }
 require_once('../partials/head.php');
@@ -155,7 +97,7 @@ require_once('../partials/head.php');
                         <div class="row">
                             <div class="col">
                                 <div class="page-description">
-                                    <h1>Processed Cart Checkouts</h1>
+                                    <h1>On Transit Orders</h1>
                                 </div>
                             </div>
                         </div>
@@ -169,19 +111,20 @@ require_once('../partials/head.php');
                                                 <tr>
                                                     <th>Customer Details</th>
                                                     <th>Product Details</th>
-                                                    <th>Cart Details</th>
-                                                    <th>Shipping Details</th>
+                                                    <th>Order Details</th>
                                                     <th>Payment Details</th>
+                                                    <th>Shipping Address</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $ret = "SELECT * FROM cart c 
+                                                $ret = "SELECT * FROM shippings sh 
+                                                INNER JOIN cart c ON c.cart_id = sh.shippings_order_id 
                                                 INNER JOIN products p ON p.product_id = c.cart_product_id
                                                 INNER JOIN users u ON u.user_id  = c.cart_user_id 
                                                 INNER JOIN payment pd ON pd.payment_cart_id  = c.cart_id
-                                                INNER JOIN shippings sh ON sh.shippings_order_id = c.cart_id
-                                                WHERE cart_checkout_status  != 'Pending'
+                                                WHERE cart_checkout_status  != 'Pending' AND c.cart_shipping_status = 'On Transit'
                                                 ORDER BY c.cart_product_added_at DESC
                                                 ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -205,14 +148,39 @@ require_once('../partials/head.php');
                                                             Date Added: <?php echo  date('d M Y g:ia', strtotime($products->cart_product_added_at)); ?><br>
                                                         </td>
                                                         <td>
-                                                            Shipping Status: <?php echo $products->cart_shipping_status; ?> <br>
-                                                            Shipping Address: <?php echo ($products->shipping_address); ?>
-                                                        </td>
-                                                        <td>
                                                             Txn ID : <?php echo $products->payment_transaction_code; ?><br>
                                                             Amount : Ksh <?php echo $products->payment_amount; ?><br>
                                                             Date Paid: <?php echo date('d, M Y g:ia', strtotime($products->payment_date_posted)); ?>
                                                         </td>
+                                                        <td><?php echo $products->shipping_address; ?></td>
+                                                        <td>
+                                                            <a data-bs-toggle="modal" href="#deliver-<?php echo $products->cart_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-clipboard-check"></i> Mark As Delivered
+                                                            </a>
+
+                                                        </td>
+                                                        <!-- Mark As Delivered -->
+                                                        <div class="modal fade" id="deliver-<?php echo $products->cart_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELIVERY</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body text-center text-danger">
+                                                                        <form method="post">
+                                                                            <h4>Mark This Order As Delivered?</h4>
+                                                                            <br>
+                                                                            <p>Heads Up, You are about to mark this order as delivered.</p>
+                                                                            <!-- Hide This -->
+                                                                            <input type="hidden" name="cart_id" value="<?php echo $products->cart_id; ?>">
+                                                                            <button type="button" class="text-center btn btn-danger" data-bs-dismiss="modal">No</button>
+                                                                            <button type="submit" name="deliver_order" class="text-center btn btn-success">Yes</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
