@@ -89,6 +89,34 @@ if (isset($_POST['add'])) {
         $err = "Failed, Please Try Again Later";
     }
 }
+
+/* Add Product To Wishlist */
+if (isset($_POST['add_wishlist'])) {
+    $wishlist_id = $sys_gen_id_alt_1;
+    $wishlist_user_id = $_POST['wishlist_user_id'];
+    $wishlist_product_id = $_POST['wishlist_product_id'];
+
+    /* Prevent Double Wishlists */
+    $sql = "SELECT * FROM  wishlist  WHERE  wishlist_user_id= '$wishlist_user_id' AND wishlist_product_id = '$wishlist_product_id' ";
+    $res = mysqli_query($mysqli, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        if ($wishlist_user_id == $row['wishlist_user_id'] && $wishlist_product_id == $row['wishlist_product_id']) {
+            $err = 'You  Already Have This Product In Your Wishlist';
+        }
+    } else {
+        /* Persist This */
+        $sql = "INSERT INTO wishlist (wishlist_id, wishlist_user_id, wishlist_product_id) VALUES(?,?,?)";
+        $prepare = $mysqli->prepare($sql);
+        $bind = $prepare->bind_param('sss', $wishlist_id, $wishlist_user_id, $wishlist_product_id);
+        $prepare->execute();
+        if ($prepare) {
+            $success = "Added To Wishlist";
+        } else {
+            $err = "Failed!, Please Try Again Later";
+        }
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -202,7 +230,7 @@ require_once('../partials/head.php');
                                                     <input type="hidden" name="wishlist_product_id" value="<?php echo $product->product_id; ?>">
                                                     <input type="hidden" name="wishlist_user_id" value="<?php echo $_SESSION['user_id']; ?>">
 
-                                                    <button type="submit" class="btn btn-success">
+                                                    <button type="submit" name="add_wishlist" class="btn btn-success">
                                                         <i class="fas fa-heart"></i> Add <?php echo $product->product_name; ?> To Wish List
                                                     </button>
                                                 </form>
