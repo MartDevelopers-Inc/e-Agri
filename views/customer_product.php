@@ -160,9 +160,6 @@ require_once('../partials/head.php');
                                                 <h5 class="widget-info-title"><span class="text-primary">Farmer Phone Number:</span> <?php echo $product->user_phone_no; ?></h5>
                                                 <h5 class="widget-info-title"><span class="text-primary">Farmer Email: </span> <?php echo $product->user_email; ?></h5>
 
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
-                                                    <i class="fas fa-cart-plus"></i> Add <?php echo $product->product_name; ?> To Cart
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -197,6 +194,13 @@ require_once('../partials/head.php');
                                                 <p>
                                                     <?php echo $product->product_details; ?>
                                                 </p>
+
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                                    <i class="fas fa-cart-plus"></i> Add <?php echo $product->product_name; ?> To Cart
+                                                </button>
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                                    <i class="fas fa-heart"></i> Add <?php echo $product->product_name; ?> To Wish List
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
