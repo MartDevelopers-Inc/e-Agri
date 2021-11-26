@@ -99,6 +99,33 @@ if (isset($_POST['add_card'])) {
 }
 
 /* Update Card */
+if (isset($_POST['update_card'])) {
+    $card_id = $_POST['card_id'];
+    $card_number = $_POST['card_number'];
+    $card_vendor = $_POST['card_vendor'];
+    $card_month = $_POST['card_month'];
+    $card_year = $_POST['card_year'];
+    $card_cvv = $_POST['card_cvv'];
+
+    /* Persist */
+    $sql = "UPDATE user_cards SET card_number =?, card_vendor =?, card_month =?, card_year =?, card_cvv =? WHERE card_id =?";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param(
+        'ssssss',
+        $card_number,
+        $card_vendor,
+        $card_month,
+        $card_year,
+        $card_cvv,
+        $card_id
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Card Updated";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 /* Delete Card */
 require_once('../partials/head.php');
 ?>
