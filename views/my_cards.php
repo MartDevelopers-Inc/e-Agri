@@ -155,9 +155,64 @@ require_once('../partials/head.php');
                             <div class="col">
                                 <div class="page-description">
                                     <h1>My Cards</h1>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
+                                            <i class="fas fa-plus"></i> Register New Card
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Add Modal -->
+                        <div class="modal fade" id="add_modal">
+                            <div class="modal-dialog  modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Register New Debit Or Credit Card</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3" method="POST">
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Name</label>
+                                                <input type="text" required name="product_name" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Category</label>
+                                                <select class="js-states form-control" tabindex="-1" style="width: 100%" name="product_category_id">
+                                                    <?php
+                                                    $ret = "SELECT * FROM  product_categories ORDER BY category_name ASC ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($categories = $res->fetch_object()) {
+                                                    ?>
+                                                        <option value="<?php echo $categories->category_id; ?>"><?php echo $categories->category_code . ' - ' . $categories->category_name; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
+                                                <input type="number" required name="product_price" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
+                                                <input type="number" required name="product_quantity" class="form-control-rounded form-control">
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputAddress" class="form-label">Details</label>
+                                                <textarea type="text" required name="product_details" rows="5" class="form-control-rounded form-control"></textarea>
+                                            </div>
+
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" name="add" class="btn btn-primary">Add Product</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal -->
 
                         <div class="row">
                             <div class="row">
