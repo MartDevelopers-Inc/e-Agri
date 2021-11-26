@@ -131,12 +131,13 @@ if (isset($_POST['update_card'])) {
 /* Delete Card */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-
     /* Persist */
-    $sql = "DELETE FROM user_cards WHERE card_id = '$delete'";
+    $sql = "DELETE FROM user_cards WHERE card_id = ?";
     $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param('s', $delete);
+    $prepare->execute();
     if ($prepare) {
-        $success = "Card Deleted" && header('refresh:1 my_card');
+        $success = "Card Deleted" && header('refresh:1 my_cards');
     } else {
         $err = "Failed!, Please Try Again Later";
     }
