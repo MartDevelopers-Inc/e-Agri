@@ -174,38 +174,30 @@ require_once('../partials/head.php');
                                     <div class="modal-body">
                                         <form class="row g-3" method="POST">
                                             <div class="col-md-6">
-                                                <label for="inputEmail4" class="form-label">Name</label>
-                                                <input type="text" required name="product_name" class="form-control-rounded form-control">
+                                                <label for="inputEmail4" class="form-label">Card Number</label>
+                                                <input type="text" required name="card_number" class="form-control-rounded form-control">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="inputEmail4" class="form-label">Product Category</label>
-                                                <select class="js-states form-control" tabindex="-1" style="width: 100%" name="product_category_id">
-                                                    <?php
-                                                    $ret = "SELECT * FROM  product_categories ORDER BY category_name ASC ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    while ($categories = $res->fetch_object()) {
-                                                    ?>
-                                                        <option value="<?php echo $categories->category_id; ?>"><?php echo $categories->category_code . ' - ' . $categories->category_name; ?></option>
-                                                    <?php } ?>
+                                                <label for="inputEmail4" class="form-label">Card Vendor</label>
+                                                <select class="js-states form-control" tabindex="-1" style="width: 100%" name="card_vendor">
+                                                    <option>Visa</option>
+                                                    <option>Mastercard</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="inputEmail4" class="form-label">Product Unit Price (Ksh)</label>
-                                                <input type="number" required name="product_price" class="form-control-rounded form-control">
+                                            <div class="col-md-4">
+                                                <label for="inputEmail4" class="form-label">Exp Month</label>
+                                                <input type="text" required name="card_month" class="form-control-rounded form-control">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="inputEmail4" class="form-label">Product Available Quantity (Kgs)</label>
-                                                <input type="number" required name="product_quantity" class="form-control-rounded form-control">
+                                            <div class="col-md-4">
+                                                <label for="inputEmail4" class="form-label">Exp Year</label>
+                                                <input type="text" required name="card_year" class="form-control-rounded form-control">
                                             </div>
-                                            <div class="col-12">
-                                                <label for="inputAddress" class="form-label">Details</label>
-                                                <textarea type="text" required name="product_details" rows="5" class="form-control-rounded form-control"></textarea>
+                                            <div class="col-md-4">
+                                                <label for="inputEmail4" class="form-label">Card CVV</label>
+                                                <input type="text" required name="card_cvv" class="form-control-rounded form-control">
                                             </div>
-
                                             <div class="col-12 d-flex justify-content-end">
-                                                <button type="submit" name="add" class="btn btn-primary">Add Product</button>
+                                                <button type="submit" name="add_card" class="btn btn-primary">Add Card</button>
                                             </div>
                                         </form>
                                     </div>
