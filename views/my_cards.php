@@ -64,6 +64,42 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 checklogin();
+/* Add Card */
+if (isset($_POST['add_card'])) {
+    $card_id = $sys_gen_id;
+    $card_user_id = $_SESSION['user_id'];
+    $card_number = $_POST['card_number'];
+    $card_vendor = $_POST['card_vendor'];
+    $card_month = $_POST['card_month'];
+    $card_year = $_POST['card_year'];
+    $card_cvv = $_POST['card_cvv'];
+    $date_card_added = $_POST['date_card_added'];
+
+    /* Persist */
+    $sql = "INSERT INTO user_cards (card_id, card_user_id, card_vendor, card_number, card_month, card_year, card_cvv, date_card_added) 
+    VALUES(?,?,?,?,?,?,?,?)";
+    $prepare = $mysqli->prepare($sql);
+    $bind = $prepare->bind_param(
+        'ssssssss',
+        $card_id,
+        $card_user_id,
+        $card_vendor,
+        $card_number,
+        $card_month,
+        $card_year,
+        $card_cvv,
+        $date_card_added
+    );
+    $prepare->execute();
+    if ($prepare) {
+        $success = "Credit Card Added";
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
+
+/* Update Card */
+/* Delete Card */
 require_once('../partials/head.php');
 ?>
 
