@@ -62,6 +62,7 @@
 
 session_start();
 require_once('../config/config.php');
+require_once('../config/codeGen.php');
 require_once('../config/checklogin.php');
 checklogin();
 /* Add Card */
@@ -215,7 +216,6 @@ require_once('../partials/head.php');
                                                 <tr>
                                                     <th>Card Number</th>
                                                     <th>Card CVV</th>
-                                                    <th>Exp Date</th>
                                                     <th>Exp Month</th>
                                                     <th>Card Vendor</th>
                                                     <th>Date Added</th>
@@ -238,9 +238,6 @@ require_once('../partials/head.php');
                                                         </td>
                                                         <td>
                                                             <?php echo $cards->card_cvv; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $cards->card_date; ?>
                                                         </td>
                                                         <td>
                                                             <?php echo $cards->card_month; ?>
@@ -267,7 +264,36 @@ require_once('../partials/head.php');
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-
+                                                                            <form class="row g-3" method="POST">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="inputEmail4" class="form-label">Card Number</label>
+                                                                                    <input type="hidden" required name="card_id" value="<?php echo $cards->card_id; ?>" class="form-control-rounded form-control">
+                                                                                    <input type="text" required name="card_number" value="<?php echo $cards->card_number; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="inputEmail4" class="form-label">Card Vendor</label>
+                                                                                    <select class="js-states form-control" tabindex="-1" style="width: 100%" name="card_vendor">
+                                                                                        <option><?php echo $cards->card_vendor; ?></option>
+                                                                                        <option>Visa</option>
+                                                                                        <option>Mastercard</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Exp Month</label>
+                                                                                    <input type="text" required name="card_month" value="<?php echo $cards->card_month; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Exp Year</label>
+                                                                                    <input type="text" required name="card_year" value="<?php echo $cards->card_year; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <label for="inputEmail4" class="form-label">Card CVV</label>
+                                                                                    <input type="text" required name="card_cvv" value="<?php echo $cards->card_cvv; ?>" class="form-control-rounded form-control">
+                                                                                </div>
+                                                                                <div class="col-12 d-flex justify-content-end">
+                                                                                    <button type="submit" name="update_card" class="btn btn-primary">Update Card</button>
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
