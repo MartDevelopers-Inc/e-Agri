@@ -235,7 +235,7 @@ require_once('../partials/head.php');
                                                 ?>
                                                     <tr>
                                                         <td>
-                                                            <?php echo $cards->card_number; ?>
+                                                            <?php echo substr($cards->card_number, 0, 5); ?>XXXXXX
                                                         </td>
                                                         <td>
                                                             <?php echo $cards->card_cvv; ?>
