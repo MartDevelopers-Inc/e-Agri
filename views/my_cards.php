@@ -95,6 +95,8 @@ require_once('../partials/head.php');
                                                     <th>Exp Date</th>
                                                     <th>Exp Month</th>
                                                     <th>Card Vendor</th>
+                                                    <th>Date Added</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -122,6 +124,53 @@ require_once('../partials/head.php');
                                                         </td>
                                                         <td>
                                                             <?php echo $cards->card_vendor; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo date('d M Y g:ia', strtotime($cards->date_card_added)); ?>
+                                                        </td>
+                                                        <td>
+                                                            <a data-bs-toggle="modal" href="#edit-<?php echo $cards->card_id; ?>" class="badge rounded-pill badge-warning">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </a>
+                                                            <a data-bs-toggle="modal" href="#delete-<?php echo $cards->card_id; ?>" class="badge rounded-pill badge-danger">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </a>
+                                                            <!-- Update Modal -->
+                                                            <div class="modal fade" id="edit-<?php echo $cards->card_id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update <?php echo $cards->card_number; ?> Details</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
+                                                            <!-- Delete Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $cards->card_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete Card ?</h4>
+                                                                            <br>
+                                                                            <p>Heads Up, You are about to delete details. This action is irrevisble.</p>
+                                                                            <button type="button" class="text-center btn btn-success" data-bs-dismiss="modal">No</button>
+                                                                            <a href="my_cards?delete=<?php echo $cards->card_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Modal -->
+
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
