@@ -126,7 +126,20 @@ if (isset($_POST['update_card'])) {
         $err = "Failed!, Please Try Again Later";
     }
 }
+
 /* Delete Card */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+
+    /* Persist */
+    $sql = "DELETE FROM user_cards WHERE card_id = '$delete'";
+    $prepare = $mysqli->prepare($sql);
+    if ($prepare) {
+        $success = "Card Deleted" && header('refresh:1 my_card');
+    } else {
+        $err = "Failed!, Please Try Again Later";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
