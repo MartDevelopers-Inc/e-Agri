@@ -94,7 +94,9 @@ while ($sys = $res->fetch_object()) {
                 <li>
                     <a href="home" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                 </li>
-
+                <li>
+                    <a href="my_cards"><i class="material-icons-two-tone">payments</i>My Cards</a>
+                </li>
                 <li>
                     <a href="customer_products"><i class="material-icons-two-tone">redeem</i>Agri Products</a>
                 </li>
