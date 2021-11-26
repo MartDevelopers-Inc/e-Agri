@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2021 at 02:59 PM
+-- Generation Time: Nov 26, 2021 at 11:33 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -252,7 +252,7 @@ CREATE TABLE `system_settings` (
 --
 
 INSERT INTO `system_settings` (`sys_id`, `sys_name`, `sys_logo`, `sys_tagline`, `sys_contacts`, `sys_email`, `sys_paybill_no`, `sys_about`) VALUES
-(1, 'Katoloni', NULL, 'Instilling Technology Innovation In Agriculture With New Perspective', '+254737229776 ', 'hello@e-farming.org', '90126', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+(1, 'Katoloni Efarming', NULL, 'Instilling Technology Innovation In Agriculture With New Perspective', '+254737229776 ', 'hello@e-farming.org', '90126', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 
 -- --------------------------------------------------------
 
@@ -293,6 +293,23 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_number`, `user_idno`, `user_e
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_cards`
+--
+
+CREATE TABLE `user_cards` (
+  `card_id` varchar(200) NOT NULL,
+  `card_user_id` varchar(200) NOT NULL,
+  `card_vendor` varchar(200) NOT NULL,
+  `card_number` varchar(200) NOT NULL,
+  `card_month` varchar(200) NOT NULL,
+  `card_year` varchar(200) NOT NULL,
+  `card_cvv` varchar(200) NOT NULL,
+  `date_card_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wishlist`
 --
 
@@ -311,7 +328,8 @@ INSERT INTO `wishlist` (`wishlist_id`, `wishlist_user_id`, `wishlist_product_id`
 ('72b62611e03896c23e98aaed83ffb803b49030edef', '1da9220c6484d1931c07a281a455a0e3eb14f219f5', '04f807438e16eb6c716983d4b75cc34ba0ad3455b4', '2021-11-03 13:58:16'),
 ('8bbc6a692f7c4a4139bbf180361d9b4598c84a6dbf', '1da9220c6484d1931c07a281a455a0e3eb14f219f5', '18a4e778f80feb72c5ff925daa17cb367331e72637', '2021-11-03 13:43:27'),
 ('9f5f4b95db4b0aa23a82353e1f74fb89a19c3bf24b', '1da9220c6484d1931c07a281a455a0e3eb14f219f5', '87ec06d784a3c9fbcd0f1ec588299db0d55e39e1de', '2021-11-03 13:43:12'),
-('d8b19189eeef24152f384ca44ddcc331666929760a', '29e3f0093bd551ecf79951128cf6932d358dac587a', '3e377cac6b4bd2dba6747c941f626da3173b84c34b', '2021-11-03 12:25:43');
+('d8b19189eeef24152f384ca44ddcc331666929760a', '29e3f0093bd551ecf79951128cf6932d358dac587a', '3e377cac6b4bd2dba6747c941f626da3173b84c34b', '2021-11-03 12:25:43'),
+('f17f70c0cc49e63fa5b4ec4765f104fbb9abb156a2', '29e3f0093bd551ecf79951128cf6932d358dac587a', '04f807438e16eb6c716983d4b75cc34ba0ad3455b4', '2021-11-26 07:54:47');
 
 --
 -- Indexes for dumped tables
@@ -386,6 +404,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `user_cards`
+--
+ALTER TABLE `user_cards`
+  ADD PRIMARY KEY (`card_id`),
+  ADD KEY `User_id` (`card_user_id`);
+
+--
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -439,6 +464,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `shippings`
   ADD CONSTRAINT `Order_ID` FOREIGN KEY (`shippings_order_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_cards`
+--
+ALTER TABLE `user_cards`
+  ADD CONSTRAINT `User_id` FOREIGN KEY (`card_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `wishlist`
