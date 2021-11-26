@@ -84,7 +84,7 @@ require_once('../partials/head.php');
                             </div>
                         </div>
                         <div class="row">
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="row row-cols-1 row-cols-md-4 g-4">
                                 <?php
                                 $ret = "SELECT * FROM  products p
                                 INNER JOIN users u ON u.user_id = p.product_user_id
@@ -110,8 +110,8 @@ require_once('../partials/head.php');
                                             </a>
                                             <div class="d-flex justify-content-center">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><?php echo $products->product_name; ?></li>
-                                                    <li class="list-group-item">Ksh <?php echo $products->product_price; ?> Per Kg</li>
+                                                    <?php echo $products->product_name; ?><br>
+                                                    Ksh <?php echo $products->product_price; ?> Per Kg</br>
                                                 </ul>
                                             </div>
                                         </div>
