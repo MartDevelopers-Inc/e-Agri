@@ -127,17 +127,15 @@ require_once('../partials/head.php');
                                             </a>
                                             <div class="d-flex justify-content-center">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><?php echo $products->product_name; ?></li>
-                                                    <li class="list-group-item">Ksh <?php echo $products->product_price; ?> Per Kg</li>
-                                                    <li class="list-group-item">Wishlisted On : <?php echo date('M, d Y g:ia', strtotime($products->wishlist_created_on)); ?></li>
-                                                    <li class="list-group-item">
-                                                        <form method="POST">
-                                                            <input type="hidden" name="wishlist_id" value="<?php echo $products->wishlist_id; ?>">
-                                                            <button type="submit" name="remove" class="btn btn-danger">
-                                                                <i class="fas fa-heart-broken"></i> Remove <?php echo $product->product_name; ?> From Wish List
-                                                            </button>
-                                                        </form>
-                                                    </li>
+                                                    <b>Product Name : </b> <?php echo $products->product_name; ?><br>
+                                                    <b>Product Price: </b> Ksh <?php echo $products->product_price; ?> Per Kg <br>
+                                                    <b>Wishlisted On : </b> <?php echo date('M, d Y g:ia', strtotime($products->wishlist_created_on)); ?></br>
+                                                    <form method="POST">
+                                                        <input type="hidden" name="wishlist_id" value="<?php echo $products->wishlist_id; ?>">
+                                                        <button type="submit" name="remove" class="btn btn-danger">
+                                                            <i class="fas fa-heart-broken"></i> Remove <?php echo $product->product_name; ?> From Wish List
+                                                        </button>
+                                                    </form>
                                                 </ul>
                                             </div>
                                         </div>
