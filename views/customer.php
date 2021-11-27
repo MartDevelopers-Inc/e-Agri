@@ -115,10 +115,8 @@ require_once('../partials/head.php');
                                     <div class="card widget widget-info">
                                         <div class="card-body">
                                             <div class="widget-info-container">
-                                                <h5 class="widget-info-title"><?php echo $customer->user_name; ?> Bio</h5>
-                                                <p>
-                                                    <?php echo $customer->user_bio; ?>
-                                                </p>
+                                                <h5 class="widget-info-title"><?php echo $customer->user_name; ?> Linked Credit / Debit Cards</h5>
+
                                             </div>
                                         </div>
                                     </div>
