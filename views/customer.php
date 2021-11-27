@@ -116,7 +116,45 @@ require_once('../partials/head.php');
                                         <div class="card-body">
                                             <div class="widget-info-container">
                                                 <h5 class="widget-info-title"><?php echo $customer->user_name; ?> Linked Credit / Debit Cards</h5>
-
+                                                <table id="datatable1" class="display table" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Card Number</th>
+                                                            <th>Card CVV</th>
+                                                            <th>Exp Month</th>
+                                                            <th>Card Vendor</th>
+                                                            <th>Date Added</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM user_cards uc INNER JOIN users u ON
+                                                        uc.card_user_id = u.user_id WHERE uuser_id = '$view'";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($cards = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <?php echo substr($cards->card_number, 0, 5); ?>XXXXXX
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $cards->card_cvv; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $cards->card_month; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo $cards->card_vendor; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo date('d M Y g:ia', strtotime($cards->date_card_added)); ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
