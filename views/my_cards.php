@@ -226,7 +226,7 @@ require_once('../partials/head.php');
                                             <tbody>
                                                 <?php
                                                 $user_id = $_SESSION['user_id'];
-                                                $ret = "SELECT * FROM user_cards  WHERE card_user_id = $user_id";
+                                                $ret = "SELECT * FROM user_cards  WHERE card_user_id = '$user_id'";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();

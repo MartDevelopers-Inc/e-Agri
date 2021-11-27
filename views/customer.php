@@ -128,8 +128,7 @@ require_once('../partials/head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM user_cards uc INNER JOIN users u ON
-                                                        uc.card_user_id = u.user_id WHERE uuser_id = '$view'";
+                                                        $ret = "SELECT * FROM user_cards WHERE card_user_id = '$view'";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
